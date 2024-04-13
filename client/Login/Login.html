@@ -5,21 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
-   
+    <link rel="stylesheet" href="./Login.css">
 </head>
 <body>
+
+    
 
 
 <style>h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
 </style>
 <style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
 </style>
-<div class="flex items-center justify-center h-screen">
+<div class="flex items-center justify-center h-screen ">
 <div class="mx-auto max-w-md space-y-8">
-  <div class="space-y-2">
+<div class="space-y-2 bg-[#f0f0f0] p-10 rounded-xl" >
     <div class="space-y-2 text-center">
       <h1 class="text-3xl font-bold">Welcome</h1>
-      <p class="text-gray-500 dark:text-gray-400">Enter your information to get started</p>
+      <p class="text-gray-500 text-gray-400">Enter your information to get started</p>
     </div>
     <div class="space-y-4">
       <div class="space-y-2">
@@ -51,8 +53,8 @@
           type="password"
         />
       </div>
-      <button
-        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+      <button id="login"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
         type="submit"
       >
         Login
@@ -62,7 +64,7 @@
   <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-8"></div>
   <div class="space-y-4">
   
-    <div class="mt-4 text-center text-sm">
+    <div class="mt-4 text-center text-sm text-white">
       Don't have an account?
       <a class="underline" href="#">
         Sign up
