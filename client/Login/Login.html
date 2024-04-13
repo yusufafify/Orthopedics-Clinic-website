@@ -10,7 +10,7 @@
 <body>
 
     <!--Nav-Bar-->
-    <header class="px-4 lg:px-6 h-14 flex items-center bg-[#f0f0f0]">
+    <header class="px-4 lg:px-6 h-14 flex items-center bg-[#f0f0f0] fixed w-full">
         <a class="flex items-center justify-center" href="#">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
@@ -48,7 +48,7 @@
 </style>
 <style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
 </style>
-<div class="flex items-center justify-center h-screen ">
+<div class="flex items-center justify-center h-screen mb-[-65px] ">
 <div class="mx-auto max-w-md space-y-8">
 <div class="space-y-2 bg-[#f0f0f0] p-10 rounded-xl" >
     <div class="space-y-2 text-center">
@@ -105,6 +105,18 @@
   </div>
 </div>
 </div>
+
+<footer class="flex absolute b-0 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-[#f0f0f0]">
+  <p class="text-xs text-gray-500 ">© 2024 Acme Inc. All rights reserved.</p>
+  <nav class="sm:ml-auto flex gap-4 sm:gap-6">
+    <a class="text-xs hover:underline underline-offset-4" href="#">
+      Terms of Service
+    </a>
+    <a class="text-xs hover:underline underline-offset-4" href="#">
+      Privacy
+    </a>
+  </nav>
+</footer>
 
 </body>
 </html>
