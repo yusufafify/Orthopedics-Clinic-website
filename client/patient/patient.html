@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Patient Portal</title>
+</head>
+
+<body>
+<div class="grid grid-cols-1 lg:grid-cols-7 w-full h-screen"> 
+  <nav class="hidden bg-black h-full lg:col-span-1 lg:block" id="side-nav">
+    <div class="flex items-center justify-between p-4">
+      <div class="flex items-center space-x-2">
+        <img src="/logo.svg" alt="Logo" class="w-8 h-8" />
+        <div class="text-xl text-white font-semibold">Dentist</div>
+        <button class="bg-white lg:hidden"  id="close">close</button>
+  </nav>
+  <div class="lg:col-span-6 w-full">
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm  " data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <div class="text-lg font-medium">
+            <button class="bg-black text-white p-2 rounded-xl lg:hidden" id="toggle-btn">side nav</button>
+            <h2>Patient Information</h2>
+          </div>
+          <p class="text-sm leading-none truncate">Sarah Smith • 25 years old</p>
+        </div>
+        <div class="p-6 grid gap-4 md:grid-cols-2">
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2">
+              <div class="w-4 h-4 rounded-full bg-green-500"></div>
+              <div class="font-semibold">Active Patient</div>
+            </div>
+            <div class="space-y-1.5">
+              <div class="text-sm text-gray-500 dark:text-gray-400">Email</div>
+              <div class="font-medium">sarah@example.com</div>
+            </div>
+            <div class="space-y-1.5">
+              <div class="text-sm text-gray-500 dark:text-gray-400">Phone</div>
+              <div class="font-medium">+1 (123) 456-7890</div>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="space-y-1.5">
+              <div class="text-sm text-gray-500 dark:text-gray-400">Address</div>
+              <div class="font-medium">1234 Elm St, Apt 101, Springfield, IL, 62701</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm mt-4" data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <div class="text-lg font-medium">Medical History</div>
+        </div>
+        <div class="p-6">
+          <ul class="grid gap-2">
+            <li>Initial Consultation - March 12, 2022</li>
+            <li>Teeth Cleaning - April 5, 2022</li>
+            <li>Fillings Procedure - May 20, 2022</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm mt-4" data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <div class="text-lg font-medium">Appointments</div>
+        </div>
+        <div class="p-6">
+          <div class="flex items-center space-x-4">
+            <div class="grid gap-1">
+              <div class="font-semibold">Upcoming</div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">You have no upcoming appointments.</div>
+            </div>
+            <div class="grid gap-1">
+              <div class="font-semibold">Previous</div>
+              <ul class="grid gap-2">
+                <li>
+                  <time class="font-semibold">Teeth Cleaning</time> • April 5, 2022
+                </li>
+                <li>
+                  <time class="font-semibold">Fillings Procedure</time> • May 20, 2022
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-lg border bg-card text-card-foreground shadow-sm mt-4" data-v0-t="card">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <div class="text-lg font-medium">Medical Images</div>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <img src="https://placeholder.pics/svg/500/DEDEDE/FFFFFF-FFFFFF/placeholder" alt="Medical Image 1" class="rounded-lg object-cover" />
+            <img src="https://placeholder.pics/svg/500/DEDEDE/FFFFFF-FFFFFF/placeholder" alt="Medical Image 2" class="rounded-lg object-cover" />
+            <img src="https://placeholder.pics/svg/500/DEDEDE/FFFFFF-FFFFFF/placeholder" alt="Medical Image 3" class="rounded-lg object-cover" />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 max-w-sm mx-auto lg:gap-4 lg:flex-row lg:max-w-2xl">
+        <button
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 lg:order-1 lg:w-[200px]">
+          Edit Patient
+        </button>
+        <button
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-black hover:bg-accent text-white hover:text-accent-foreground h-10 px-4 py-2 lg:order-0 lg:w-[200px]">
+          Add Appointment
+        </button>
+      </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+        var sideNav = document.getElementById('side-nav');
+        var toggleBtn = document.getElementById('toggle-btn');
+        let closeBtn = document.getElementById('close');
+        let state=false;
+        toggleBtn.addEventListener('click', function () {
+          if(state){
+            sideNav.classList.add('hidden');
+            sideNav.classList.remove('absolute');
+            sideNav.classList.remove('w-[40%]');
+            state=false;}
+            else{
+              sideNav.classList.remove('hidden');
+              sideNav.classList.add('absolute');
+              sideNav.classList.add('w-[40%]');
+              state=true;
+            }
+        });
+        closeBtn.addEventListener('click', function () {
+          if(state){
+            sideNav.classList.add('hidden');
+            sideNav.classList.remove('absolute');
+            sideNav.classList.remove('w-[40%]');
+            state=false;}
+            else{
+              sideNav.classList.remove('hidden');
+              sideNav.classList.add('absolute');
+              sideNav.classList.add('w-[40%]');
+              state=true;
+            }
+        });
+    });
+</script>
+</body>
+
+</html>
