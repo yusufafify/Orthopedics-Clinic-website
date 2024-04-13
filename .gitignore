@@ -1,2 +1,3 @@
 /server/.venv
 .venv
+/database/node_modules
