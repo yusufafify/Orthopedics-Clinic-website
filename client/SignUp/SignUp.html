@@ -1,144 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-    <link rel="stylesheet" href="./SignUp.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Document</title>
+  <link rel="stylesheet" href="./styles/SignUp.css">
 
 </head>
-<body >
 
-    <!--Nav-Bar-->
-    <header class="px-4 lg:px-6 h-14 flex items-center bg-[#f0f0f0] fixed w-full">
-        <a class="flex items-center justify-center" href="#">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
-           
-          </svg>
-          <span class="sr-only">Acme Inc</span>
-        </a>
-        <nav class="ml-auto flex gap-4 sm:gap-6">
-          <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Features
-          </a>
-          <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Pricing
-          </a>
-          <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-            Contact
-          </a>
-  
-        </nav>
-        <div class="px-2">
-         
-          <button
-            class="text-sm text-black rounded-md font-medium py-1 px-5 hover:underline underline-offset-4 bg-[#a4d6d6]">Sign
-            up</button>
-        </div>
-      </header>
+<body>
 
-       <!--End of Nav-Bar-->
+  <!--Nav-Bar-->
+  <header class="px-4 lg:px-6 h-14 flex items-center bg-[#f0f0f0] fixed w-full">
+    <a class="flex items-center justify-center" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+        <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
 
-
-
-<style>h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
-</style>
-<style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
-</style>
-<div class="flex items-center justify-center h-screen mb-[-65px]">
-<div class="w-full space-y-12 flex flex-col items-center">
-  <div class="mx-auto max-w-md space-y-4 bg-[#f0f0f0] p-10 rounded-xl">
-    <div class="space-y-2 text-center">
-      <h1 class="text-3xl font-bold">Create an account</h1>
-      <p class="text-gray-500 dark:text-gray-400">Enter your information to create an account</p>
-    </div>
-    <div class="space-y-2 ">
-      <div class="grid grid-cols-2 gap-4">
-        <div class="space-y-2">
-          <label
-            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="first-name"
-          >
-            First Name
-          </label>
-          <input
-            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="first-name"
-            placeholder="Enter your first name"
-          />
-        </div>
-        <div class="space-y-2">
-          <label
-            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            for="last-name"
-          >
-            Last Name
-          </label>
-          <input
-            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-            id="last-name"
-            placeholder="Enter your last name"
-          />
-        </div>
-      </div>
-      <div class="space-y-2">
-        <label
-          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          for="email"
-        >
-          Email
-        </label>
-        <input
-          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          id="email"
-          placeholder="m@example.com"
-          type="email"
-        />
-      </div>
-      <div class="space-y-2">
-        <label
-          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          for="password"
-        >
-          Password
-        </label>
-        <input
-          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-          id="password"
-          type="password"
-        />
-      </div>
-
-      <button id="SignUp"
-      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
-      type="submit"
-    >
-      Sign Up
-    </button>
-
-    
-    </div>
-    
-  </div>
-  
-  <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full max-w-md my-8"></div>
-  <div class="space-y-4">
-  
-    <div class="mt-4 text-center text-sm text-white">
-      Already have an account?
-      <a class="underline" href="#">
-        Sign in
+      </svg>
+      <span class="sr-only">Acme Inc</span>
+    </a>
+    <nav class="ml-auto flex gap-4 sm:gap-6">
+      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
+        Features
       </a>
+      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
+        Pricing
+      </a>
+      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
+        Contact
+      </a>
+
+    </nav>
+    <div class="px-2">
+
+      <button
+        class="text-sm text-black rounded-md font-medium py-1 px-5 hover:underline underline-offset-4 bg-[#a4d6d6]">Sign
+        up</button>
+    </div>
+  </header>
+
+  <!--End of Nav-Bar-->
+
+
+
+
+  <div class="flex items-center justify-center h-screen mb-[-65px]">
+    <div class="w-full space-y-12 flex flex-col items-center">
+      <div class="mx-auto max-w-md space-y-4 bg-[#f0f0f0] p-10 rounded-xl">
+        <div class="space-y-2 text-center">
+          <h1 class="text-3xl font-bold">Create an account</h1>
+          <p class="text-gray-500 dark:text-gray-400">Enter your information to create an account</p>
+        </div>
+        <form id="registerForm" class="space-y-2 ">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="first-name">
+                First Name
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="first-name" placeholder="Enter your first name" required />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="last-name">
+                Last Name
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="last-name" placeholder="Enter your last name" required/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="age">
+                Age
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="age" placeholder="your age" type="number" required />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="phoneNumber">
+                Phone Number
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="phoneNumber" placeholder="Phone number"  required/>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              for="email">
+              Email
+            </label>
+            <input
+              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              id="email" placeholder="m@example.com" type="email" required/>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              for="password">
+              Password
+            </label>
+            <input
+              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              id="password" type="password" required/>
+          </div>
+        
+
+          <button id="SignUp"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
+            type="submit">
+            Sign Up
+          </button>
+
+
+        </form>
+
+      </div>
+
+      <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full max-w-md my-8"></div>
+      <div class="space-y-4">
+
+        <div class="mt-4 text-center text-sm text-white">
+          Already have an account?
+          <a class="underline" href="../Login/Login.html">
+            Sign in
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
-  
-</div>
-</div>
 
-<!-- <footer class="bg-gray-900 text-gray-50 py-4 text-center flex items-center justify-center gap-4">
+  <!-- <footer class="bg-gray-900 text-gray-50 py-4 text-center flex items-center justify-center gap-4">
     <a href="#" class="text-gray-50 hover:text-gray-300">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +194,8 @@
     <p>© 2024 EHR Inc. All rights reserved. For support, contact support@ehr.com</p>
   </footer> -->
 
-  <footer class="flex absolute b-0 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-[#f0f0f0]">
+  <footer
+    class="flex absolute b-0 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-[#f0f0f0]">
     <p class="text-xs text-gray-500 ">© 2024 Acme Inc. All rights reserved.</p>
     <nav class="sm:ml-auto flex gap-4 sm:gap-6">
       <a class="text-xs hover:underline underline-offset-4" href="#">
@@ -204,6 +207,7 @@
     </nav>
   </footer>
 
-
+<script src="./js/script.js"></script>
 </body>
+
 </html>
