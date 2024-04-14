@@ -31,7 +31,7 @@ def token_required(f):
 		try:
 			# decoding the payload to fetch the stored details
 			data = jwt.decode(token, app.config['SECRET_KEY'])
-			current_user = users.find_one({'email': data['email']})
+			current_user = users.find_one({'email': data['email'], 'role': data['role']})
 		except:
 			return jsonify({
 				'message' : 'Token is invalid !!'
@@ -59,14 +59,16 @@ def login():
         password = data.get('password')
         user = users.find_one({'email': email, 'password': password})
         if user:
+            print( datetime.utcnow() + timedelta(minutes = 30))
             token = jwt.encode({
-			'email': user["email"],
+			      'email': email,
             'role': user["role"],
-			'exp' : datetime.utcnow() + timedelta(minutes = 30)
+            'exp' : datetime.utcnow() + timedelta(minutes = 0.5)
 		}, app.config['SECRET_KEY'])
             return jsonify({
                 'message': 'success',
-                'token': token,
+                'token': token.decode('UTF-8'),
+                
             })
         else:
             return jsonify({

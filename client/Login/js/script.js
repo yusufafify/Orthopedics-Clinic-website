@@ -22,6 +22,7 @@ function login(){
   })  .then(response => response.json())
   .then(data => {
 
+    console.log('token:', JSON.stringify(data.token) );
     console.log('message:', JSON.stringify(data.message) );
 
   })
