@@ -12,11 +12,27 @@ uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongo
 app = Flask(__name__)
 CORS(app)
 client = MongoClient(uri)
-app.config['SECRET_KEY'] = '42069sexweed'
+app.config['SECRET_KEY'] = 'r-DbyQUte22QfwuUYTY0KQ'
 db=client['orthopedic-clinic']
 users = db['users']
 # Roles=['admin','staff','patient']
 
+
+
+
+
+#a Test Route
+@app.route('/', methods=['GET'])
+def home():
+    print('hello')
+
+    return {
+        'message': 'Hello World!'
+    }
+
+
+
+#This function is used to generate a token for the user
 def token_required(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
@@ -41,15 +57,9 @@ def token_required(f):
 
 	return decorated
 
-@app.route('/', methods=['GET'])
-def home():
-    print('hello')
-
-    return {
-        'message': 'Hello World!'
-    }
 
 
+#This route is used to login a user
 @app.route('/login', methods=['POST'])
 def login():
     try:
@@ -82,7 +92,7 @@ def login():
         })
 
 
-
+#This route is used to register a new user
 @app.route('/register', methods=['POST'])
 def register():
     try:
@@ -110,6 +120,33 @@ def register():
             'error': str(e)
         })
     
+
+#This route is used to check if the token is valid or not
+@app.route('/check_token', methods=['GET'])
+def check_token():
+    token = request.headers.get('token')
+    if not token:
+        return jsonify({'message': 'Token is missing', 'status': 401})
+    
+    try:
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        print('exception 1')
+        return jsonify({'message': 'Token is expired', 'status': 401})
+    except jwt.InvalidTokenError:
+        print('exception 2')
+
+        return jsonify({'message': 'Invalid token', 'status': 401})
+
+    except Exception as e:
+        print('exception 3')
+
+        return jsonify({'message': 'Token is invalid'})
+    if datetime.utcnow() > datetime.fromtimestamp(data['exp']):
+        return jsonify({'message': 'Token is expired',  'status': 401})
+    else:
+        return jsonify({'message': 'Token is valid',  'status':200})
+
 
 
 
