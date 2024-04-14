@@ -3,7 +3,20 @@ body {
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     height: 100vh;
+    font-family: 'Inter', sans-serif;
+    --font-sans: 'Inter';
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Inter', sans-serif;
+  --font-sans: 'Inter';
+}
+
 #login{
     background: linear-gradient(-45deg, #23a6d5, #23d5ab);
     animation: gradient 15s ease infinite;

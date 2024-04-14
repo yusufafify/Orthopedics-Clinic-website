@@ -46,33 +46,24 @@
   <!--End of Nav-Bar-->
 
 
-
-
-  <style>
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: 'Inter', sans-serif;
-      --font-sans: 'Inter';
-    }
-  </style>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      --font-sans: 'Inter';
-    }
-  </style>
+  <!--Login Form-->
   <div class="flex items-center justify-center h-screen mb-[-65px] ">
     <div class="mx-auto max-w-md space-y-8">
+
+
+      <!--Form-->
       <form id="loginform" class="space-y-2 bg-[#f0f0f0] p-10 rounded-xl">
+
+        <!--Header of the Form-->
         <div class="space-y-2 text-center">
           <h1 class="text-3xl font-bold">Welcome</h1>
           <p class="text-gray-500 text-gray-400">Enter your information to get started</p>
         </div>
+        <!--End of The Form Header-->
+
+        <!--Form Inputs-->
         <div class="space-y-4">
+          <!--Email Input -->
           <div class="space-y-2">
             <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for="email">
@@ -82,6 +73,9 @@
               class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               id="email" placeholder="m@example.com" required type="email" />
           </div>
+          <!--End of Email Input-->
+
+          <!--Password Input-->
           <div class="space-y-2">
             <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for="password">
@@ -91,16 +85,29 @@
               class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               id="password" required type="password" />
           </div>
+          <!--End of Password Input-->
+
+          <!--Submit Button-->
           <button id="login"
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
             type="submit">
             Login
           </button>
-        </div>
-      </form>
-      <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-8"></div>
-      <div class="space-y-4">
+          <!--End of Submit Button-->
 
+        </div>
+        <!--End of Form Inputs-->
+
+      </form>
+      <!--End of Form-->
+
+
+      <!--Division Line-->
+      <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-8"></div>
+      <!--End of Division Line-->
+
+      <!--Footer of the Form-->
+      <div class="space-y-4">
         <div class="mt-4 text-center text-sm text-white">
           Don't have an account?
           <a class="underline" href="../SignUp/SignUp.html">
@@ -108,9 +115,14 @@
           </a>
         </div>
       </div>
-    </div>
-  </div>
+      <!--End of Footer of the Form-->
 
+    </div>
+
+  </div>
+  <!--End of Login Form-->
+
+  <!--Footer-->
   <footer
     class="flex absolute b-0 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-[#f0f0f0]">
     <p class="text-xs text-gray-500 ">© 2024 Acme Inc. All rights reserved.</p>
@@ -123,7 +135,7 @@
       </a>
     </nav>
   </footer>
-
+  <!--End of Footer-->
 
   <script src="./js/script.js"></script>
 </body>

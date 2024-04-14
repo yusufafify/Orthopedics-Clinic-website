@@ -126,26 +126,26 @@ def register():
 def check_token():
     token = request.headers.get('token')
     if not token:
-        return jsonify({'message': 'Token is missing', 'status': 401})
+        return jsonify({'message': 'Token is missing', 'status': 401}),401
     
     try:
         data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
     except jwt.ExpiredSignatureError:
         print('exception 1')
-        return jsonify({'message': 'Token is expired', 'status': 401})
+        return jsonify({'message': 'Token is expired', 'status': 401}),401
     except jwt.InvalidTokenError:
         print('exception 2')
 
-        return jsonify({'message': 'Invalid token', 'status': 401})
+        return jsonify({'message': 'Invalid token', 'status': 401}),401
 
     except Exception as e:
         print('exception 3')
 
         return jsonify({'message': 'Token is invalid'})
     if datetime.utcnow() > datetime.fromtimestamp(data['exp']):
-        return jsonify({'message': 'Token is expired',  'status': 401})
+        return jsonify({'message': 'Token is expired',  'status': 401}),401
     else:
-        return jsonify({'message': 'Token is valid',  'status':200})
+        return jsonify({'message': 'Token is valid',  'status':200}),200
 
 
 
