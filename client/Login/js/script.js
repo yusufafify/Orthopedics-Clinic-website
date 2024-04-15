@@ -23,6 +23,7 @@ function login(){
   .then(data => {
 
     console.log('token:', JSON.stringify(data.token) );
+    localStorage.setItem('token', data.token);
     console.log('message:', JSON.stringify(data.message) );
 
   })

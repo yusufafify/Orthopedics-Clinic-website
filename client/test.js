@@ -20,7 +20,7 @@ fetch('http://localhost:8080/check_token', {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
-    'token': "eyJ0eXAiOiJKVQiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Inl1c3VmYWZpZnkwQGdtYWlsLmNvbSIsInJvbGUiOiJwYXRpZW50IiwiZXhwIjoxNzEzMDkzNDY2fQ.rSLXo5Jvd1GOk3lUHcoR0vKDGfs8aL0OB-T7TSsSv-w"  // Sending the token in the 'token' header
+    'token': "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImFoYWhhaEBnYW1pYS5jaW4iLCJyb2xlIjoicGF0aWVudCIsImV4cCI6MTcxMzEyNDI1NX0.5G8bsdoEydVjHkjg6uhpstI5N4TVtyg2-XwLo96k6Ac"  // Sending the token in the 'token' header
   }
 })
 .then(response => {
