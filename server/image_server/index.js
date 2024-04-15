@@ -1,0 +1,1 @@
+//this file responsible for serving images to the client
