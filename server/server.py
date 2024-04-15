@@ -1,10 +1,11 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, g
 from flask_cors import CORS
 from pymongo.mongo_client import MongoClient
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
-uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+# uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 
@@ -32,7 +33,7 @@ def home():
 
 
 
-#This function is used to generate a token for the user
+# This function is used to generate a token for the user
 def token_required(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
@@ -56,6 +57,28 @@ def token_required(f):
 		return f(current_user, *args, **kwargs)
 
 	return decorated
+
+# def token_required(f):
+#     @wraps(f)
+#     def decorated(*args, **kwargs):
+#         header = request.headers('authorization')
+#         token = header.split(' ')[1]
+#         data = None
+#         user = None
+
+#         if not token:
+#             return jsonify({ 'message': 'token is missing' }), 401
+        
+#         try: 
+#             data = jwt.decode(token, app.config['SECRET_KEY'])
+#             g.user_data = data
+#         except:
+#             return jsonify({ 'message': 'invalid token' }), 
+
+#         return f(*args, **kwargs)
+    
+#     return decorated
+
 
 
 
@@ -124,7 +147,8 @@ def register():
 #This route is used to check if the token is valid or not
 @app.route('/check_token', methods=['GET'])
 def check_token():
-    token = request.headers.get('token')
+    header = request.headers.get('authorization')
+    token = header.split(' ')[1]
     if not token:
         return jsonify({'message': 'Token is missing', 'status': 401}),401
     
@@ -147,6 +171,12 @@ def check_token():
     else:
         return jsonify({'message': 'Token is valid',  'status':200}),200
 
+
+
+@app.route('/yarab', methods=['GET'])
+@token_required
+def get_user():
+    print(g.user_data)
 
 
 
