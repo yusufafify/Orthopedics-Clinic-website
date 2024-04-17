@@ -4,6 +4,7 @@ from pymongo.mongo_client import MongoClient
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+
 # uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 uri = "mongodb://localhost:27017/"
 
@@ -19,9 +20,6 @@ users = db['users']
 # Roles=['admin','staff','patient']
 
 
-
-
-
 #a Test Route
 @app.route('/', methods=['GET'])
 def home():
@@ -31,53 +29,25 @@ def home():
         'message': 'Hello World!'
     }
 
-
-
-# This function is used to generate a token for the user
 def token_required(f):
-	@wraps(f)
-	def decorated(*args, **kwargs):
-		token = None
-		# jwt is passed in the request header
-		if 'token' in request.headers:
-			token = request.headers['token']
-		# return 401 if token is not passed
-		if not token:
-			return jsonify({'message' : 'Token is missing !!'}), 401
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        header = request.headers['Authorization']
+        token = header.split(' ')[1]
+        data = None
 
-		try:
-			# decoding the payload to fetch the stored details
-			data = jwt.decode(token, app.config['SECRET_KEY'])
-			current_user = users.find_one({'email': data['email'], 'role': data['role']})
-		except:
-			return jsonify({
-				'message' : 'Token is invalid !!'
-			}), 401
-		# returns the current logged in users context to the routes
-		return f(current_user, *args, **kwargs)
-
-	return decorated
-
-# def token_required(f):
-#     @wraps(f)
-#     def decorated(*args, **kwargs):
-#         header = request.headers('authorization')
-#         token = header.split(' ')[1]
-#         data = None
-#         user = None
-
-#         if not token:
-#             return jsonify({ 'message': 'token is missing' }), 401
+        if not token:
+            return jsonify({ 'message': 'token is missing' }), 401
         
-#         try: 
-#             data = jwt.decode(token, app.config['SECRET_KEY'])
-#             g.user_data = data
-#         except:
-#             return jsonify({ 'message': 'invalid token' }), 
+        try: 
+            data = jwt.decode(token, app.config['SECRET_KEY'])
+            g.user_data = data
+        except:
+            return jsonify({ 'message': 'invalid token' }), 
 
-#         return f(*args, **kwargs)
+        return f(*args, **kwargs)
     
-#     return decorated
+    return decorated
 
 
 
@@ -142,41 +112,44 @@ def register():
             'message': 'error',
             'error': str(e)
         })
-    
-
-#This route is used to check if the token is valid or not
-@app.route('/check_token', methods=['GET'])
-def check_token():
-    header = request.headers.get('authorization')
-    token = header.split(' ')[1]
-    if not token:
-        return jsonify({'message': 'Token is missing', 'status': 401}),401
-    
-    try:
-        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
-    except jwt.ExpiredSignatureError:
-        print('exception 1')
-        return jsonify({'message': 'Token is expired', 'status': 401}),401
-    except jwt.InvalidTokenError:
-        print('exception 2')
-
-        return jsonify({'message': 'Invalid token', 'status': 401}),401
-
-    except Exception as e:
-        print('exception 3')
-
-        return jsonify({'message': 'Token is invalid'})
-    if datetime.utcnow() > datetime.fromtimestamp(data['exp']):
-        return jsonify({'message': 'Token is expired',  'status': 401}),401
-    else:
-        return jsonify({'message': 'Token is valid',  'status':200}),200
-
 
 
 @app.route('/yarab', methods=['GET'])
 @token_required
 def get_user():
-    print(g.user_data)
+    try:
+        return jsonify({ 'user data': g.user_data })
+    
+    except jwt.ExpiredSignatureError:
+        return jsonify({ 'error': 'token expired' }), 401
+
+
+@app.route('/personal_data', methods=['GET'])
+@token_required
+def get_patient_data():
+    try:
+        email = g.user_data['email']
+        user = users.find_one({ 'email': email })
+        
+        print(type(user))
+        if not user: 
+            return jsonify({ 'error': 'no patient found' }), 404
+
+        user_data = {
+            'email': user['email'],
+            'name': user['name'],
+            'role': user['role'],
+            'gender': user['gender'],
+            'age': user['age'],
+            'address': user['address']
+        }
+        
+        return jsonify(user_data)
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
 
 
 
