@@ -4,7 +4,7 @@ import jwt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'r-DbyQUte22QfwuUYTY0KQ'
-
+# baba w mama
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
