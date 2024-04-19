@@ -32,6 +32,7 @@ def home():
 
 
 #This route is used to login a user
+# TODO add logic to check hashed password
 @app.route('/login', methods=['POST'])
 def login():
     try:
@@ -64,6 +65,9 @@ def login():
 
 
 #This route is used to register a new user
+# TODO add logic to check if user is already registerd
+# TODO hash password before saving it in the database
+# TODO use same logic used in the login to generate a jwt
 @app.route('/register', methods=['POST'])
 def register():
     try:
