@@ -21,7 +21,6 @@ router.post("/", async (req, res) => {
     }
 
     const photoUrl = await cloudinary.uploader.upload(req.body.photo);
-    console.log(photoUrl.url);
 
     res.status(201).json({
       success: true,
