@@ -18,7 +18,8 @@ const userSchema = new mongoose.Schema({
   gender: { type: String,required: true},
   password: { type: String, required: true },
   age: Number,
-  role: { type: String, enum: ['patient', 'staff', 'admin'], required: true }
+  role: { type: String, enum: ['patient', 'staff', 'admin'], required: true },
+  images:[String],
 });
 
 const Users = mongoose.model('Users', userSchema);

@@ -5,8 +5,8 @@ import jwt
 from datetime import datetime, timedelta
 from functools import wraps
 
-# uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
-uri = "mongodb://localhost:27017/"
+uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+# uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 
@@ -62,11 +62,10 @@ def login():
         password = data.get('password')
         user = users.find_one({'email': email, 'password': password})
         if user:
-            print( datetime.utcnow() + timedelta(minutes = 30))
             token = jwt.encode({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 0.5)
+            'exp' : datetime.utcnow() + timedelta(minutes = 1)
 		}, app.config['SECRET_KEY'])
             return jsonify({
                 'message': 'success',

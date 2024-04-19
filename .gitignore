@@ -1,4 +1,2 @@
-/server/.venv
 .venv
-/database/node_modules
-/main_server/.venv
+node_modules
