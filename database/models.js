@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger');
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB!');
 })
