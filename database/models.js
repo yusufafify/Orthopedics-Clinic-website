@@ -34,7 +34,7 @@ const appointmentSchema = new mongoose.Schema({
   },
   type: { type: String, enum: ['Examination', 'Consultation'], required: true },
   paymentMethod: { type: String, enum: ['Insurance', 'Cash'], required: true },
-
+  price: { type: Number, default: undefined }
 });
 
 const Users = mongoose.model('Users', userSchema);
