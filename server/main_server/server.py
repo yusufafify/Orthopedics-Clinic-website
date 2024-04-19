@@ -4,6 +4,7 @@ from pymongo.mongo_client import MongoClient
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+from auth_middleware import token_required
 
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
@@ -28,28 +29,6 @@ def home():
     return {
         'message': 'Hello World!'
     }
-
-def token_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        header = request.headers['Authorization']
-        token = header.split(' ')[1]
-        data = None
-
-        if not token:
-            return jsonify({ 'message': 'token is missing' }), 401
-        
-        try: 
-            data = jwt.decode(token, app.config['SECRET_KEY'])
-            g.user_data = data
-        except:
-            return jsonify({ 'message': 'invalid token' }), 
-
-        return f(*args, **kwargs)
-    
-    return decorated
-
-
 
 
 #This route is used to login a user
@@ -95,13 +74,17 @@ def register():
       first_name=data.get('firstName')
       last_name=data.get('lastName')
       age=data.get('age')
+      address=data.get('address')
+      gender=data.get('gender')
       users.insert_one({
           'email':email,  
           'password':password,
           'phoneNumber':phone,
           'name':first_name+' '+last_name,
           'role':'patient',
+          'gender': gender,
           'age':int(age),
+          'address': address
       })
       return jsonify({
               'message':'success',
@@ -113,15 +96,6 @@ def register():
         })
 
 
-@app.route('/yarab', methods=['GET'])
-@token_required
-def get_user():
-    try:
-        return jsonify({ 'user data': g.user_data })
-    
-    except jwt.ExpiredSignatureError:
-        return jsonify({ 'error': 'token expired' }), 401
-
 
 @app.route('/personal_data', methods=['GET'])
 @token_required
@@ -130,7 +104,6 @@ def get_patient_data():
         email = g.user_data['email']
         user = users.find_one({ 'email': email })
         
-        print(type(user))
         if not user: 
             return jsonify({ 'error': 'no patient found' }), 404
 

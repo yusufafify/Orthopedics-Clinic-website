@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger');
@@ -8,18 +7,18 @@ mongoose.connection.once('open', () => {
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  address: String,
-  phoneNumber: String,
+  address: { type: String, default: 'egypt' },
+  phoneNumber: { type: String, default: null },
   email: {
     type: String,
     required: true,
     match: /^[^ ]+@[^ ]+\.[a-z]{2,3}$/ // Add the regex pattern for email validation
   },
-  gender: { type: String,required: true},
+  gender: { type: String, required: true, default: 'male' },
   password: { type: String, required: true },
   age: Number,
   role: { type: String, enum: ['patient', 'staff', 'admin'], required: true },
-  images:[String],
+  images:{ type: [String], default: [] },
 });
 
 const Users = mongoose.model('Users', userSchema);
@@ -35,4 +34,3 @@ const userData={
 }
 const user = new Users(userData); // Create a new user in the database    
 user.save(); // Save the user to the database
-
