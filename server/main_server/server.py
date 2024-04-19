@@ -7,8 +7,8 @@ from functools import wraps
 from auth_middleware import token_required
 import bcrypt
 
-# uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
-uri = "mongodb://localhost:27017/"
+uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+# uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 
