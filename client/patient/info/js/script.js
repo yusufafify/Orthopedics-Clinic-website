@@ -1,8 +1,3 @@
-
-var sideNav = document.getElementById('sidebar');
-var toggleBtn = document.getElementById('sideOpenBtn');
-let closeBtn = document.getElementById('sideCloseBtn');
-let navLinks = document.querySelectorAll('#sidebar a');
 const modal = document.getElementById('modal');
 const editInfo = document.getElementById('edit_info');
 const body = document.querySelector('body');
@@ -15,7 +10,7 @@ let initialData={}
 
 
 
-let state=false;
+
 let modalState=false;
 
 //check on the change in the email input field and console log the change
@@ -32,39 +27,6 @@ email.addEventListener('input', function(){
 });
 
 
-
-toggleBtn.addEventListener('click', function () {
-  if(state){
-    sideNav.classList.add('-translate-x-full');
-    state=false;}
-    else{
-      sideNav.classList.remove('-translate-x-full');
-      state=true;
-    }
-});
-closeBtn.addEventListener('click', function () {
-  if(state){
-    sideNav.classList.add('-translate-x-full');
-    state=false;}
-    else{
-      sideNav.classList.remove('-translate-x-full');
-      
-      state=true;
-    }
-});
-
-// Add event listener to each nav link
-navLinks.forEach((link,index) => {
-  link.addEventListener('click', function() {
-    // Remove the active class from all links
-    navLinks.forEach(link => link.classList.remove('bg-gray-100'));
-
-    // Add the active class to the clicked link
-    if(index!==0 && index!==5){
-      this.classList.add('bg-gray-100');
-    }
-  });
-});
 
 
 
@@ -92,7 +54,8 @@ modal.addEventListener('click', function (e) {
   }
 });
 
-console.log(localStorage.getItem('token'));
+
+
 //fetch function to get user data from the server
 fetch('http://localhost:8080/personal_data',{
   method: 'GET',

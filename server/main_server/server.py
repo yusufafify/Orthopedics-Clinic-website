@@ -49,7 +49,7 @@ def login():
             token = create_access_token({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 0.15)
+            'exp' : datetime.utcnow() + timedelta(minutes = 1)
 		}, app.config['SECRET_KEY'])
             refresh_token = create_refresh_token({
 			      'email': email,
