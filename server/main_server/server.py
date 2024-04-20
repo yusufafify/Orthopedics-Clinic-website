@@ -1,10 +1,9 @@
-from flask import Flask, jsonify, render_template, request, g
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import ReturnDocument
 from pymongo.mongo_client import MongoClient
-from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity, get_jwt
+from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
 from datetime import datetime, timedelta
-from functools import wraps
 import bcrypt
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
@@ -73,11 +72,7 @@ def login():
             'error': str(e)
         })
 
-
 #This route is used to register a new user
-# TODO add logic to check if user is already registerd
-# TODO hash password before saving it in the database
-# TODO use same logic used in the login to generate a jwt
 @app.route('/register', methods=['POST'])
 def register():
     try:
@@ -240,14 +235,6 @@ def appointment_booking():
         })  
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
-
-
-
-
-
-
-
-
 
 
 @app.route('/delete_user', methods=['DELETE'])
