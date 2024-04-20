@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017');
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB!');
 })
@@ -27,18 +27,26 @@ const userSchema = new mongoose.Schema({
 const appointmentSchema = new mongoose.Schema({
   doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
-  date:{
-    type: Date,
-    required: true,
-    default: Date.now
-  },
+  date:{ type: Date, required: true, default: Date.now },
   type: { type: String, enum: ['Examination', 'Consultation'], required: true },
   paymentMethod: { type: String, enum: ['Insurance', 'Cash'], required: true },
+  diagnosis: String,
+  treatment: [String], // esm eldawa, elmawa3eed, elgor3a, norbotha patient history, ma3 images, ma3 diagnosis 
+  doctorNotes: String,
   price: { type: Number, default: undefined }
 });
 
+const imageSchema = new mongoose.Schema({
+  patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+  imageType: { type: String },
+  date: { type: Date, default: Date.now },
+  src: { type: String, required: true }
+}, { timestamps: true })
+
 const Users = mongoose.model('Users', userSchema);
 const Appointments = mongoose.model('Appointments', appointmentSchema);
+const Images = mongoose.model('Images', imageSchema);
+
 const appounrmentData={
   doctorId: "66227ceb828269236367a6d0",
   patientId: "662279eee6cb667641500cd9",
@@ -57,7 +65,17 @@ const userData={
   password: "123456",
   role: "Doctor"
 }
+
+const imageData = {
+  patientId: '6622d47712fd1878fb214e70',
+  imageType: 'x-ray',
+  src: 'ay haga for now'
+}
+
 const user = new Users(userData); // Create a new user in the database 
 const appointment = new Appointments(appounrmentData); // Create a new appointment in the database
+const image = new Images(imageData); // Create a new image in the database
+
 appointment.save(); // Save the appointment to the database   
 user.save(); // Save the user to the database
+image.save(); // Save the image in the image collection
