@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Patient Portal</title>
+</head>
+
+<body>
+
+
+  <!--Button to open the side bar-->
+  <button data-drawer-target="default-sidebar" id="sideOpenBtn" data-drawer-toggle="default-sidebar"
+    aria-controls="default-sidebar" type="button"
+    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" fill-rule="evenodd"
+        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+      </path>
+    </svg>
+  </button>
+  <!--End of Button to open the side bar-->
+
+
+  <!--Side Bar-->
+  <aside id="sidebar"
+    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 rounded-md"
+    aria-label="Sidebar">
+
+    <!--Side Bar Header-->
+    <li class="flex px-2 justify-between bg-[#276973]">
+      <a href="../admin.html" class="flex items-center p-2 text-gray-100 rounded-lg ">
+        <svg class="w-5 h-5 text-gray-100 transition duration-75 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor" viewBox="0 0 22 21">
+          <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+          <path
+            d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+        </svg>
+        <span class="ms-3">Profile Pic</span>
+      </a>
+      <button data-drawer-target="default-sidebar" id="sideCloseBtn" data-drawer-toggle="default-sidebar"
+        aria-controls="default-sidebar" type="button"
+        class="inline-flex items-center p-2 mt-1 ms-3 text-sm text-gray-100 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+        <span class="sr-only">Open sidebar</span>
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6" fill="currentColor" viewBox="0 0 50 50">
+          <path
+            d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z">
+          </path>
+        </svg>
+      </button>
+    </li>
+    <!--End of Side Bar Header-->
+
+        <!--Side Bar Navigations-->
+    <div class="h-full px-3 py-4 overflow-y-auto bg-[#a4d6d6] text-white">
+        <ul class="space-y-2 font-medium">
+  
+          <!--Navigation 1-->
+          <li>
+            <a href="../admin.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                <path
+                  d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
+            </a>
+          </li>
+          <!--End of Navigation 1-->
+  
+  
+          <!--Navigation 2-->
+          <li>
+            <a href="../info/info.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                <path
+                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Admin Info</span>
+            </a>
+          </li>
+  
+          <!--End of Navigation 2-->
+  
+          <!--Navigation 3-->
+          <li>
+            <a href="./appointments.html" class="flex items-center p-2 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-100  group">
+  
+              <svg class="flex-shrink-0 w-6 h-6 text-gray-500 ml-[-2px] transition duration-75 group-hover:text-gray-900 "
+                fill="currentColor" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 520.001 470.001" xml:space="preserve">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <g>
+                    <g>
+                      <g>
+                        <path
+                          d="M304.427,147.399H275.38v-29.046c0-10.706-8.68-19.386-19.386-19.386c-10.706,0-19.386,8.68-19.386,19.386V147.4h-29.047 c-10.706,0-19.386,8.68-19.386,19.386s8.68,19.386,19.386,19.386h29.047v29.046c0,10.706,8.68,19.386,19.386,19.386 c10.706,0,19.386-8.68,19.386-19.386v-29.046h29.047c10.706,0,19.386-8.68,19.386-19.386 C323.813,156.079,315.135,147.399,304.427,147.399z">
+                        </path>
+                        <path
+                          d="M446.704,19.386C446.704,8.68,438.024,0,427.318,0H84.672C73.966,0,65.286,8.68,65.286,19.386 c0,19.634-0.004,395.991-0.004,415.78c0,10.706,8.68,19.386,19.386,19.386h56.06v38.045c0,17.236,20.909,25.888,33.091,13.71 l33.746-33.736l33.735,33.733c12.109,12.114,33.094,3.665,33.094-13.707v-38.045h152.938c10.706,0,19.386-8.68,19.386-19.386 C446.72,423.13,446.704,234.426,446.704,19.386z M104.059,38.773h303.873v256.026H104.059V38.773z M235.623,445.793 l-14.346-14.345c-7.568-7.571-19.842-7.571-27.413-0.003l-14.363,14.357c0-22.535,0-29.22,0-51.734h56.122 C235.623,416.595,235.623,423.285,235.623,445.793z M407.947,415.78H274.395v-21.714h94.993c10.706,0,19.386-8.68,19.386-19.386 c0-10.706-8.68-19.386-19.386-19.386H142.614c-10.706,0-19.386,8.68-19.386,19.386c0,10.071,7.68,18.342,17.501,19.291v21.81 h-36.674v-82.207h303.892V415.78z">
+                        </path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Appointments</span>
+            </a>
+          </li>
+  
+          <!--End of Navigation 3-->
+  
+          <!--Navigation 4-->
+          <li>
+            <a href="../Create Employee/createEmployee.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+  
+  
+  
+              <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 "
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path stroke="#6b7280" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 19v-9a1 1 0 011-1h11a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1zm0 0l4.293-4.293a1 1 0 011.414 0L14 20M7 6V5a1 1 0 011-1h12a1 1 0 011 1v10a1 1 0 01-1 1h-1m-7-4v.01">
+                  </path>
+                </g>
+              </svg>
+  
+              <span class="flex-1 ms-3 whitespace-nowrap">Create Employee</span>
+            </a>
+          </li>
+  
+          <!--End of Navigation 4-->
+  
+           <!--Navigation 5-->
+           <li>
+            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                <path
+                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Patients</span>
+            </a>
+          </li>
+          <!--End of Navigation 5-->
+
+          <!--Navigation 6-->
+          <li>
+            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                <path
+                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">Doctors</span>
+            </a>
+          </li>
+          <!--End of Navigation 6-->
+          <!--Navigation 7-->
+          <li>
+            <a href="../../Login/Login.html" class="flex items-center p-2 text-gray-900  rounded-lg  hover:bg-gray-100 ">
+              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 rotate-180"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
+              </svg>
+              <span class="flex-1 ms-3 whitespace-nowrap">log out</span>
+            </a>
+          </li>
+  
+          <!--End of Navigation 7-->
+
+          
+        </ul>
+      </div>
+      <!--End of Side Bar Navigations-->
+  
+    </aside>
+    <!--End of Side Bar-->
+
+       <!--Main Content-->
+  <div class="p-4 sm:ml-64">
+    <div>
+      <div class="lg:col-span-6 w-full">
+
+        <div class="flex flex-col">
+            <header class="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 ">
+              <a class="lg:hidden" href="#">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-6 w-6"
+                >
+                 
+                </svg>
+                
+              </a>
+              <div class="flex-1">
+                <h1 class="font-bold text-lg text-black">Appointments</h1>
+              </div>
+              <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
+                New Appointment
+              </button>
+            </header>
+        <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+            <div class="border shadow-sm rounded-lg p-2">
+              <div class="relative w-full overflow-auto">
+                <table class="w-full caption-bottom text-sm">
+                  <thead class="[&amp;_tr]:border-b">
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px]">
+                        ID
+                      </th>
+                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[150px]">
+                        Patient
+                      </th>
+                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        Date
+                      </th>
+                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        Time
+                      </th>
+                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">
+                        Status
+                      </th>
+                      <th class="h-12 px-4 align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-6 text-right">
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="[&amp;_tr:last-child]:border-0">
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">1</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Hannah Smith</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        12th March, 2022
+                      </td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">10:00 AM</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                        <button
+                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                          type="button"
+                          id="radix-:rk:"
+                          aria-haspopup="menu"
+                          aria-expanded="false"
+                          data-state="closed"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4"
+                          >
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                          </svg>
+                          <span class="sr-only">Actions</span>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">2</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">David Johnson</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        15th March, 2022
+                      </td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">11:30 AM</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                        <button
+                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                          type="button"
+                          id="radix-:rm:"
+                          aria-haspopup="menu"
+                          aria-expanded="false"
+                          data-state="closed"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4"
+                          >
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                          </svg>
+                          <span class="sr-only">Actions</span>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">3</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Sophia Williams</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        18th March, 2022
+                      </td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">9:45 AM</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                        <button
+                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                          type="button"
+                          id="radix-:ro:"
+                          aria-haspopup="menu"
+                          aria-expanded="false"
+                          data-state="closed"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4"
+                          >
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                          </svg>
+                          <span class="sr-only">Actions</span>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">4</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Oliver Brown</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        20th March, 2022
+                      </td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">3:15 PM</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                        <button
+                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                          type="button"
+                          id="radix-:rq:"
+                          aria-haspopup="menu"
+                          aria-expanded="false"
+                          data-state="closed"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4"
+                          >
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                          </svg>
+                          <span class="sr-only">Actions</span>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">5</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Emily Taylor</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                        25th March, 2022
+                      </td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">2:45 PM</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                      <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                        <button
+                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                          type="button"
+                          id="radix-:rs:"
+                          aria-haspopup="menu"
+                          aria-expanded="false"
+                          data-state="closed"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-4 h-4"
+                          >
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                          </svg>
+                          <span class="sr-only">Actions</span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
