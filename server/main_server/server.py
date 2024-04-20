@@ -49,7 +49,7 @@ def login():
             token = create_access_token({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 60)
+            'exp' : datetime.utcnow() + timedelta(minutes = 0.15)
 		}, app.config['SECRET_KEY'])
             refresh_token = create_refresh_token({
 			      'email': email,
@@ -212,17 +212,19 @@ def appointment_booking():
         data=request.get_json()
         docmail=data.get('email')
         patmail=get_jwt_identity()['email']
+        date=data.get('date')
+        visittype=data.get('type')
+        pay=data.get('paymentMethod')
+        
         docid=users.find_one({'email':docmail})['_id']
         patid=users.find_one({'email':patmail})['_id']
-        date=data.get('date')
 
         if appointment.find_one({'doctorId':docid,'date':date}):
             return jsonify({
                 'message':'doctor is not available at this time'
             }), 409
 
-        visittype=data.get('type')
-        pay=data.get('paymentMethod')
+        
         appointment.insert_one({
             'doctorId':docid,
             'patientId':patid,
