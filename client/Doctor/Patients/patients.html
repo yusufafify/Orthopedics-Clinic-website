@@ -165,6 +165,7 @@
   <div class="p-4 sm:ml-64">
     <div>
       <div class="lg:col-span-6 w-full">
+        
     <!--
 // v0 by Vercel.
 // https://v0.dev/t/SUyaAqc0Dsz
@@ -174,70 +175,8 @@
 </style>
 <style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
 </style>
-<div class="flex flex-col w-full min-h-screen bg-gray-100 dark:bg-gray-900">
-  <header class="flex items-center h-16 px-6 border-b border-gray-200 dark:border-gray-800 shrink-0">
-    <div class="flex items-center gap-4">
-      <a class="flex items-center gap-2 text-lg font-semibold" href="#">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="w-6 h-6"
-        >
-          <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"></path>
-          <path d="m9 16 .348-.24c1.465-1.013 3.84-1.013 5.304 0L15 16"></path>
-          <path d="M8 7h.01"></path>
-          <path d="M16 7h.01"></path>
-          <path d="M12 7h.01"></path>
-          <path d="M12 11h.01"></path>
-          <path d="M16 11h.01"></path>
-          <path d="M8 11h.01"></path>
-          <path d="M10 22v-6.5m4 0V22"></path>
-        </svg>
-        <span>Oncology Clinic</span>
-      </a>
-      <nav class="hidden md:flex items-center gap-4 text-sm font-medium">
-        <a class="text-gray-900 dark:text-gray-50" href="#">
-          Patients
-        </a>
-        <a class="text-gray-900 dark:text-gray-50" href="#">
-          Appointments
-        </a>
-        <a class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-50" href="#">
-          My Info
-        </a>
-      </nav>
-    </div>
-    <div class="ml-auto flex items-center gap-4">
-      <form class="flex-1 relative">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400"
-        >
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.3-4.3"></path>
-        </svg>
-        <input
-          class="flex h-10 w-full border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 pr-4 py-2 rounded-md bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
-          placeholder="Search patients..."
-          type="search"
-        />
-      </form>
-    </div>
+
+    
   </header>
   
   <main class="flex-1 p-6 md:p-8 lg:p-10 grid grid-cols-1 gap-8">
@@ -245,9 +184,30 @@
     <div class="space-y-6">
       <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold">Patients</h1>
-        <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2">
-          Add Patient
-        </button>
+        <div class="ml-auto flex items-center gap-4">
+            <form class="flex-1 relative">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+              <input
+                class="flex h-10 w-full border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 pr-4 py-2 rounded-md bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                placeholder="Search patients..."
+                type="search"
+              />
+            </form>
+          </div>
       </div>
       <div class="border rounded-lg overflow-auto max-h-[500px]">
         <div class="relative w-full overflow-auto">
@@ -260,7 +220,7 @@
                 <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                   Age
                 </th>
-                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"></th>
+      
                 <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                   Upcoming Appointment
                 </th>
@@ -277,7 +237,6 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">45</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Lung Cancer</td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>April 15, 2023</span>
@@ -377,7 +336,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">52</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Breast Cancer</td>
+       
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>May 1, 2023</span>
@@ -477,7 +436,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">38</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Prostate Cancer</td>
+  
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>June 1, 2023</span>
@@ -577,7 +536,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">47</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Ovarian Cancer</td>
+    
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>July 15, 2023</span>
@@ -677,7 +636,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">29</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Leukemia</td>
+
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>August 1, 2023</span>
@@ -777,7 +736,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">41</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Breast Cancer</td>
+
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>September 1, 2023</span>
@@ -877,7 +836,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">55</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Lung Cancer</td>
+
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>October 1, 2023</span>
@@ -977,7 +936,7 @@
                   </a>
                 </td>
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">60</td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Breast Cancer</td>
+  
                 <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                   <div class="flex items-center gap-2">
                     <span>November 1, 2023</span>
