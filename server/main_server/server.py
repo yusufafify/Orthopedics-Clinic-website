@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request, g
 from flask_cors import CORS
+from pymongo import ReturnDocument
 from pymongo.mongo_client import MongoClient
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity, get_jwt
 from datetime import datetime, timedelta
@@ -190,6 +191,21 @@ def add_claims_to_jwt(identity):
     if identity == 1:
         return {"is_admin": True}
     return {"is_admin": False}
+
+
+@app.route('/update_data', methods=['PATCH'])
+@jwt_required()
+def update_info():
+    try: 
+        data = get_jwt_identity()
+        email = data['email']
+        new_info = request.get_json()
+        updated_info = users.find_one_and_update({ 'email': email }, { '$set': new_info }, upsert=True, return_document=ReturnDocument.AFTER)
+        # print('bala7 elsham')
+
+        return jsonify({ 'status': 'success' })
+    except:
+        return jsonify({ 'error': 'internal server error' }), 500
 
 
 
