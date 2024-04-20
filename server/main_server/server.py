@@ -1,12 +1,11 @@
 from flask import Flask, jsonify, render_template, request, g
 from flask_cors import CORS
+from pymongo import ReturnDocument
 from pymongo.mongo_client import MongoClient
-import jwt
+from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity, get_jwt
 from datetime import datetime, timedelta
 from functools import wraps
-from auth_middleware import token_required
 import bcrypt
-
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
 
@@ -17,9 +16,11 @@ app = Flask(__name__)
 CORS(app)
 client = MongoClient(uri)
 app.config['SECRET_KEY'] = 'r-DbyQUte22QfwuUYTY0KQ'
+app.config['REFRESH_SECRET_KEY'] = 'r-DbyQUtefufnmfdusaYTY0KQ'
 db=client['orthopedic-clinic']
 users = db['users']
 appointment=db['appointments']
+jwt = JWTManager(app)
 # Roles=['admin','staff','patient']
 
 
@@ -46,14 +47,19 @@ def login():
 
         user = users.find_one({ 'email': email })
         if user and bcrypt.checkpw(password, user['password']):
-            token = jwt.encode({
+            token = create_access_token({
 			      'email': email,
             'role': user["role"],
             'exp' : datetime.utcnow() + timedelta(minutes = 1)
 		}, app.config['SECRET_KEY'])
+            refresh_token = create_refresh_token({
+			      'email': email,
+            'role': user["role"]
+		},expires_delta=timedelta(days=1))
             return jsonify({
                 'message': 'success',
-                'token': token.decode('UTF-8'),
+                'token': token,
+                'refresh_token': refresh_token
                 
             })
         else:
@@ -102,15 +108,15 @@ def register():
             'address': address
         })
 
-        token = jwt.encode({
-            'email': email,
-            'role': 'patient',
-            'exp': datetime.utcnow() + timedelta(minutes = 60)
-        }, app.config['SECRET_KEY'])
+        token = create_access_token({
+			      'email': email,
+            'role': user["role"],
+            'exp' : datetime.utcnow() + timedelta(minutes = 1)
+		}, app.config['SECRET_KEY'])
 
         return jsonify({
                 'message':'success',
-                'token': token.decode('utf-8')
+                'token': token
             })
     except Exception as e:
         return jsonify({
@@ -118,13 +124,23 @@ def register():
             'error': str(e)
     })
 
-
+@app.route('/refresh')
+@jwt_required(refresh=True)
+def TokenRefresh():
+    current_user = get_jwt_identity()
+    print(current_user)
+    expires = timedelta(minutes=1)
+    access_token = create_access_token(identity={'email': current_user['email'], 'role':current_user['role']}, 
+                                       secret_key=app.config['SECRET_KEY'], 
+                                       expires_delta=expires)
+    return jsonify({'access_token': access_token})
 
 @app.route('/personal_data', methods=['GET'])
-@token_required
+@jwt_required()
 def get_patient_data():
     try:
-        email = g.user_data['email']
+        current_user = get_jwt_identity()
+        email = current_user['email']
         user = users.find_one({ 'email': email })
         
         if not user: 
@@ -144,18 +160,62 @@ def get_patient_data():
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
 
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header, jwt_payload):
+    return (
+        jsonify({"message": "The token has expired.", "error": "token_expired"}),
+        401,
+    )
+
+@jwt.invalid_token_loader
+def invalid_token_callback(error):
+    return (
+        jsonify(
+            {"message": "Signature verification failed.", "error": "invalid_token"}
+        ),
+        401,
+    )
+
+@jwt.unauthorized_loader
+def missing_token_callback(error):
+    return (
+        jsonify(
+            {
+                "description": "Request does not contain an access token.",
+                "error": "authorization_required",
+            }
+        ),
+        401,
+    )
+@jwt.additional_claims_loader
+def add_claims_to_jwt(identity):
+    if identity == 1:
+        return {"is_admin": True}
+    return {"is_admin": False}
 
 
+@app.route('/update_data', methods=['PATCH'])
+@jwt_required()
+def update_info():
+    try: 
+        data = get_jwt_identity()
+        email = data['email']
+        new_info = request.get_json()
+        updated_info = users.find_one_and_update({ 'email': email }, { '$set': new_info }, upsert=True, return_document=ReturnDocument.AFTER)
+        # print('bala7 elsham')
 
+        return jsonify({ 'status': 'success' })
+    except:
+        return jsonify({ 'error': 'internal server error' }), 500
 
 
 @app.route('/appointment_booking', methods=['POST'])
-@token_required
+@jwt_required()
 def appointment_booking():
     try:
         data=request.get_json()
         docmail=data.get('email')
-        patmail=g.user_data['email']
+        patmail=get_jwt_identity()['email']
         docid=users.find_one({'email':docmail})['_id']
         patid=users.find_one({'email':patmail})['_id']
         date=data.get('date')
@@ -191,10 +251,10 @@ def appointment_booking():
 
 
 @app.route('/delete_user', methods=['DELETE'])
-@token_required
+@jwt_required()
 def delete_user():
     try:
-        email = g.user_data['email']
+        email = get_jwt_identity()['email']
         user = users.find_one({ 'email': email })
         
         if not user: 
@@ -206,25 +266,6 @@ def delete_user():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
