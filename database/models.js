@@ -30,9 +30,9 @@ const appointmentSchema = new mongoose.Schema({
   date:{ type: Date, required: true, default: Date.now },
   type: { type: String, enum: ['Examination', 'Consultation'], required: true },
   paymentMethod: { type: String, enum: ['Insurance', 'Cash'], required: true },
-  diagnosis: String,
-  treatment: [String], // esm eldawa, elmawa3eed, elgor3a, norbotha patient history, ma3 images, ma3 diagnosis 
-  doctorNotes: String,
+  diagnosis: { type: String, default: null },
+  treatment: { type: [String], default: [] }, // esm eldawa, elmawa3eed, elgor3a, norbotha patient history, ma3 images, ma3 diagnosis 
+  doctorNotes: { type: String, default: null },
   price: { type: Number, default: undefined }
 });
 
