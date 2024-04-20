@@ -19,6 +19,7 @@ client = MongoClient(uri)
 app.config['SECRET_KEY'] = 'r-DbyQUte22QfwuUYTY0KQ'
 db=client['orthopedic-clinic']
 users = db['users']
+appointment=db['appointments']
 # Roles=['admin','staff','patient']
 
 
@@ -104,7 +105,7 @@ def register():
         token = jwt.encode({
             'email': email,
             'role': 'patient',
-            'exp': datetime.utcnow() + timedelta(minutes = 1)
+            'exp': datetime.utcnow() + timedelta(minutes = 60)
         }, app.config['SECRET_KEY'])
 
         return jsonify({
@@ -144,9 +145,86 @@ def get_patient_data():
         return jsonify({ 'error': str(err) }), 500
 
 
-# @app.route('/appointment_booking', methods=['GET'])
-# @token_required
-# def appointment_booking():
+
+
+
+
+@app.route('/appointment_booking', methods=['POST'])
+@token_required
+def appointment_booking():
+    try:
+        data=request.get_json()
+        docmail=data.get('email')
+        patmail=g.user_data['email']
+        docid=users.find_one({'email':docmail})['_id']
+        patid=users.find_one({'email':patmail})['_id']
+        date=data.get('date')
+
+        if appointment.find_one({'doctorId':docid,'date':date}):
+            return jsonify({
+                'message':'doctor is not available at this time'
+            }), 409
+
+        visittype=data.get('type')
+        pay=data.get('paymentMethod')
+        appointment.insert_one({
+            'doctorId':docid,
+            'patientId':patid,
+            'date':date,
+            'type':visittype,
+            'paymentMethod':pay
+        })
+
+        return jsonify({
+            'message':'success'
+        })  
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+
+
+
+
+
+
+
+@app.route('/delete_user', methods=['DELETE'])
+@token_required
+def delete_user():
+    try:
+        email = g.user_data['email']
+        user = users.find_one({ 'email': email })
+        
+        if not user: 
+            return jsonify({ 'error': 'no patient found' }), 404
+
+        users.delete_one({'email': email})
+        
+        return jsonify({ 'message': 'success' })
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
