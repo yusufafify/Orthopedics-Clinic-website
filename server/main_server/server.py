@@ -65,11 +65,12 @@ def home():
         'message': 'Hello World!'
     }
 
-
+refresh_token=''
 #This route is used to login a user
 # TODO add logic to check hashed password
 @app.route('/login', methods=['POST'])
 def login():
+    global refresh_token
     try:
         data = request.get_json()
         
@@ -81,13 +82,12 @@ def login():
         if user and bcrypt.checkpw(password, user['password']):
             token = create_access_token({
 			      'email': email,
-            'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 0.15)
-		}, app.config['SECRET_KEY'])
+            'role': user["role"]
+		},expires_delta=timedelta(seconds=15))
             refresh_token = create_refresh_token({
 			      'email': email,
             'role': user["role"]
-		},expires_delta=timedelta(minutes=0.15))
+		})
             return jsonify({
                 'message': 'success',
                 'token': token,
@@ -141,7 +141,7 @@ def register():
 			      'email': email,
             'role': user["role"],
             'exp' : datetime.utcnow() + timedelta(minutes = 1)
-		}, app.config['SECRET_KEY'])
+		})
 
         return jsonify({
                 'message':'success',
@@ -153,14 +153,13 @@ def register():
             'error': str(e)
     })
 
-@app.route('/refresh')
+@app.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def TokenRefresh():
     current_user = get_jwt_identity()
     print(current_user)
-    expires = timedelta(minutes=0.15)
+    expires = timedelta(seconds=15)
     access_token = create_access_token(identity={'email': current_user['email'], 'role':current_user['role']}, 
-                                       secret_key=app.config['REFRESH_SECRET_KEY'], 
                                        expires_delta=expires)
     return jsonify({'access_token': access_token})
 
