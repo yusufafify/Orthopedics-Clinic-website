@@ -126,7 +126,7 @@ def register():
         age=data.get('age')
         address=data.get('address')
         gender=data.get('gender')
-        users.insert_one({
+        user = {
             'email':email,  
             'password':hashed_password,
             'phoneNumber':phone,
@@ -135,8 +135,8 @@ def register():
             'gender': gender,
             'age':int(age),
             'address': address
-        })
-
+        }
+        users.insert_one(user)
         token = create_access_token({
 			      'email': email,
             'role': user["role"],
