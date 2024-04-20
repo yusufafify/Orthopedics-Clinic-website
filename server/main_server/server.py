@@ -19,6 +19,7 @@ app.config['REFRESH_SECRET_KEY'] = 'r-DbyQUtefufnmfdusaYTY0KQ'
 db=client['orthopedic-clinic']
 users = db['users']
 appointment=db['appointments']
+images = db['images']
 jwt = JWTManager(app)
 # Roles=['admin','staff','patient']
 
