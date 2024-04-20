@@ -27,11 +27,7 @@ const userSchema = new mongoose.Schema({
 const appointmentSchema = new mongoose.Schema({
   doctorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
-  date:{
-    type: Date,
-    required: true,
-    default: Date.now
-  },
+  date:{ type: Date, required: true, default: Date.now },
   type: { type: String, enum: ['Examination', 'Consultation'], required: true },
   paymentMethod: { type: String, enum: ['Insurance', 'Cash'], required: true },
   diagnosis: String,
