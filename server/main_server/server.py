@@ -10,7 +10,7 @@ uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongo
 
 # Create a new client and connect to the server
 
-
+#3mlt comment 7na boomta5
 app = Flask(__name__)
 CORS(app)
 client = MongoClient(uri)
