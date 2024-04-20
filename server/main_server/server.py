@@ -44,11 +44,13 @@ def login():
             token = jwt.encode({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 1)
+            'exp' : datetime.utcnow() + timedelta(minutes = 60)
 		}, app.config['SECRET_KEY'])
+            print(token)
             return jsonify({
                 'message': 'success',
                 'token': token.decode('UTF-8'),
+                'role': user['role']
                 
             })
         else:
@@ -106,14 +108,15 @@ def get_patient_data():
         
         if not user: 
             return jsonify({ 'error': 'no patient found' }), 404
-
+        
         user_data = {
             'email': user['email'],
             'name': user['name'],
             'role': user['role'],
             'gender': user['gender'],
             'age': user['age'],
-            'address': user['address']
+            'address': user['address'],
+            'phoneNumber': user['phoneNumber']
         }
         
         return jsonify(user_data)
