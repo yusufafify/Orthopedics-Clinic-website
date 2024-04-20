@@ -87,11 +87,12 @@ def login():
             refresh_token = create_refresh_token({
 			      'email': email,
             'role': user["role"]
-		},expires_delta=timedelta(days=1))
+		},expires_delta=timedelta(minutes=0.15))
             return jsonify({
                 'message': 'success',
                 'token': token,
-                'role': user['role']
+                'role': user['role'],
+                'refresh_token': refresh_token
                 
             })
         else:
@@ -157,9 +158,9 @@ def register():
 def TokenRefresh():
     current_user = get_jwt_identity()
     print(current_user)
-    expires = timedelta(minutes=1)
+    expires = timedelta(minutes=0.15)
     access_token = create_access_token(identity={'email': current_user['email'], 'role':current_user['role']}, 
-                                       secret_key=app.config['SECRET_KEY'], 
+                                       secret_key=app.config['REFRESH_SECRET_KEY'], 
                                        expires_delta=expires)
     return jsonify({'access_token': access_token})
 
