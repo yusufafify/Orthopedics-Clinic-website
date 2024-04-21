@@ -1,4 +1,3 @@
-
 //fetch function to get user data from the server
 
   fetch("http://localhost:8080/personal_data", {

@@ -27,7 +27,7 @@ jwt = JWTManager(app)
 def expired_token_callback(jwt_header, jwt_payload):
     return (
         jsonify({"message": "The token has expired.", "error": "token_expired"}),
-        401,
+        403,
     )
 
 @jwt.invalid_token_loader
@@ -109,6 +109,7 @@ def login():
 #This route is used to register a new user
 @app.route('/register', methods=['POST'])
 def register():
+    global refresh_token
     try:
         data = request.get_json()
         email=data.get('email')
@@ -140,12 +141,18 @@ def register():
         token = create_access_token({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 1)
+            'exp' : datetime.utcnow() + timedelta(seconds= 15)
+		})
+        refresh_token = create_refresh_token({
+			      'email': email,
+            'role': user["role"]
 		})
 
         return jsonify({
                 'message':'success',
-                'token': token
+                'token': token,
+                'refresh_token': refresh_token
+
             })
     except Exception as e:
         return jsonify({

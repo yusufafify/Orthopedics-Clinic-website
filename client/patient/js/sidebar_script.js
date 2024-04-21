@@ -8,11 +8,6 @@ let navLinks = document.querySelectorAll("#sidebar a");
 
 // let email = document.getElementById("email");
 
-
-
-
-
-
 let state = false;
 // let modalState = false;
 toggleBtn.addEventListener("click", function () {
@@ -70,37 +65,34 @@ navLinks.forEach((link, index) => {
 //   }
 // });
 
+// //fetch function to get user data from the server
 
-//fetch function to get user data from the server
+//   fetch("http://localhost:8080/personal_data", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${localStorage.getItem("token")}`,
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       //   document.getElementById('first_name').value=data.name.split(' ')[0];
+//       //   document.getElementById('last_name').value=data.name.split(' ')[1];
+//       //   email.value=data.email;
+//       //   document.getElementById('phone').value=data.phone;
+//       //  document.getElementById('address').value=data.address;
+//       //   document.getElementById('age').value=data.age;
+//       // document.getElementById("patient_name").innerHTML =
+//       //   data.name + "    -" + data.age + " years old";
+//       // document.getElementById("patient_email").innerHTML = data.email;
+//       // document.getElementById("patient_phone").innerHTML = data.phoneNumber;
 
-  // fetch("http://localhost:8080/personal_data", {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     //   document.getElementById('first_name').value=data.name.split(' ')[0];
-  //     //   document.getElementById('last_name').value=data.name.split(' ')[1];
-  //     //   email.value=data.email;
-  //     //   document.getElementById('phone').value=data.phone;
-  //     //  document.getElementById('address').value=data.address;
-  //     //   document.getElementById('age').value=data.age;
-  //     document.getElementById("patient_name").innerHTML =
-  //       data.name + "    -" + data.age + " years old";
-  //     document.getElementById("patient_email").innerHTML = data.email;
-  //     document.getElementById("patient_phone").innerHTML = data.phoneNumber;
-  
-  //     document.getElementById("patient_address").innerHTML = data.address;
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:");
+//       // document.getElementById("patient_address").innerHTML = data.address;
+//     })
+//     .catch((error) => {
+//       console.error("Error:");
 
-  //   });
-  
-
+//     });
 
 // async await function to get user data from the server
 // async function getUserData(){
@@ -117,13 +109,45 @@ navLinks.forEach((link, index) => {
 //         data.name + "    -" + data.age + " years old";
 //       document.getElementById("patient_email").innerHTML = data.email;
 //       document.getElementById("patient_phone").innerHTML = data.phoneNumber;
-  
+
 //       document.getElementById("patient_address").innerHTML = data.address;
 //   } catch (error) {
 //     console.error('Error:', error);
 //     localStorage.removeItem('token');
-//     window.location.href = "http://127.0.0.1:5500/client/Login/login.html"; 
+//     window.location.href = "http://127.0.0.1:5500/client/Login/login.html";
 //   }
 // }
 // getUserData();
 
+// //fetch function to get user data from the server and check on the status
+fetch("http://localhost:8080/personal_data", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+})
+  .then((response) => {
+    if(response.status === 401 || response.status === 403){
+      console.log('Unauthorized');
+      localStorage.removeItem('token');
+      window.location.href = "http://" + window.location.host + "/client/Login/login.html";
+    }
+
+    return response.json();
+  } )
+  .then((data) => {
+    // document.getElementById("patient_name").innerHTML =
+    //   data.name + "    -" + data.age + " years old";
+    // document.getElementById("patient_email").innerHTML = data.email;
+    // document.getElementById("patient_phone").innerHTML = data.phoneNumber;
+
+    // document.getElementById("patient_address").innerHTML = data.address;
+    console.log(data);
+  })
+
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+// fetch function to get user data from the server and check on the status and if the token is expired it fetches a new token
