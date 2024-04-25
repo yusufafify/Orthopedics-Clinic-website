@@ -47,7 +47,7 @@ const appointmentsDetails = [
 
 
 document.getElementById("appointment_table_body").innerHTML =
-  getAppointments(appointmentsDetails,'../../public');
+  getAppointments(appointmentsDetails);
 
 function handleButtonClick(event) {
   // event.currentTarget is the button that the event listener is attached to

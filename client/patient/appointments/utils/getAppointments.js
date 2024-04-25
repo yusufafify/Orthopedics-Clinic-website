@@ -1,5 +1,5 @@
 //function that takes array of appointments and the imgPath of the images and displays them in the table
-function getAppointments(appointments,imgPath) {
+function getAppointments(appointments) {
   return appointments
     .map(
       (appointment, i) =>
@@ -52,7 +52,7 @@ function getAppointments(appointments,imgPath) {
       
         class="select-none rounded-lg bg-[#276973] from-gray-900  p-2 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         >
-        <img src="${imgPath}/assets/imgs/eye.png" alt="" class="h-6 w-6 object-cover">
+        <img src="/public/assets/imgs/eye.png" alt="" class="h-6 w-6 object-cover">
         <span class="hidden">Details</span>
       </button>
       <div data-dialog-backdrop="animated-dialog" data-dialog-backdrop-close="true"
@@ -69,7 +69,7 @@ function getAppointments(appointments,imgPath) {
                             <h2>Appointment Details</h2>
                             <div class="flex items-center justify-between mr-6 md:mr-0">
                               <button id="exitBtn${i}">
-                                <img src="${imgPath}/assets/imgs/xIcon.png" alt="exit icon" class="h-4 w-4">
+                                <img src="/public/assets/imgs/xIcon.png" alt="exit icon" class="h-4 w-4">
                               </button>
                             </div>
                           </div>
@@ -131,7 +131,7 @@ function getAppointments(appointments,imgPath) {
               </h4>
               <div class="flex items-center justify-between ">
                               <button id="exitEditBtn${i}">
-                                <img src="${imgPath}/assets/imgs/xIcon.png" alt="exit icon" class="h-4 w-4">
+                                <img src="/public/assets/imgs/xIcon.png" alt="exit icon" class="h-4 w-4">
                               </button>
                             </div>
             </div>

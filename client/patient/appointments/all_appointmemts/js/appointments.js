@@ -71,7 +71,7 @@ function handlePagination(appointments) {
   //get the appointments that will be displayed on the current page
   const currentAppointments = appointments.slice(startIndex, endIndex);
   //display the appointments on the table
-  table_body.innerHTML = getAppointments(currentAppointments,'../../../public');
+  table_body.innerHTML = getAppointments(currentAppointments);
   //attach event listeners to the buttons
   attachButtonEventListeners();
   //if there is only one page, display the page number as 1 of 1
