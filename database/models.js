@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
   images:{ type: [String], default: [] },
   workingHours: { type:String, default: undefined },
   salary: { type: Number, default: undefined },
+  profilePic: { type: String, default: '' }
 });
 
 const appointmentSchema = new mongoose.Schema({
@@ -73,9 +74,9 @@ const imageData = {
 }
 
 const user = new Users(userData); // Create a new user in the database 
-const appointment = new Appointments(appounrmentData); // Create a new appointment in the database
-const image = new Images(imageData); // Create a new image in the database
+// const appointment = new Appointments(appounrmentData); // Create a new appointment in the database
+// const image = new Images(imageData); // Create a new image in the database
 
-appointment.save(); // Save the appointment to the database   
+// appointment.save(); // Save the appointment to the database   
 user.save(); // Save the user to the database
-image.save(); // Save the image in the image collection
+// image.save(); // Save the image in the image collection

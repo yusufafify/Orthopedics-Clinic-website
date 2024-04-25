@@ -20,8 +20,6 @@ attachButtonEventListeners();
 
 handlePagination(appointmentsDetails);
 
-
-
 //function that handles the pagination logic of the appointments table
 function handlePagination(appointments) {
   //if there are no appointments, display a message
@@ -101,13 +99,16 @@ function handleListClick(event) {
 
   // Create a new div and append it to the clicked list item
   const newDiv = document.createElement("div");
-  newDiv.classList.add("absolute");
-  newDiv.classList.add("inset-0");
-  newDiv.classList.add("z-10");
-  newDiv.classList.add("h-full");
-  newDiv.classList.add("bg-white");
-  newDiv.classList.add("rounded-md");
-  newDiv.classList.add("shadow");
+  newDiv.classList.add(
+    "absolute",
+    "inset-0",
+    "z-10",
+    "h-full",
+    "bg-white",
+    "rounded-md",
+    "shadow"
+  );
+
   newDiv.id = "list_bg";
 
   event.currentTarget.appendChild(newDiv);
@@ -145,16 +146,12 @@ function handleListClick(event) {
   }
 
   handlePagination(filteredAppointments);
-
 }
 
 const list = document.querySelectorAll("[data-value]");
 list.forEach((item) => {
   item.addEventListener("click", handleListClick);
 });
-
-
-
 
 //function that handles the button click event
 //Every button has an id that contains a number
@@ -168,123 +165,121 @@ list.forEach((item) => {
 function handleButtonClick(event) {
   // event.currentTarget is the button that the event listener is attached to
   let buttonId = event.currentTarget.id;
-  
+
   //get the number from the id of the button
   let number = buttonId.replace(/^\D+/g, "");
 
   if (buttonId.includes("detailsbtn")) {
-    
     const mainDialog = document.getElementById(`mainDialog${number}`);
-    mainDialog.classList.remove("hidden");
+    mainDialog.classList.remove("hidden", "pointer-events-none");
 
-    mainDialog.classList.remove("pointer-events-none");
-    mainDialog.classList.add("fixed");
-    mainDialog.classList.add("inset-0");
-    mainDialog.classList.add("grid");
-    mainDialog.classList.add("h-screen");
-    mainDialog.classList.add("w-screen");
-    mainDialog.classList.add("place-items-center");
-    mainDialog.classList.add("bg-black");
-    mainDialog.classList.add("bg-opacity-60");
+    mainDialog.classList.add(
+      "fixed",
+      "inset-0",
+      "grid",
+      "h-screen",
+      "w-screen",
+      "place-items-center",
+      "bg-black",
+      "bg-opacity-60",
+      "backdrop-blur-sm"
+    );
+
     setTimeout(() => {
       mainDialog.classList.add("opacity-100");
     }, 100);
-    mainDialog.classList.add("backdrop-blur-sm");
 
     const detailsDialog = document.getElementById(`detailsDialog${number}`);
-    detailsDialog.classList.add("opacity-100");
-    detailsDialog.classList.add("translate-y-0");
-    detailsDialog.classList.add("scale-100");
+    detailsDialog.classList.add("opacity-100", "translate-y-0", "scale-100");
 
-    detailsDialog.classList.remove("-translate-y-28");
-    detailsDialog.classList.remove("scale-90");
-    detailsDialog.classList.remove("pointer-events-none");
+    detailsDialog.classList.remove(
+      "-translate-y-28",
+      "scale-90",
+      "pointer-events-none"
+    );
   }
-
 
   if (buttonId.includes("exitBtn")) {
-    
     const mainDialog = document.getElementById(`mainDialog${number}`);
-    mainDialog.classList.add("hidden");
-    mainDialog.classList.add("pointer-events-none");
-    mainDialog.classList.remove("fixed");
-    mainDialog.classList.remove("inset-0");
-    mainDialog.classList.remove("grid");
-    mainDialog.classList.remove("h-screen");
-    mainDialog.classList.remove("w-screen");
-    mainDialog.classList.remove("place-items-center");
-    mainDialog.classList.remove("bg-black");
-    mainDialog.classList.remove("bg-opacity-60");
-    mainDialog.classList.remove("opacity-100");
-    mainDialog.classList.remove("backdrop-blur-sm");
+    mainDialog.classList.add("hidden", "pointer-events-none");
+    mainDialog.classList.remove(
+      "fixed",
+      "inset-0",
+      "grid",
+      "h-screen",
+      "w-screen",
+      "place-items-center",
+      "bg-black",
+      "bg-opacity-60",
+      "backdrop-blur-sm",
+      "opacity-100"
+    );
 
     const detailsDialog = document.getElementById(`detailsDialog${number}`);
-    detailsDialog.classList.remove("opacity-100");
-    detailsDialog.classList.remove("translate-y-0");
-    detailsDialog.classList.remove("scale-100");
+    detailsDialog.classList.remove("opacity-100", "translate-y-0", "scale-100");
 
-    detailsDialog.classList.add("-translate-y-28");
-    detailsDialog.classList.add("scale-90");
-    detailsDialog.classList.add("pointer-events-none");
+    detailsDialog.classList.add(
+      "-translate-y-28",
+      "scale-90",
+      "pointer-events-none"
+    );
   }
 
-
   if (buttonId.includes("editbtn")) {
-    
     const editDialogContainer = document.getElementById(
       `editDialogContainer${number}`
     );
     const editDialog = document.getElementById(`editDialog${number}`);
     ("fixed inset-0 z-[999] grid place-items-center bg-black bg-opacity-60 backdrop-blur-sm");
-    editDialogContainer.classList.remove("hidden");
-    editDialogContainer.classList.remove("pointer-events-none");
-    editDialogContainer.classList.add("fixed");
-    editDialogContainer.classList.add("inset-0");
-    editDialogContainer.classList.add("grid");
-    editDialogContainer.classList.add("place-items-center");
-    editDialogContainer.classList.add("bg-black");
-    editDialogContainer.classList.add("bg-opacity-60");
-    editDialogContainer.classList.add("backdrop-blur-sm");
+    editDialogContainer.classList.remove("hidden", "pointer-events-none");
+    editDialogContainer.classList.add(
+      "fixed",
+      "inset-0",
+      "grid",
+      "place-items-center",
+      "bg-black",
+      "bg-opacity-60",
+      "backdrop-blur-sm"
+    );
+
     setTimeout(() => {
       editDialogContainer.classList.add("opacity-100");
     }, 100);
 
-    editDialog.classList.add("opacity-100");
-    editDialog.classList.add("translate-y-0");
-    editDialog.classList.add("scale-100");
+    editDialog.classList.add("opacity-100", "translate-y-0", "scale-100");
 
-    editDialog.classList.remove("-translate-y-28");
-    editDialog.classList.remove("scale-90");
-    editDialog.classList.remove("pointer-events-none");
+    editDialog.classList.remove(
+      "-translate-y-28",
+      "scale-90",
+      "pointer-events-none"
+    );
   }
 
-
   if (buttonId.includes("exitEditBtn")) {
-    
     const editDialogContainer = document.getElementById(
       `editDialogContainer${number}`
     );
     const editDialog = document.getElementById(`editDialog${number}`);
-    editDialogContainer.classList.add("hidden");
-    editDialogContainer.classList.add("pointer-events-none");
-    editDialogContainer.classList.remove("fixed");
-    editDialogContainer.classList.remove("inset-0");
-    editDialogContainer.classList.remove("grid");
-    editDialogContainer.classList.remove("place-items-center");
-    editDialogContainer.classList.remove("bg-black");
-    editDialogContainer.classList.remove("bg-opacity-60");
-    editDialogContainer.classList.remove("opacity-100");
-    editDialogContainer.classList.remove("backdrop-blur-sm");
+    editDialogContainer.classList.add("hidden", "pointer-events-none");
+    editDialogContainer.classList.remove(
+      "fixed",
+      "inset-0",
+      "grid",
+      "place-items-center",
+      "bg-black",
+      "bg-opacity-60",
+      "opacity-100",
+      "backdrop-blur-sm"
+    );
 
-    editDialog.classList.remove("opacity-100");
-    editDialog.classList.remove("translate-y-0");
-    editDialog.classList.remove("scale-100");
+    editDialog.classList.remove("opacity-100", "translate-y-0", "scale-100");
 
-    editDialog.classList.add("-translate-y-28");
-    editDialog.classList.add("scale-90");
-    editDialog.classList.add("pointer-events-none");
+    editDialog.classList.add(
+      "-translate-y-28",
+      "scale-90",
+      "pointer-events-none"
+    );
   }
-
 
   if (buttonId.includes("next")) {
     if (isOnePageState) return;
@@ -313,8 +308,6 @@ function handleButtonClick(event) {
     }
   }
 
-
-
   if (buttonId.includes("previous")) {
     if (isOnePageState) return;
     if (currentPage === 1) return;
@@ -339,5 +332,4 @@ function handleButtonClick(event) {
       handlePagination(appointmentsDetails);
     }
   }
-
 }

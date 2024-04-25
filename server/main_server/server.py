@@ -135,7 +135,9 @@ def register():
             'role':'patient',
             'gender': gender,
             'age':int(age),
-            'address': address
+            'address': address,
+            'profilePic': ''
+
         }
         users.insert_one(user)
         token = create_access_token({
@@ -180,7 +182,7 @@ def get_patient_data():
         
         if not user: 
             return jsonify({ 'error': 'no patient found' }), 404
-        
+        print(user['profilePic']==True)
         user_data = {
             'email': user['email'],
             'name': user['name'],
@@ -188,7 +190,9 @@ def get_patient_data():
             'gender': user['gender'],
             'age': user['age'],
             'address': user['address'],
-            'phoneNumber': user['phoneNumber']
+            'phoneNumber': user['phoneNumber'],
+            'profilePic': user['profilePic'] 
+            
         }
         
         return jsonify(user_data)
@@ -263,7 +267,6 @@ def delete_user():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
-
 
 
 if __name__ == "__main__":
