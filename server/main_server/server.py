@@ -83,7 +83,7 @@ def login():
             token = create_access_token({
 			      'email': email,
             'role': user["role"]
-		},expires_delta=timedelta(seconds=15))
+		},expires_delta=timedelta(minutes= 60))
             refresh_token = create_refresh_token({
 			      'email': email,
             'role': user["role"]
@@ -141,7 +141,7 @@ def register():
         token = create_access_token({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(seconds= 15)
+            'exp' : datetime.utcnow() + timedelta(minutes= 60)
 		})
         refresh_token = create_refresh_token({
 			      'email': email,
@@ -204,8 +204,8 @@ def update_info():
         data = get_jwt_identity()
         email = data['email']
         new_info = request.get_json()
-        updated_info = users.find_one_and_update({ 'email': email }, { '$set': new_info }, upsert=True, return_document=ReturnDocument.AFTER)
-        # print('bala7 elsham')
+        users.find_one_and_update({ 'email': email }, { '$set': new_info }, upsert=True, return_document=ReturnDocument.AFTER)
+
 
         return jsonify({ 'status': 'success' })
     except:

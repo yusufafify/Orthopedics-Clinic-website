@@ -189,10 +189,10 @@
               </div>
               <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
                 <button
-                  class="select-none rounded-lg hidden md:block border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  class="select-none rounded-lg block border border-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   type="button">
                   <a href="./all_appointmemts/allAppointments.html">view all</a>
-                  
+
                 </button>
                 <button
                   class="flex select-none items-center gap-3 rounded-lg bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -207,7 +207,7 @@
                 </button>
               </div>
             </div>
-          
+
           </div>
           <div class="p-6 px-0 overflow-scroll">
             <table class="w-full mt-4 text-left table-auto min-w-max">
@@ -244,14 +244,23 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
+
+
+
+              <!--Table Body-->
+              <tbody id="appointment_table_body">
+
+
+
+
+
                 <tr>
                   <td class="p-4 border-b border-blue-gray-50">
                     <div class="flex items-center gap-3">
 
                       <div class="flex flex-col">
                         <p class="block font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                          Consultation
+                          test
                         </p>
 
                       </div>
@@ -281,7 +290,7 @@
                   <td class="p-4 border-b border-blue-gray-50">
 
 
-                    <!--Dialog button for Appointment Details-->
+
 
 
                     <button
@@ -297,7 +306,14 @@
                         class="relative m-4 w-screen md:w-2/5 min-w-[100%] md:min-w-[40%] md:max-w-[40%]  rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl">
                         <div
                           class="flex items-center p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900">
-                          Appointment Details
+                          <div class="flex justify-between items-center w-full">
+                            <h2>Appointment Details</h2>
+                            <div class="flex items-center justify-between">
+                              <button id="exitBtn">
+                                <img src="../../assets/imgs/xIcon.png" alt="exit icon" class="h-4 w-4">
+                              </button>
+                            </div>
+                          </div>
                         </div>
                         <div
                           class="relative grid gap-2 grid-cols-2 p-4 font-sans text-base antialiased font-light leading-relaxed border-t border-b border-t-blue-gray-100 border-b-blue-gray-100 text-blue-gray-500">
@@ -402,14 +418,20 @@
 
 
 
-                    <!--End of Dialog button for appointment Details-->
 
 
                   </td>
                 </tr>
 
 
+
+
+
+
               </tbody>
+              <!--End of Table Body-->
+
+
             </table>
           </div>
 
@@ -444,11 +466,12 @@
 
 
 
+<script src="./js/appointments.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
     <script src="./js/chart.js"></script>
     <script src="../js/sidebar_script.js"></script>
-
+    <!-- <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script> -->
+    
 </body>
 
 </html>
