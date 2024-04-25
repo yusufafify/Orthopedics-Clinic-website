@@ -201,18 +201,22 @@
 -->
 
 <style>h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
+  body { font-family: 'Inter', sans-serif; --font-sans: 'Inter';
+overflow-y:hidden;}
+  .card{ margin-top:-27px;}
+
   
-</style>
-<style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
 </style>
 <div class="flex flex-col w-full min-h-screen bg-gray-100 dark:bg-gray-900">
   
-  <main class="flex-1 p-6 md:p-10 lg:p-14 grid grid-cols-1 md:grid-cols-2 gap-10">
-    <div class="space-y-6">
+  <main class="flex-1 p-6 md:p-10 lg:p-14 grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-10">
+    <div class="card bg-white shadow rounded p-4 flex">
+    <div class="space-y-2">
+      <div class="flex-1">
       <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold">Welcome, Dr. Jane Doe!</h1>
       </div>
-      <div class="space-y-4">
+      <div class="space-y-2">
         <div>
           <h3 class="font-medium">Active Appointment</h3>
           <p>John Doe</p>
@@ -305,8 +309,41 @@
         </div>
       </div>
     </div>
-    <div class="space-y-6">
-      <h3 class="font-bold">Today's Appointments</h3>
+  </div>
+  <div class="space-y-2 space-x-10">
+    <div>
+      <h3 class="font-medium">&nbsp;</h3>
+ 
+    </div>
+    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
+    <div>
+      <h3 class="font-medium">Age</h3>
+      <p>22</p>
+    </div>
+    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
+    <div>
+      
+      <h3 class="font-medium">Phone Number</h3>
+      <p>0100</p>
+    </div>
+    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
+    <div>
+      <h3 class="font-medium">Appointment Type</h3>
+      <p>Follow-up</p>
+    </div>
+    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
+    <div>
+      <h3 class="font-medium">Payment Method</h3>
+      <p>Credit Card</p>
+    </div>
+    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
+    
+    
+  </div>
+</div>
+  <div class="card bg-white shadow rounded p-4">
+    <div class="space-y-2">
+      <h3 class="font-bold text-2xl">Today's Appointments</h3>
       <div class="grid gap-4 md:hidden">
         <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm">
           <div class="flex items-center justify-between">
@@ -779,15 +816,153 @@
                   </div>
                 </td>
               </tr>
+              <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">Sarah Lee</td>
+                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">2:00 PM</td>
+                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                  <div class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
+                    Pending
+                  </div>
+                </td>
+                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                  <div class="flex items-center gap-4">
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="w-4 h-4"
+                      >
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                        <line x1="16" x2="16" y1="2" y2="6"></line>
+                        <line x1="8" x2="8" y1="2" y2="6"></line>
+                        <line x1="3" x2="21" y1="10" y2="10"></line>
+                        <path d="m9 16 2 2 4-4"></path>
+                      </svg>
+                      <span class="sr-only">Confirm appointment</span>
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="w-4 h-4"
+                      >
+                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                        <line x1="16" x2="16" y1="2" y2="6"></line>
+                        <line x1="8" x2="8" y1="2" y2="6"></line>
+                        <line x1="3" x2="21" y1="10" y2="10"></line>
+                        <line x1="10" x2="14" y1="14" y2="18"></line>
+                        <line x1="14" x2="10" y1="14" y2="18"></line>
+                      </svg>
+                      <span class="sr-only">Deny appointment</span>
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="w-4 h-4"
+                      >
+                        <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"></path>
+                      </svg>
+                      <span class="sr-only">Edit appointment</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
+      
+      </div>
+      
+
       <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 justify-self-start">
         Show all appointments
       </button>
     </div>
+    <div class="card bg-white h-5/6 shadow rounded">
+      <div class="p-4">
+        <h3 class="font-bold text-2xl">Record</h3>
+        <div class="mt-2 bg-white overflow-auto h-60 p-2 border rounded " contenteditable="true">
+          <!-- Your data from the backend server will go here -->
+        </div>
+        <div class="text-right">
+          <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Submit
+          </button>
+        </div>
+      </div>
+  </div>
+
+  <!-- Empty Card 2 -->
+  <div class="card bg-white shadow rounded p-4 h-5/6 overflow-x-auto">
+
+    <div id="container1" class="p-2 rounded overflow-y-hidden h-80">
+      <h3 class="font-bold text-2xl w-fit">Images</h3>
+      <div class="flex space-x-4 mt-2 ">
+        <!-- Your images will go here -->
+        <div class="flex-none">
+          <img src="../Doctor/js/image1.jpg" class="w-48 h-48 object-cover cursor-pointer" onclick="openModal('../Doctor/js/image1.jpg')" />
+          <p class="mt-2 font-medium">Description for Image 1</p>
+          <p class="text-sm text-gray-500">Date for Image 1</p>
+        </div>
+        <div class="flex-none">
+          <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer" onclick="openModal('../Doctor/js/image2.jpg')" />
+          <p class="mt-2 h-10 font-medium">Description for Image 2</p>
+          <p class="text-sm text-gray-500">Date for Image 2</p>
+        </div>
+        <div class="flex-none">
+          <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer" onclick="openModal('../Doctor/js/image2.jpg')" />
+          <p class="mt-2 h-10 font-medium">Description for Image 2</p>
+          <p class="text-sm text-gray-500">Date for Image 2</p>
+        </div>
+        <div class="flex-none">
+          <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer" onclick="openModal('../Doctor/js/image2.jpg')" />
+          <p class="mt-2 h-10 font-medium">Description for Image 2</p>
+          <p class="text-sm text-gray-500">Date for Image 2</p>
+        </div>
+        <!-- Add more images as needed -->
+      </div>
+      
+    </div>
+  </div>
   </main>
+</div>
+
+<div id="modal" class="fixed z-10 inset-0 overflow-x-auto hidden">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full relative pt-10">
+      <button onclick="closeModal()" class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+      <img id="modal-image" src="" class="w-full h-full object-cover" />
+    </div>
+  </div>
 </div>
 
 
@@ -801,7 +976,7 @@
 
 
 
-  <script src="./js/admin.js"></script>
+  <script src="./js/doctor.js"></script>
 </body>
 </html>
 
