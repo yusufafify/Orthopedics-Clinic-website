@@ -3,9 +3,9 @@
 
   //DATA received in this format
     const sampleData = [
-        { id: 1, name: "Alice Smith", email: "doc@gmail.com", phone:"01212342134 ", workingHours: "8-3", salary: "10000"},
-        { id: 2, name: "Bob Johnson", email: "doc2@gmail.com", phone:"01212336434 ", workingHours: "9-3", salary: "10000"},
-        { id: 3, name: "Carol Williams", email: "doc@3gmail.com", phone:"01254342134 ", workingHours: "8-2",salary: "10000" },
+        { id: '1', name: "Alice Smith", email: "doc@gmail.com", phone:"01212342134 ", workingHours: "8-3", salary: "10000"},
+        { id: '2', name: "Bob Johnson", email: "doc2@gmail.com", phone:"01212336434 ", workingHours: "9-3", salary: "10000"},
+        { id: '3', name: "Carol Williams", email: "doc@3gmail.com", phone:"01254342134 ", workingHours: "8-2",salary: "10000" },
         
     ];
 
@@ -26,6 +26,7 @@
         
         const data = sampleData; // Use the sample data array
         const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+        const searchInput = document.getElementById('search');
     
         // Clear existing data in table body
         tableBody.innerHTML = ' ';
@@ -111,6 +112,56 @@
         });
       });
     
+
+
+
+
+function renderTable(filteredData) {
+        tableBody.innerHTML = ''; // Clear the table first
+        
+        filteredData.forEach(item => {
+            const row = tableBody.insertRow();
+            row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
+    
+            // Creating cells as per your existing setup
+            const cells = ['id', 'name', 'email', 'phone', 'workingHours'].map(key => {
+                const cell = row.insertCell();
+                cell.textContent = item[key];
+                cell.className = "p-4   hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
+                return cell;
+            });
+    
+            const editCell = row.insertCell();
+            editCell.className = "p-4   hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "\u2026";
+            editBtn.onclick = function() {
+                openModal(item);
+            };
+            editCell.appendChild(editBtn);
+        });
+    }
+
+
+
+
+
+
+
+
+// Event listener for the search bar input
+searchInput.addEventListener('input', () => {
+    const searchText = searchInput.value.trim();
+    if (!searchText) {
+        renderTable(data); // If no input, show all data
+        return;
+    }
+
+    // Filter data based on ID match
+    const filteredData = data.filter(item => item.id.includes(searchText));
+    renderTable(filteredData)
+   
+});
 
 
       
