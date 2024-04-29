@@ -157,7 +157,6 @@ const updateData = async (updatedData) => {
       },
       body: JSON.stringify(updatedData),
     });
-    const data = await response.json();
   
   } catch (error) {
     console.error("Error:", error);

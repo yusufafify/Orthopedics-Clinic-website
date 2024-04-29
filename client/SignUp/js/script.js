@@ -76,7 +76,7 @@ async function register(){
       })
     })
     const data = await response.json();
-    console.log(data);
+  
     
     localStorage.setItem("token", data.token);
     console.log(localStorage.getItem("token"));
