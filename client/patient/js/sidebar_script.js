@@ -46,7 +46,7 @@ navLinks.forEach((link, index) => {
 
 
 //fetch function to get user data from the server and check on the status
-fetch("http://localhost:8080/personal_data", {
+fetch("http://localhost:8008/personal_data", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",

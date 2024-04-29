@@ -23,7 +23,7 @@ document.getElementById('loginform').addEventListener('submit', function(event) 
 function login(){
   let email=document.getElementById('email').value;
   let password=document.getElementById('password').value;
-  fetch('http://localhost:8080/login',{
+  fetch('http://localhost:8008/login',{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -43,10 +43,10 @@ function login(){
       window.location.href = 'http://127.0.0.1:5500/client/patient/patient.html';
     }
     else if(data.role=='doctor'){
-      window.location.href = 'http://127.0.0.1:5500/client/doctor/doctor.html';
+      window.location.href = 'http://127.0.0.1:5500/client/Doctor/doctor.html';
     }
     else if(data.role=='admin'){
-      window.location.href = 'http://127.0.0.1:5500/client/admin/admin.html';
+      window.location.href = 'http://127.0.0.1:5500/client/Admin/admin.html';
     }
 
   })

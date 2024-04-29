@@ -1,4 +1,4 @@
-// fetch('http://localhost:8080/', {
+// fetch('http://localhost:8008/', {
 //     method: 'GET',
 //     headers: {
 //       'Content-Type': 'application/json'
@@ -16,7 +16,7 @@
 
 
 
-fetch('http://localhost:8080/check_token', {
+fetch('http://localhost:8008/check_token', {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
