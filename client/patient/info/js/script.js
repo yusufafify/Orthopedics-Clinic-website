@@ -38,7 +38,7 @@ modal.addEventListener("click", function (e) {
 });
 
 //fetch function to get user data from the server
-fetch("http://localhost:8080/personal_data", {
+fetch("http://localhost:8008/personal_data", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
@@ -149,7 +149,7 @@ const getImageUrlAndUpdateData = async () => {
 
 const updateData = async (updatedData) => {
   try {
-    const response = await fetch("http://localhost:8080/update_data", {
+    const response = await fetch("http://localhost:8008/update_data", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
