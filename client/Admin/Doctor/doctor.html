@@ -89,7 +89,7 @@
   
           <!--Navigation 3-->
           <li>
-            <a href="./appointments.html" class="flex items-center p-2 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-100  group">
+            <a href="../Appointments/appointments.html" class="flex items-center p-2 text-gray-900  rounded-lg hover:bg-gray-100  group">
   
               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 ml-[-2px] transition duration-75 group-hover:text-gray-900 "
                 fill="currentColor" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +155,7 @@
 
           <!--Navigation 6-->
           <li>
-            <a href="../Doctor/doctor.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+            <a href="./doctor.html" class="flex items-center p-2 text-gray-900 rounded-lg bg-gray-100  hover:bg-gray-100  group">
               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                 <path
@@ -212,11 +212,11 @@
                 
               </a>
               <div class="flex-1">
-                <h1 class="font-bold text-lg text-black">Appointments</h1>
+                <h1 class="font-bold text-lg text-black">Doctors</h1>
               </div>
 
               <div class='max-w-md mx-auto'>
-                <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+                <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg outline-none overflow-hidden">
                     <div class="grid place-items-center h-full w-12 text-gray-300">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -227,14 +227,12 @@
                     class="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
                     type="text"
                     id="search"
-                    placeholder="Search Appointments.." /> 
+                    placeholder="Search Doctors.." /> 
                 </div>
             </div>
-              <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
-                New Appointment
-              </button>
-
-              
+              <a href="../Create Employee/createEmployee.html" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">
+                New Doctor
+            </a>
             </header>
         <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
             <div class="border shadow-sm rounded-lg p-2">
@@ -245,21 +243,17 @@
                       <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px]">
                         ID
                       </th>
-                      <th class="h-10 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[100px]">
-                        Patient
-                      </th>
-
-                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[100px]">
-                        Doctor
+                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[150px]">
+                        Name
                       </th>
                       <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-                        Date
+                        Email
                       </th>
                       <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-                        Time
+                        Phone Number
                       </th>
                       <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">
-                        Payment
+                        Working hours
                       </th>
                       <th class="h-12 px-4 align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-6 text-right">
                         Actions
@@ -471,23 +465,27 @@ class="pointer-events-none fixed inset-0 z-[1000] grid h-screen w-screen place-i
     class="relative m-4 w-2/5 min-w-[40%] max-w-[40%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl"
     style="pointer-events: auto; z-index: 1001;">
     <div class="flex items-center p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900" id="modalTitle">
-      Appointment Details
+      Doctor Details
     </div>
     <div class="relative p-4 font-sans text-base antialiased font-light leading-relaxed border-t border-b border-t-blue-gray-100 border-b-blue-gray-100 text-blue-gray-500">
-      <p><strong>Patient's Name:</strong> <input type="text" id="modalName" class="input-modal"></p>
-      <p><strong>Date:</strong> <input type="text" id="modalDate" class="input-modal"></p>
-      <p><strong>Time:</strong> <input type="text" id="modalTime" class="input-modal"></p>
-      <p><strong>Status:</strong> <input type="text" id="modalStatus" class="input-modal"></p>
+        
+        <p style="display: inline-block; margin-right: 20px;"><strong>Name:</strong> <input type="text" id="modalName" class="input-modal"></p>
+        <p style="display: inline-block;"><strong>Email:</strong> <input type="email" id="modalEmail" class="input-modal"></p>
+        
+        
+        <p style="display: inline-block; margin-right: 18px;"><strong>Phone:</strong> <input type="tel" id="modalPhone" class="input-modal"></p>
+        <p style="display: inline-block;"><strong>Working Hours:</strong> <input type="text" id="modalWork" class="input-modal"></p>
+        <p style="display: inline-block; margin-right: 20px;"><strong>Salary:</strong> <input type="text" id="modalSalary" class="input-modal"></p>
     </div>
+    
     <div class="flex flex-wrap items-center justify-end p-4 shrink-0 text-blue-gray-500">
-      <button data-ripple-dark="true" data-dialog-close="true"
+        <button data-ripple-dark="true" data-dialog-close="true"
         style="display: block; text-align: left; margin-right: auto;"
         id="deleteBtn"
         class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
         Delete
       </button>
       <button data-ripple-dark="true" data-dialog-close="true"
-        
         class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
         Cancel
       </button>
@@ -501,7 +499,7 @@ class="pointer-events-none fixed inset-0 z-[1000] grid h-screen w-screen place-i
 
 
 
-<script src="./js/appointments.js"></script>
+<script src="./js/doctor.js"></script>
 </body>
 
 

@@ -143,7 +143,7 @@
   
            <!--Navigation 5-->
            <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+            <a href="./Patients/patients.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                 <path
@@ -156,7 +156,7 @@
 
           <!--Navigation 6-->
           <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+            <a href="./Doctor/doctor.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
               <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                 <path
@@ -341,7 +341,7 @@
                       <div class="shadow p-6 rounded-lg bg-white">
                         <div class="md:flex md:justify-between md:items-center">
                           <div>
-                            <h2 class="text-xl text-gray-800 font-bold leading-tight">Product Sales</h2>
+                            <h2 class="text-xl text-gray-800 font-bold leading-tight">Total Appointments</h2>
                             <p class="mb-2 text-gray-600 text-sm">Monthly Average</p>
                           </div>
                 
@@ -416,7 +416,7 @@
                       <div class="shadow p-6 rounded-lg bg-white">
                         <div class="md:flex md:justify-between md:items-center">
                           <div>
-                            <h2 class="text-xl text-gray-800 font-bold leading-tight">Product Sales</h2>
+                            <h2 class="text-xl text-gray-800 font-bold leading-tight">Revenue</h2>
                             <p class="mb-2 text-gray-600 text-sm">Monthly Average</p>
                           </div>
                 
@@ -481,6 +481,7 @@
                       </div>
                     </div>
                   </div>
+        
 
 
                   <!--End of Chart2-->
@@ -520,52 +521,262 @@
             <!--Recent Appointments-->
             <section class="mt-8">
               <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-                <div class="flex flex-col space-y-1.5 p-6">
-                  <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
-                    Recent Appointments
-                  </h3>
-                  <p class="text-sm text-muted-foreground">List of appointments in the last 7 days</p>
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                  <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                    <div class="flex justify-between items-center p-6">
+                        <div>
+                            <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">
+                                Recent Appointments
+                            </h3>
+                            <p class="text-sm text-muted-foreground">List of appointments in the last 7 days</p>
+                        </div>
+                
+                        <div class="relative flex items-center">
+                            <div class="grid place-items-center h-full w-12 text-gray-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>
+                            <input
+                                class="peer h-full w-full md:w-40 outline-none text-sm text-gray-700 pr-2"
+                                type="text"
+                                id="search"
+                                placeholder="Search Appointments.." />
+                        </div>
+                    </div>
                 </div>
+                
+              
+
+
+
+
+
                 <div class="p-0">
-                  <div class="relative w-full overflow-auto">
-                    <table class="w-full caption-bottom text-sm">
-                      <thead class="[&amp;_tr]:border-b">
-                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                          <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px]">
-                            Patient
-                          </th>
-                          <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Doctor
-                          </th>
-                          <th class="h-12 px-4 align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 text-right">
-                            Date
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody class="[&amp;_tr:last-child]:border-0">
-                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">
-                            John Doe (ID: 123)
-                          </td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Dr. Smith</td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">2:00 PM</td>
-                        </tr>
-                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">
-                            Alice Johnson (ID: 456)
-                          </td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Dr. Parker</td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">3:30 PM</td>
-                        </tr>
-                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">
-                            Mark Lee (ID: 789)
-                          </td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Dr. Brown</td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">4:15 PM</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="border shadow-sm rounded-lg p-2">
+                    <div class="relative w-full overflow-auto">
+                      <table id="data-table"class="w-full caption-bottom text-sm">
+                        <thead class="[&amp;_tr]:border-b">
+                          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px]">
+                              ID
+                            </th>
+                            <th class="h-10 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[100px]">
+                              Patient
+                            </th>
+      
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[100px]">
+                              Doctor
+                            </th>
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              Date
+                            </th>
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              Time
+                            </th>
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">
+                              Payment
+                            </th>
+                            <th class="h-12 px-4 align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-6 text-right">
+                              Actions
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="[&amp;_tr:last-child]:border-0">
+                          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">1</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Hannah Smith</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Ahmed Mohamed</td>
+
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              12th March, 2022
+                            </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">10:00 AM</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                                type="button"
+                                id="radix-:rk:"
+                                aria-haspopup="menu"
+                                aria-expanded="false"
+                                data-state="closed"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="w-4 h-4"
+                                >
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                                <span class="sr-only">Actions</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">2</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">David Johnson</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Ahmed Mohamed</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              15th March, 2022
+                            </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">11:30 AM</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                                type="button"
+                                id="radix-:rm:"
+                                aria-haspopup="menu"
+                                aria-expanded="false"
+                                data-state="closed"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="w-4 h-4"
+                                >
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                                <span class="sr-only">Actions</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">3</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Sophia Williams</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Ahmed Mohamed</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              18th March, 2022
+                            </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">9:45 AM</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                                type="button"
+                                id="radix-:ro:"
+                                aria-haspopup="menu"
+                                aria-expanded="false"
+                                data-state="closed"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="w-4 h-4"
+                                >
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                                <span class="sr-only">Actions</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">4</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Oliver Brown</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Ahmed Mohamed</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              20th March, 2022
+                            </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">3:15 PM</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                                type="button"
+                                id="radix-:rq:"
+                                aria-haspopup="menu"
+                                aria-expanded="false"
+                                data-state="closed"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="w-4 h-4"
+                                >
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                                <span class="sr-only">Actions</span>
+                              </button>
+                            </td>
+                          </tr>
+                          <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">5</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Emily Taylor</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">Ahmed Mohamed</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                              25th March, 2022
+                            </td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">2:45 PM</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">Booked</td>
+                            <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                                type="button"
+                                id="radix-:rs:"
+                                aria-haspopup="menu"
+                                aria-expanded="false"
+                                data-state="closed"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="w-4 h-4"
+                                >
+                                  <circle cx="12" cy="12" r="1"></circle>
+                                  <circle cx="19" cy="12" r="1"></circle>
+                                  <circle cx="5" cy="12" r="1"></circle>
+                                </svg>
+                                <span class="sr-only">Actions</span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -579,7 +790,38 @@
 
 
 
-
+<!-- Modal structure -->
+<div data-dialog-backdrop="dialog" data-dialog-backdrop-close="true"
+class="pointer-events-none fixed inset-0 z-[1000] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300 hidden">
+  <div data-dialog="dialog"
+    class="relative m-4 w-2/5 min-w-[40%] max-w-[40%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl"
+    style="pointer-events: auto; z-index: 1001;">
+    <div class="flex items-center p-4 font-sans text-2xl antialiased font-semibold leading-snug shrink-0 text-blue-gray-900" id="modalTitle">
+      Appointment Details
+    </div>
+    <div class="relative p-4 font-sans text-base antialiased font-light leading-relaxed border-t border-b border-t-blue-gray-100 border-b-blue-gray-100 text-blue-gray-500">
+      <p><strong>Patient's Name:</strong> <input type="text" id="modalName" class="input-modal"></p>
+      <p><strong>Date:</strong> <input type="text" id="modalDate" class="input-modal"></p>
+      <p><strong>Time:</strong> <input type="text" id="modalTime" class="input-modal"></p>
+      <p><strong>Status:</strong> <input type="text" id="modalStatus" class="input-modal"></p>
+    </div>
+    <div class="flex flex-wrap items-center justify-end p-4 shrink-0 text-blue-gray-500">
+      <button data-ripple-dark="true" data-dialog-close="true"
+        style="display: block; text-align: left; margin-right: auto;"
+        class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        Delete
+      </button>
+      <button data-ripple-dark="true" data-dialog-close="true"
+        class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        Cancel
+      </button>
+      <button data-ripple-light="true" data-dialog-close="true"
+        class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
 
 
 

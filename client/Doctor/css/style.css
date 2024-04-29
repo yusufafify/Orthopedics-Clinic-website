@@ -1,0 +1,51 @@
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+  
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Place the tooltip above the button */
+    left: 50%;
+    margin-left: -60px; /* Use half of the width to center the tooltip */
+  
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Inter', sans-serif;
+    --font-sans: 'Inter';
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    --font-sans: 'Inter';
+    overflow-y: hidden;
+  }
+
+  .card {
+    margin-top: -27px;
+  }
+
+ 
