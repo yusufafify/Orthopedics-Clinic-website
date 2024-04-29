@@ -61,7 +61,7 @@
 
     <!--Side Bar Navigations-->
     <div class="h-full px-3 py-4 overflow-y-auto bg-[#a4d6d6] text-white">
-      <ul class="space-y-3 font-bold">
+      <ul class="space-y-2 font-bold">
 
         <!--Navigation 1-->
         <li>
@@ -205,23 +205,23 @@
 // https://v0.dev/t/vMm9uYdn0q6
 -->
 
-    
+
         <link rel="stylesheet" href="../Doctor/css/style.css">
-  
+
         <div class="flex flex-col w-full min-h-screen bg-gray-100">
 
           <main class="flex-1 p-6 md:p-10 lg:p-14 grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-11">
             <div class="card bg-white shadow rounded p-4 flex">
-              <div class="space-y-3">
+              <div class="space-y-5">
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
                     <h1 class="text-2xl font-bold">Welcome, Dr. Jane Doe!</h1>
                   </div>
-                  <div class="space-y-3">
+                  <div class="space-y-6">
                     <div>
                       <h6 class="font-medium">&nbsp;</h6>
                       <h3 class="font-medium">Active Appointment</h3>
-                     
+
                       <p>John Doe</p>
                     </div>
                     <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4">
@@ -236,65 +236,22 @@
                       <h3 class="font-medium">Number</h3>
                       <p>56</p>
                     </div>
-                    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4">
-                    </div>
-                    <div>
-                      <h3 class="font-medium">Provider</h3>
-                      <p>Dr. Jane Doe</p>
-                    </div>
-                    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4">
-                    </div>
                   
-                    <div class="flex items-center gap-4">
-                      <button
-                      title="Edit appointment"
-                      onclick="openEditCurrentModal()"
-                      class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4 mx-auto">
-                          <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"></path>
-                        </svg>
-                        <span class="sr-only">Edit appointment</span>
-                      </button>
-                      <button
-                      onclick="openFinalizeModal()"
-                      title="Finalize appointment"
-                      class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4 mx-auto">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <path d="m9 16 2 2 4-4"></path>
-                        </svg>
-                        <span class="sr-only">Finalize appointment</span>
-                      </button>
-                      <button
-                      onclick="openCancelCurrentModal()"
-                      title="Cancel appointment"
-                      class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4 mx-auto">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <line x1="10" x2="14" y1="14" y2="18"></line>
-                          <line x1="14" x2="10" y1="14" y2="18"></line>
-                        </svg>
-                        <span class="sr-only">Cancel appointment</span>
-                      </button>
+                    <div>
+                    <!-- button to view patient info -->
+              
+                    <button onclick="viewPatientInfo()" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      View Patient Info
+                    </button>
                     </div>
+                    <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4">
+                    </div>
+
+                    
                   </div>
                 </div>
               </div>
-              <div class="space-y-3 space-x-10">
+              <div class="space-y-6 space-x-10">
                 <div>
                   <h5 class="font-medium">&nbsp;</h5>
 
@@ -315,179 +272,47 @@
                   <h3 class="font-medium">Appointment Type</h3>
                   <p>Follow-up</p>
                 </div>
-                <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
-                <div>
-                  <h3 class="font-medium">Payment Method</h3>
-                  <p>Credit Card</p>
+                <div class="flex items-center gap-4">
+
+                  <button onclick="openModal('finalizeModal')" title="Finalize appointment"
+                    class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="w-4 h-4 mx-auto">
+                      <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                      <line x1="16" x2="16" y1="2" y2="6"></line>
+                      <line x1="8" x2="8" y1="2" y2="6"></line>
+                      <line x1="3" x2="21" y1="10" y2="10"></line>
+                      <path d="m9 16 2 2 4-4"></path>
+                    </svg>
+                    <span class="sr-only">Finalize appointment</span>
+                  </button>
+                  <button onclick="openModal('cancelModal')" title="Cancel appointment"
+                    class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="w-4 h-4 mx-auto">
+                      <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                      <line x1="16" x2="16" y1="2" y2="6"></line>
+                      <line x1="8" x2="8" y1="2" y2="6"></line>
+                      <line x1="3" x2="21" y1="10" y2="10"></line>
+                      <line x1="10" x2="14" y1="14" y2="18"></line>
+                      <line x1="14" x2="10" y1="14" y2="18"></line>
+                    </svg>
+                    <span class="sr-only">Cancel appointment</span>
+                  </button>
                 </div>
-                <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
+       
 
 
               </div>
             </div>
-            <div class="card bg-white shadow rounded p-4">
+            <div class="card bg-white shadow rounded p-8">
               <div class="space-y-3">
                 <h3 class="font-bold text-2xl">Today's Appointments</h3>
-                <div class="grid gap-4 md:hidden">
-                  <div class="bg-white rounded-lg p-4 shadow-sm">
-                    <div class="flex items-center justify-between">
-                      <div>
-                        <h4 class="font-medium">Jane Smith</h4>
-                        <p class="text-gray-500  text-sm">59</p>
-                      </div>
-                      <div
-                        class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
-                        Pending
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-end gap-4 mt-4">
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <path d="m9 16 2 2 4-4"></path>
-                        </svg>
-                        <span class="sr-only">Confirm appointment</span>
-                      </button>
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <line x1="10" x2="14" y1="14" y2="18"></line>
-                          <line x1="14" x2="10" y1="14" y2="18"></line>
-                        </svg>
-                        <span class="sr-only">Deny appointment</span>
-                      </button>
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"></path>
-                        </svg>
-                        <span class="sr-only">Edit appointment</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="bg-white rounded-lg p-4 shadow-sm">
-                    <div class="flex items-center justify-between">
-                      <div>
-                        <h4 class="font-medium">Michael Johnson</h4>
-                        <p class="text-gray-500 text-sm">60</p>
-                      </div>
-                      <div
-                        class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
-                        Confirmed
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-end gap-4 mt-4">
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <path d="m9 16 2 2 4-4"></path>
-                        </svg>
-                        <span class="sr-only">Confirm appointment</span>
-                      </button>
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <line x1="10" x2="14" y1="14" y2="18"></line>
-                          <line x1="14" x2="10" y1="14" y2="18"></line>
-                        </svg>
-                        <span class="sr-only">Deny appointment</span>
-                      </button>
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"></path>
-                        </svg>
-                        <span class="sr-only">Edit appointment</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="bg-white rounded-lg p-4 shadow-sm">
-                    <div class="flex items-center justify-between">
-                      <div>
-                        <h4 class="font-medium">Sarah Lee</h4>
-                        <p class="text-gray-500 text-sm">60</p>
-                      </div>
-                      <div
-                        class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
-                        Pending
-                      </div>
-                    </div>
-                    <div class="flex items-center justify-end gap-4 mt-4">
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <path d="m9 16 2 2 4-4"></path>
-                        </svg>
-                        <span class="sr-only">Confirm appointment</span>
-                      </button>
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                          <line x1="16" x2="16" y1="2" y2="6"></line>
-                          <line x1="8" x2="8" y1="2" y2="6"></line>
-                          <line x1="3" x2="21" y1="10" y2="10"></line>
-                          <line x1="10" x2="14" y1="14" y2="18"></line>
-                          <line x1="14" x2="10" y1="14" y2="18"></line>
-                        </svg>
-                        <span class="sr-only">Deny appointment</span>
-                      </button>
-                      <button
-                        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                          class="w-4 h-4">
-                          <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                          <polyline points="14 2 14 8 20 8"></polyline>
-                          <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"></path>
-                        </svg>
-                        <span class="sr-only">Edit appointment</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="hidden md:block">
-                  <div class="relative w-full overflow-auto">
+
+                <div class="hidden md:block  h-full overflow-auto">
+                  <div class="relative w-full overflow-auto h-80">
                     <table class="w-full caption-bottom text-sm">
                       <thead class="[&amp;_tr]:border-b">
                         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -503,9 +328,8 @@
                             class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                             Type
                           </th>
-                          <th
-                            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                            Actions
+                          <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                           Confirm
                           </th>
                         </tr>
                       </thead>
@@ -522,6 +346,7 @@
                           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                             <div class="flex items-center gap-4">
                               <button
+                              onclick="openModal('confirmModal')"
                                 class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -534,32 +359,8 @@
                                 </svg>
                                 <span class="sr-only">Confirm appointment</span>
                               </button>
-                              <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                                  <line x1="16" x2="16" y1="2" y2="6"></line>
-                                  <line x1="8" x2="8" y1="2" y2="6"></line>
-                                  <line x1="3" x2="21" y1="10" y2="10"></line>
-                                  <line x1="10" x2="14" y1="14" y2="18"></line>
-                                  <line x1="14" x2="10" y1="14" y2="18"></line>
-                                </svg>
-                                <span class="sr-only">Deny appointment</span>
-                              </button>
-                              <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                                  <polyline points="14 2 14 8 20 8"></polyline>
-                                  <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z">
-                                  </path>
-                                </svg>
-                                <span class="sr-only">Edit appointment</span>
-                              </button>
+                              
+
                             </div>
                           </td>
                         </tr>
@@ -588,32 +389,8 @@
                                 </svg>
                                 <span class="sr-only">Confirm appointment</span>
                               </button>
-                              <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                                  <line x1="16" x2="16" y1="2" y2="6"></line>
-                                  <line x1="8" x2="8" y1="2" y2="6"></line>
-                                  <line x1="3" x2="21" y1="10" y2="10"></line>
-                                  <line x1="10" x2="14" y1="14" y2="18"></line>
-                                  <line x1="14" x2="10" y1="14" y2="18"></line>
-                                </svg>
-                                <span class="sr-only">Deny appointment</span>
-                              </button>
-                              <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                                  <polyline points="14 2 14 8 20 8"></polyline>
-                                  <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z">
-                                  </path>
-                                </svg>
-                                <span class="sr-only">Edit appointment</span>
-                              </button>
+                              
+
                             </div>
                           </td>
                         </tr>
@@ -641,6 +418,22 @@
                                 </svg>
                                 <span class="sr-only">Confirm appointment</span>
                               </button>
+                              
+
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">Sarah Lee</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">61</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div
+                              class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
+                              Examination
+                            </div>
+                          </td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div class="flex items-center gap-4">
                               <button
                                 class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -650,23 +443,99 @@
                                   <line x1="16" x2="16" y1="2" y2="6"></line>
                                   <line x1="8" x2="8" y1="2" y2="6"></line>
                                   <line x1="3" x2="21" y1="10" y2="10"></line>
-                                  <line x1="10" x2="14" y1="14" y2="18"></line>
-                                  <line x1="14" x2="10" y1="14" y2="18"></line>
+                                  <path d="m9 16 2 2 4-4"></path>
                                 </svg>
-                                <span class="sr-only">Deny appointment</span>
+                                <span class="sr-only">Confirm appointment</span>
                               </button>
+                             
+
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">Sarah Lee</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">61</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div
+                              class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
+                              Examination
+                            </div>
+                          </td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div class="flex items-center gap-4">
                               <button
                                 class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                   stroke-linejoin="round" class="w-4 h-4">
-                                  <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                                  <polyline points="14 2 14 8 20 8"></polyline>
-                                  <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z">
-                                  </path>
+                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                                  <line x1="16" x2="16" y1="2" y2="6"></line>
+                                  <line x1="8" x2="8" y1="2" y2="6"></line>
+                                  <line x1="3" x2="21" y1="10" y2="10"></line>
+                                  <path d="m9 16 2 2 4-4"></path>
                                 </svg>
-                                <span class="sr-only">Edit appointment</span>
+                                <span class="sr-only">Confirm appointment</span>
                               </button>
+                  
+
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">Sarah Lee</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">61</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div
+                              class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
+                              Examination
+                            </div>
+                          </td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div class="flex items-center gap-4">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="w-4 h-4">
+                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                                  <line x1="16" x2="16" y1="2" y2="6"></line>
+                                  <line x1="8" x2="8" y1="2" y2="6"></line>
+                                  <line x1="3" x2="21" y1="10" y2="10"></line>
+                                  <path d="m9 16 2 2 4-4"></path>
+                                </svg>
+                                <span class="sr-only">Confirm appointment</span>
+                              </button>
+                             
+
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">Sarah Lee</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">61</td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div
+                              class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
+                              Examination
+                            </div>
+                          </td>
+                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                            <div class="flex items-center gap-4">
+                              <button
+                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="w-4 h-4">
+                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                                  <line x1="16" x2="16" y1="2" y2="6"></line>
+                                  <line x1="8" x2="8" y1="2" y2="6"></line>
+                                  <line x1="3" x2="21" y1="10" y2="10"></line>
+                                  <path d="m9 16 2 2 4-4"></path>
+                                </svg>
+                                <span class="sr-only">Confirm appointment</span>
+                              </button>
+                             
+
                             </div>
                           </td>
                         </tr>
@@ -694,32 +563,8 @@
                                 </svg>
                                 <span class="sr-only">Confirm appointment</span>
                               </button>
-                              <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                                  <line x1="16" x2="16" y1="2" y2="6"></line>
-                                  <line x1="8" x2="8" y1="2" y2="6"></line>
-                                  <line x1="3" x2="21" y1="10" y2="10"></line>
-                                  <line x1="10" x2="14" y1="14" y2="18"></line>
-                                  <line x1="14" x2="10" y1="14" y2="18"></line>
-                                </svg>
-                                <span class="sr-only">Deny appointment</span>
-                              </button>
-                              <button
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                                  <polyline points="14 2 14 8 20 8"></polyline>
-                                  <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z">
-                                  </path>
-                                </svg>
-                                <span class="sr-only">Edit appointment</span>
-                              </button>
+                              
+
                             </div>
                           </td>
                         </tr>
@@ -730,14 +575,8 @@
 
               </div>
 
-              <a href="../Doctor/Appointments/appointments.html">
-                <button
-                  class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 justify-self-start">
-                  Show all appointments
-                </button>
-              </a>
             </div>
-            <div class="card bg-white h-5/6 shadow rounded">
+            <div class="card bg-white h-full shadow rounded">
               <div class="p-4">
                 <h3 class="font-bold text-2xl">Record</h3>
                 <div class="mt-2 bg-white overflow-auto h-60 p-2 border rounded " contenteditable="true">
@@ -751,34 +590,38 @@
               </div>
             </div>
 
-            <!-- Empty Card 2 -->
-            <div class="card bg-white shadow rounded p-4 h-5/6 overflow-x-auto">
 
-              <div id="container1" class="p-2 rounded overflow-y-hidden h-80">
+            <div class="card bg-white shadow rounded p-4 h-full overflow-x-auto overflow-y-hidden">
+
+              <div id="container1" class="p-2 rounded  h-80">
                 <h3 class="font-bold text-2xl w-fit">Images</h3>
                 <div class="flex space-x-4 mt-2 ">
                   <!-- Your images will go here -->
                   <div class="flex-none">
-                    <img src="../Doctor/js/image1.jpg" class="w-48 h-48 object-cover cursor-pointer"
-                      onclick="openModal('../Doctor/js/image1.jpg')" />
+                    <a href="../Doctor/js/image1.jpg" data-lightbox="image-1" data-title="Description for Image 2">
+                      <img src="../Doctor/js/image1.jpg" class="w-48 h-48 object-cover cursor-pointer" />
+                    </a>
                     <p class="mt-2 h-7 font-medium">Description for Image 1</p>
                     <p class="text-sm text-gray-500">Date for Image 1</p>
                   </div>
                   <div class="flex-none">
-                    <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer"
-                      onclick="openModal('../Doctor/js/image2.jpg')" />
+                    <a href="../Doctor/js/image2.jpg" data-lightbox="image-1" data-title="Description for Image 2">
+                      <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer" />
+                    </a>
                     <p class="mt-2 h-7 font-medium">Description for Image 2</p>
                     <p class="text-sm text-gray-500">Date for Image 2</p>
                   </div>
                   <div class="flex-none">
-                    <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer"
-                      onclick="openModal('../Doctor/js/image2.jpg')" />
+                    <a href="../Doctor/js/image2.jpg" data-lightbox="image-1" data-title="Description for Image 2">
+                      <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer" />
+                    </a>
                     <p class="mt-2 h-7 font-medium">Description for Image 2</p>
                     <p class="text-sm text-gray-500">Date for Image 2</p>
                   </div>
                   <div class="flex-none">
-                    <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer"
-                      onclick="openModal('../Doctor/js/image2.jpg')" />
+                    <a href="../Doctor/js/image2.jpg" data-lightbox="image-1" data-title="Description for Image 2">
+                      <img src="../Doctor/js/image2.jpg" class="w-48 h-48 object-cover cursor-pointer" />
+                    </a>
                     <p class="mt-2 h-7 font-medium">Description for Image 2</p>
                     <p class="text-sm text-gray-500">Date for Image 2</p>
                   </div>
@@ -791,7 +634,38 @@
         </div>
 
 
-       <!-- Images Modal -->
+        <div class="flex items-center gap-4">
+
+          <button onclick="openModal(self,'finalizeModal')" title="Finalize appointment"
+            class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="w-4 h-4 mx-auto">
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+              <line x1="16" x2="16" y1="2" y2="6"></line>
+              <line x1="8" x2="8" y1="2" y2="6"></line>
+              <line x1="3" x2="21" y1="10" y2="10"></line>
+              <path d="m9 16 2 2 4-4"></path>
+            </svg>
+            <span class="sr-only">Finalize appointment</span>
+          </button>
+          <button onclick="openModal('cancelModal')" title="Cancel appointment"
+            class="tooltip inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="w-4 h-4 mx-auto">
+              <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+              <line x1="16" x2="16" y1="2" y2="6"></line>
+              <line x1="8" x2="8" y1="2" y2="6"></line>
+              <line x1="3" x2="21" y1="10" y2="10"></line>
+              <line x1="10" x2="14" y1="14" y2="18"></line>
+              <line x1="14" x2="10" y1="14" y2="18"></line>
+            </svg>
+            <span class="sr-only">Cancel appointment</span>
+          </button>
+        </div>
+
+        <!-- Images Modal -->
         <div id="modal" class="fixed z-10 inset-0 overflow-x-auto hidden">
           <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -800,7 +674,7 @@
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div
               class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full relative pt-10">
-              <button onclick="closeModal()"
+              <button onclick="closeModal('modal')"
                 class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
               <img id="modal-image" src="" class="w-full h-full object-cover" />
             </div>
@@ -808,81 +682,131 @@
         </div>
 
 
+
+        <!-- Confirm Appointment Modal -->
+<div id="confirmModal" onclick="closeModal('confirmModal')" class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div onclick="event.stopPropagation()" class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+      <button onclick="closeModal('confirmModal')" class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+      <div class="p-6">
+        <p class="text-lg mb-4">Are you sure you want to confirm this appointment?</p>
+        <br>
+        <p class="text-lg mb-4">It will be set as your current active appointment.</p>
+        <button onclick="confirmAppointment()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">Yes</button>
+        <button onclick="closeModal('confirmModal')" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Finalize Appointment Modal -->
+        <div id="finalizeModal" onclick="closeModal('finalizeModal')" class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div
+            onclick="event.stopPropagation()"
+              class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <button onclick="closeModal('finalizeModal')"
+                class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+
+              <form class="p-6">
+                <label for="diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
+                <select id="diagnosis" onchange="showInputField(this, 'diagnosisInput')" class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                  <option>Orthopedic Diagnosis 1</option>
+                  <option>Orthopedic Diagnosis 2</option>
+                  <option>Orthopedic Diagnosis 3</option>
+                  <option>Other</option>
+                  <!-- Add more options as needed -->
+                </select>
         
+                <input type="text" id="diagnosisInput" class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-<!-- Finalize Appointment Modal -->
-<div id="finalizeModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
-  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-    </div>
-    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <button onclick="closeFinalizeModal()" class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+                <div class="grid grid-cols-3 gap-4 mt-4">
+                  <div>
+                    <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
+                    <select id="medicine" onchange="showInputField(this, 'medicineInput')"
+                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                      <option>Medicine 1</option>
+                      <option>Medicine 2</option>
+                      <option>Other</option>
+                      <!-- Add more options as needed -->
+                    </select>
+           
+                    <input type="text" id="medicineInput"
+                      class="hidden  mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-      <form class="p-6">
-        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-        <input type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
+                  </div>
+                  <div>
+                    <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
+                    <select id="frequency" onchange="showInputField(this, 'frequencyInput')" class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                      <option>Once a day</option>
+                      <option>Twice a day</option>
+                      <option>Other</option>
+                      <!-- Add more options as needed -->
+                    </select>
+              
+                    <input type="text" id="frequencyInput" class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+                  <div>
+                    <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
+                    <select id="dosage" onchange="showInputField(this, 'dosageInput')" class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                      <option>100mg</option>
+                      <option>200mg</option>
+                      <option>Other</option>
+                      <!-- Add more options as needed -->
+                    </select>
+                 
+                    <input type="text" id="dosageInput" class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+                </div>
 
-<div id="editCurrentModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
-  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-    </div>
-    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <button onclick="closeEditCurrentModal()" class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
-      <form class="p-6">
-        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-        <input type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
+                <label for="notes" class="block text-sm font-medium text-gray-700 mt-4">Doctor's Notes</label>
+                <textarea id="notes"
+                  class="mt-1 block w-full h-32 rbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
 
-<!-- Cancel Appointment Modal -->
-<div id="cancelCurrentModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
-  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-    </div>
-    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <button onclick="closeCancelCurrentModal()" class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
-      <form class="p-6">
-        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-        <input type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-        <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
+                <button type="submit" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
 
 
+        <!-- Cancel Appointment Modal -->
+        <div id="cancelModal" onclick="closeModal('cancelModal')" class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+              <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div onclick="event.stopPropagation()" class=" inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <button onclick="closeModal('cancelModal')" class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+              <div>
+                <form class="p-6">
+                  <p class="text-lg mb-4 w-96">Are you sure you want to cancel the current appointment?</p>
+                  <button type="submit" onclick="confirmCancel()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2">Yes</button>
+                  <button type="button" onclick="closeModal('cancelModal')" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">No</button>
+                </form>              </div>
+            </div>
+          </div>
+        </div>
 
 
 
 
 
 
+
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
         <script src="./js/doctor.js"></script>
 </body>
 
