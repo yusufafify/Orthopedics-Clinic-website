@@ -95,6 +95,20 @@
                 id="phoneNumber" placeholder="Phone number"  required/>
             </div>
           </div>
+
+          <!--Address Section-->
+          <div class="grid grid-cols-1 gap-4">
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="address">
+                Address
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="address" placeholder="your address" type="text" required />
+            </div>
+            
+          </div>
           
 
 
@@ -104,9 +118,9 @@
 
               <div class="inline-flex items-center">
                 <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="male">
-                  <input name="type" type="radio"
+                  <input name="gender" type="radio"
                     class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-900 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
-                    id="male" />
+                    id="male" value="male" checked />
                   <span
                     class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
@@ -120,9 +134,9 @@
               </div>
               <div class="inline-flex items-center">
                 <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="female">
-                  <input name="type" type="radio"
+                  <input name="gender" type="radio"
                     class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
-                    id="female" checked />
+                    id="female"  value="female"/>
                   <span
                     class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
@@ -131,7 +145,7 @@
                   </span>
                 </label>
                 <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="female">
-                  female
+                  Female
                 </label>
               </div>
             </div>

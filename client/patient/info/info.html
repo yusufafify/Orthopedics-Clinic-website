@@ -63,7 +63,8 @@
 
         <!--Navigation 1-->
         <li>
-          <a href="./info.html" class="flex items-center p-2 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-100  group">
+          <a href="./info.html"
+            class="flex items-center p-2 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-100  group">
             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75" aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
               <path
@@ -77,7 +78,8 @@
 
         <!--Navigation 2-->
         <li>
-          <a href="../history/history.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+          <a href="../history/history.html"
+            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
               aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
               <path
@@ -91,7 +93,8 @@
 
         <!--Navigation 3-->
         <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+          <a href="../appointments/appointments.html"
+            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
 
             <svg class="flex-shrink-0 w-6 h-6 text-gray-500 ml-[-2px] transition duration-75 group-hover:text-gray-900 "
               fill="currentColor" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +124,8 @@
 
         <!--Navigation 4-->
         <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+          <a href="../images/images.html"
+            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
 
 
 
@@ -163,7 +167,7 @@
   <!--End of Side Bar-->
 
   <!--Main Content-->
-  <div  class="p-4 sm:ml-64 ">
+  <div class="p-4 sm:ml-64 ">
     <div>
       <div class="lg:col-span-6 w-full">
 
@@ -174,8 +178,8 @@
             <div class="text-lg flex flex-row font-medium">
               <div class="">
                 <div class="grid grid-cols-1 place-items-center lg:grid-cols-3 gap-4">
-                  <img src="https://placeholder.pics/svg/300/a4d6d6/a4d6d6/placeholder" alt="Medical Image 1"
-                    class="rounded-lg object-cover" />
+                  <img id="profile_pic" src="https://placeholder.pics/svg/300/a4d6d6/a4d6d6/placeholder"
+                    alt="Profile Pic" class="rounded-lg object-cover h-96 w-96" />
                 </div>
               </div>
             </div>
@@ -214,141 +218,137 @@
         <!--Buttons to Edit Patient-->
         <div
           class="flex flex-wrap items-center w-full justify-start  gap-2 max-w-sm lg:mx-auto lg:gap-4  lg:max-w-full">
-          <button
-          id="edit_info"
+          <button id="edit_info"
             class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-[#a4c6c6] hover:bg-accent text-gray-800 hover:text-accent-foreground h-10 px-4 py-2 lg:order-0 lg:w-[200px]">
             Edit Info
           </button>
         </div>
 
-        
-      <div data-dialog-backdrop="sign-in-dialog" data-dialog-backdrop-close="true"
-      id="modal"
-        class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
-        <div data-dialog="sign-in-dialog"
-          class="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-          <div class="flex flex-col gap-4 p-6">
-            <h4
-              class="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
-              Edit Info
-            </h4>
-            
-            <h6
-              class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-              Your Email
-            </h6>
-            <div class="relative h-11 w-full min-w-[200px]">
-              <input
-              id="email"
-                class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                placeholder=" " 
-                disabled
-                />
-              <label
-                class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                Email
-              </label>
-            </div>
+
+        <div data-dialog-backdrop="sign-in-dialog" data-dialog-backdrop-close="true" id="modal"
+          class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
+          <div data-dialog="sign-in-dialog"
+            class="relative mx-auto flex w-full max-w-[32rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            <div class="flex flex-col gap-4 p-6">
+              <h4
+                class="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                Edit Info
+              </h4>
+
+              <h6
+                class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                Your Email
+              </h6>
+              <div class="relative h-11 w-full min-w-[200px]">
+                <input id="email"
+                  class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                  placeholder=" " disabled />
+                <label
+                  class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                  Email
+                </label>
+              </div>
 
 
-            <div class="grid md:grid-cols-2 gap-2 grid-cols-1">
-              <div>
-                <h6
-                  class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                  First Name
-                </h6>
-                <div class="relative  h-11 w-full min-w-[200px]">
-                  <input
-                  id="first_name"
-                    class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                    placeholder=" " />
-                  <label
-                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+              <div class="grid md:grid-cols-2 gap-2 grid-cols-1">
+                <div>
+                  <h6
+                    class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
                     First Name
-                  </label>
-                </div>
-              </div>
-              <div>
-                <h6
-                  class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                  Last Name
-                </h6>
-                <div class="relative  h-11 w-full min-w-[200px]">
-                  <input
-                  id="last_name"
-                    class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                    placeholder=" " />
-                  <label
-                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                    Last Name
-                  </label>
-                </div>
-              </div>
-              <div>
-                <h6
-                  class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                  Your Phone
-                </h6>
-                <div class="relative  h-11 w-full min-w-[200px]">
-                  <input
-                  id="phone"
-                    class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                    placeholder=" " />
-                  <label
-                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                    Phone
-                  </label>
-                </div>
-              </div>
-              <div>
-                <h6
-                  class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-                  Address
-                </h6>
-                <div class="relative  h-11 w-full min-w-[200px]">
-                  <input
-                  id="address"
-                    class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-                    placeholder=" " />
-                  <label
-                    class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                    Address
-                  </label>
-                </div>
-              </div>
-
-            </div>
-            <section class="container w-full mx-auto items-center">
-              <div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden items-center">
-                <div class="px-4 py-6">
-                  <div id="image-preview" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                    <input id="upload" type="file" class="hidden" accept="image/*" />
-                    <label for="upload" class="cursor-pointer">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                      </svg>
-                      <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
-                      <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
-                      <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
-                      <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                  </h6>
+                  <div class="relative  h-11 w-full min-w-[200px]">
+                    <input id="first_name"
+                      class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                      placeholder=" " />
+                    <label
+                      class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                      First Name
                     </label>
                   </div>
-                  
                 </div>
+                <div>
+                  <h6
+                    class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                    Last Name
+                  </h6>
+                  <div class="relative  h-11 w-full min-w-[200px]">
+                    <input id="last_name"
+                      class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                      placeholder=" " />
+                    <label
+                      class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                      Last Name
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <h6
+                    class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                    Your Phone
+                  </h6>
+                  <div class="relative  h-11 w-full min-w-[200px]">
+                    <input id="phone"
+                      class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                      placeholder=" " />
+                    <label
+                      class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                      Phone
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <h6
+                    class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                    Address
+                  </h6>
+                  <div class="relative  h-11 w-full min-w-[200px]">
+                    <input id="address"
+                      class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                      placeholder=" " />
+                    <label
+                      class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                      Address
+                    </label>
+                  </div>
+                </div>
+
               </div>
-            </section>
-            
-          </div>
-          <div class="p-6 pt-0">
-            <button
-              class="block w-full select-none rounded-lg bg-[#a4c6c6]  py-3 px-6 text-center align-middle text-md font-medium text-gray-800 shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button">
-              Update
-            </button>
-            
+              <section class="container w-full mx-auto items-center">
+                <div class="max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden items-center">
+                  <div class="px-4 py-6">
+                    <div id="image-preview"
+                      class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                      <input id="upload" type="file" class="hidden" accept="image/*" />
+                      <label for="upload" class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                          stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                        </svg>
+                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                        <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b
+                            class="text-gray-600">2mb</b></p>
+                        <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b
+                            class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                        <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+
+            </div>
+            <div class="p-6 pt-0">
+              <button id="update_info"
+                class="block w-full select-none rounded-lg bg-[#a4c6c6]  py-3 px-6 text-center align-middle text-md font-medium text-gray-800 shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button">
+                Update
+              </button>
+
+            </div>
           </div>
         </div>
-      </div>  
 
 
 
@@ -380,9 +380,10 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script src="../js/chart.js"></script>
+  <script src="./js/chart.js"></script>
   <script src="./js/script.js">
   </script>
+  <script src="../js/sidebar_script.js"></script>
 </body>
 
 </html>
