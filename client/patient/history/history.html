@@ -92,7 +92,8 @@
 
         <!--Navigation 3-->
         <li>
-          <a href="../appointments/appointments.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+          <a href="../appointments/appointments.html"
+            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
 
             <svg class="flex-shrink-0 w-6 h-6 text-gray-500 ml-[-2px] transition duration-75 group-hover:text-gray-900 "
               fill="currentColor" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +123,8 @@
 
         <!--Navigation 4-->
         <li>
-          <a href="../images/images.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+          <a href="../images/images.html"
+            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
 
 
 
@@ -168,28 +170,158 @@
     <div>
       <div class="lg:col-span-6 w-full">
 
-        
 
 
-          <!--Table-->
-        History
-          <!--End of Table-->
 
 
+        <!--Patient Medical History-->
+        <div class="flex min-h-screen flex-col">
+
+          <header class="bg-gray-100 p-6  rounded-md shadow-md text-black">
+            <div class="container mx-auto flex items-center justify-between">
+
+              <nav class="flex items-center space-x-4">
+                <button id="historyOpenBtn" class="lg:hidden block">
+                  <img src="/public/assets/imgs/menu.png" alt="menu" class="h-4 w-4 object-cover">
+                </button>
+                <h2 class="lg:hidden text-lg font-semibold">Medical History</h2>
+                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                  Injuries
+                </button>
+                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                  Surgeries
+                </button>
+                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                  Treatments
+                </button>
+                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                  Family Afflictions
+                </button>
+                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                  Medications </button>
+                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                  Allergies</button>
+
+              </nav>
+
+            </div>
+            <div id="historyNav"
+              class="absolute bg-gray-200 transition-opacity opacity-0 duration-300 p-4 rounded-xl lg:hidden  flex flex-col gap-2 items-start ">
+              <a class="hover:text-gray-400 " href="#">
+                Injuries
+              </a>
+              <button class="hover:text-gray-400 " href="#">
+                Surgeries
+              </button>
+              <button class="hover:text-gray-400 " href="#">
+                Treatments
+              </button>
+              <button class="hover:text-gray-400 " href="#">
+                Family Afflictions
+              </button>
+              <button class="hover:text-gray-400 " href="#">
+                Medications </button>
+              <button class="hover:text-gray-400 " href="#">
+                Allergies</button>
+            </div>
+          </header>
+
+          <div class="container mx-auto flex flex-col  py-8">
+            <div class="bg-gray-100 p-6 mb-2 rounded-lg shadow-md  space-y-4">
+              <div>
+                <h2 class="text-lg font-bold mb-2">Patient Information</h2>
+                <p>Age: 35</p>
+                <p>Height: 6'2"</p>
+                <p>Weight: 180 lbs</p>
+                <p>Phone: 555-1234</p>
+                <p>Email: john.doe@example.com</p>
+              </div>
+            </div>
+            <div id="medical_history_container" class=" space-y-8">
+
+              <!--Skeleton Loader-->
+              <div role="status" class="animate-pulse">
+                <div class="h-2.5 bg-gray-400 rounded-full  w-48 mb-4"></div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                  <div class="h-2 bg-gray-400 rounded-full w-48 mb-2.5"></div>
+                  <div class="h-2 bg-gray-400 rounded-full w-40 mb-2.5"></div>
+                  <div class="h-2 bg-gray-400 rounded-full  mb-2.5"></div>
+                  <div class="h-2 bg-gray-400 rounded-full max-w-[300px] mb-2.5"></div>
+                </div>
+                <span class="sr-only">Loading...</span>
+              </div>
+              <!--End of Skeleton Loader-->
+
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div id="medications">
+                  <h2 class="text-2xl font-bold mb-4">Medications</h2>
+                  <div class="bg-white p-6 rounded-lg shadow-md ">
+                    <h2 class="t-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                  </div>
+                </div>
+
+                <div id="allergies">
+                  <h2 class="text-2xl font-bold mb-4">Allergies</h2>
+                  <div class="bg-white p-6 rounded-lg shadow-md ">
+                    <h2 class="t-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                  </div>
+                </div>
+              </div>
+
+              <div id="injuries">
+                <h2 class="text-2xl font-bold mb-4">Past Injuries</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md ">
+                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                </div>
+              </div>
+
+              <div id="surgeries">
+                <h2 class="text-2xl font-bold mb-4">Past Surgeries</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md ">
+                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                </div>
+              </div>
+
+
+              <div id="treatments">
+                <h2 class="text-2xl font-bold mb-4">Past Treatments</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md ">
+                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                </div>
+              </div>
+
+              <div id="family">
+                <h2 class="text-2xl font-bold mb-4">Family Afflictions</h2>
+                <div class="bg-white p-6 rounded-lg shadow-md ">
+                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
         </div>
-        <!--End of Patient Information-->
-
 
 
       </div>
+      <!--End of Patient Medical History-->
+
+
+
     </div>
+  </div>
   </div>
 
 
 
   <script src="../js/sidebar_script.js">
   </script>
-  
+  <script src="./js/script.js">
+  </script>
+
+
 </body>
 
 </html>
