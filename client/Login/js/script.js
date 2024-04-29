@@ -43,10 +43,10 @@ function login(){
       window.location.href = 'http://127.0.0.1:5500/client/patient/patient.html';
     }
     else if(data.role=='doctor'){
-      window.location.href = 'http://127.0.0.1:5500/client/doctor/doctor.html';
+      window.location.href = 'http://127.0.0.1:5500/client/Doctor/doctor.html';
     }
     else if(data.role=='admin'){
-      window.location.href = 'http://127.0.0.1:5500/client/admin/admin.html';
+      window.location.href = 'http://127.0.0.1:5500/client/Admin/admin.html';
     }
 
   })
