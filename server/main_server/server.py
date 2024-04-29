@@ -19,15 +19,153 @@ app.config['REFRESH_SECRET_KEY'] = 'r-DbyQUtefufnmfdusaYTY0KQ'
 db=client['orthopedic-clinic']
 users = db['users']
 appointment=db['appointments']
+medical_history=db['medicalhistories']
 images = db['images']
 jwt = JWTManager(app)
 # Roles=['admin','staff','patient']
+
+
+#a Test Route
+@app.route('/', methods=['GET'])
+def home():
+    print('hello')
+
+    return {
+        'message': 'Hello World!'
+    }
+
+
+#This route is used to login a user
+# TODO add logic to check hashed password
+@app.route('/login', methods=['POST'])
+def login():
+    try:
+        data = request.get_json()
+        
+        email = data.get('email')
+        password = data.get('password').encode('utf-8')
+
+
+        user = users.find_one({ 'email': email })
+        if user and bcrypt.checkpw(password, user['password']):
+            token = create_access_token({
+			      'email': email,
+            'role': user["role"],
+            'exp' : datetime.utcnow() + timedelta(minutes = 1)
+		}, app.config['SECRET_KEY'])
+            refresh_token = create_refresh_token({
+			      'email': email,
+            'role': user["role"]
+		},expires_delta=timedelta(days=1))
+            return jsonify({
+                'message': 'success',
+                'token': token,
+                'refresh_token': refresh_token
+                
+            })
+        else:
+            return jsonify({
+                'message': 'error',
+            })
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({
+            'message': 'error',
+            'error': str(e)
+        })
+
+
+#This route is used to register a new user
+# TODO add logic to check if user is already registerd
+# TODO hash password before saving it in the database
+# TODO use same logic used in the login to generate a jwt
+@app.route('/register', methods=['POST'])
+def register():
+    try:
+        data = request.get_json()
+        email=data.get('email')
+
+        user = users.find_one({ 'email': email })
+        if user: 
+            return jsonify({ 'error': 'invalid email' }), 409
+
+        password=data.get('password').encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+
+        phone=data.get('phone')
+        first_name=data.get('firstName')
+        last_name=data.get('lastName')
+        age=data.get('age')
+        address=data.get('address')
+        gender=data.get('gender')
+        users.insert_one({
+            'email':email,  
+            'password':hashed_password,
+            'phoneNumber':phone,
+            'name':first_name+' '+last_name,
+            'role':'patient',
+            'gender': gender,
+            'age':int(age),
+            'address': address
+        })
+
+        token = create_access_token({
+			      'email': email,
+            'role': user["role"],
+            'exp' : datetime.utcnow() + timedelta(minutes = 100000)
+		}, app.config['SECRET_KEY'])
+
+        return jsonify({
+                'message':'success',
+                'token': token
+            })
+    except Exception as e:
+        return jsonify({
+            'message': 'error',
+            'error': str(e)
+    })
+
+@app.route('/refresh')
+@jwt_required(refresh=True)
+def TokenRefresh():
+    current_user = get_jwt_identity()
+    print(current_user)
+    expires = timedelta(minutes=1)
+    access_token = create_access_token(identity={'email': current_user['email'], 'role':current_user['role']}, 
+                                       secret_key=app.config['SECRET_KEY'], 
+                                       expires_delta=expires)
+    return jsonify({'access_token': access_token})
+
+@app.route('/personal_data', methods=['GET'])
+@jwt_required()
+def get_patient_data():
+    try:
+        current_user = get_jwt_identity()
+        email = current_user['email']
+        user = users.find_one({ 'email': email })
+        
+        if not user: 
+            return jsonify({ 'error': 'no patient found' }), 404
+
+        user_data = {
+            'email': user['email'],
+            'name': user['name'],
+            'role': user['role'],
+            'gender': user['gender'],
+            'age': user['age'],
+            'address': user['address']
+        }
+        
+        return jsonify(user_data)
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 @jwt.expired_token_loader
 def expired_token_callback(jwt_header, jwt_payload):
     return (
         jsonify({"message": "The token has expired.", "error": "token_expired"}),
-        401,
+        403,
     )
 
 @jwt.invalid_token_loader
@@ -83,7 +221,7 @@ def login():
             token = create_access_token({
 			      'email': email,
             'role': user["role"]
-		},expires_delta=timedelta(seconds=15))
+		},expires_delta=timedelta(minutes= 60))
             refresh_token = create_refresh_token({
 			      'email': email,
             'role': user["role"]
@@ -109,6 +247,7 @@ def login():
 #This route is used to register a new user
 @app.route('/register', methods=['POST'])
 def register():
+    global refresh_token
     try:
         data = request.get_json()
         email=data.get('email')
@@ -134,18 +273,26 @@ def register():
             'role':'patient',
             'gender': gender,
             'age':int(age),
-            'address': address
+            'address': address,
+            'profilePic': ''
+
         }
         users.insert_one(user)
         token = create_access_token({
 			      'email': email,
             'role': user["role"],
-            'exp' : datetime.utcnow() + timedelta(minutes = 1)
+            'exp' : datetime.utcnow() + timedelta(minutes= 60)
+		})
+        refresh_token = create_refresh_token({
+			      'email': email,
+            'role': user["role"]
 		})
 
         return jsonify({
                 'message':'success',
-                'token': token
+                'token': token,
+                'refresh_token': refresh_token
+
             })
     except Exception as e:
         return jsonify({
@@ -173,7 +320,7 @@ def get_patient_data():
         
         if not user: 
             return jsonify({ 'error': 'no patient found' }), 404
-        
+        print(user['profilePic']==True)
         user_data = {
             'email': user['email'],
             'name': user['name'],
@@ -181,7 +328,9 @@ def get_patient_data():
             'gender': user['gender'],
             'age': user['age'],
             'address': user['address'],
-            'phoneNumber': user['phoneNumber']
+            'phoneNumber': user['phoneNumber'],
+            'profilePic': user['profilePic'] 
+            
         }
         
         return jsonify(user_data)
@@ -197,8 +346,8 @@ def update_info():
         data = get_jwt_identity()
         email = data['email']
         new_info = request.get_json()
-        updated_info = users.find_one_and_update({ 'email': email }, { '$set': new_info }, upsert=True, return_document=ReturnDocument.AFTER)
-        # print('bala7 elsham')
+        users.find_one_and_update({ 'email': email }, { '$set': new_info }, upsert=True, return_document=ReturnDocument.AFTER)
+
 
         return jsonify({ 'status': 'success' })
     except:
@@ -240,6 +389,91 @@ def appointment_booking():
         return jsonify({ 'error': str(err) }), 500
 
 
+
+
+@app.route('/add_to_medical_history', methods=['POST'])
+@jwt_required()
+def add_to_medical_history():
+    try:
+        data=request.get_json()
+        patmail=get_jwt_identity()['email']
+
+
+        if not users.find_one({'email':patmail}):
+            return jsonify({
+                'message':'patient not found'
+            }), 404
+
+
+        patID=users.find_one({'email':patmail})['_id']
+        htype=data.get('historytype')
+        htitle=data.get('titleofproblem')
+        hdate=data.get('dateofproblem')
+        hdesc=data.get('description')
+        medical_history.insert_one({
+            'patientId':patID,
+            'historytype':htype,
+            'titleofproblem':htitle,
+            'dateofproblem':hdate,
+            'description':hdesc
+        })
+
+        return jsonify({
+            'message':'success'
+        })  
+
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+
+
+
+
+@app.route('/get_medical_history', methods=['GET'])
+@jwt_required()
+def getmedicalhistory():
+    try:
+        patemail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patemail})['_id']
+        history=medical_history.find({'patientId':patid})
+
+        if not history:
+            return jsonify({
+                'message':'no history found'
+            }), 404
+        
+        history_list=[]
+        for h in history:
+            history_list.append({
+                'historytype':h['historytype'],
+                'titleofproblem':h['titleofproblem'],
+                'dateofproblem':h['dateofproblem'],
+                'description':h['description']
+            })
+
+        return jsonify(history_list)
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route('/delete_user', methods=['DELETE'])
 @jwt_required()
 def delete_user():
@@ -258,7 +492,6 @@ def delete_user():
         return jsonify({ 'error': str(err) }), 500
 
 
-
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=8008)
 
