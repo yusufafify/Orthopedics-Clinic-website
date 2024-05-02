@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="./styles/style.css">
 
   <title>Patient Portal</title>
 </head>
@@ -185,43 +186,139 @@
                   <img src="/public/assets/imgs/menu.png" alt="menu" class="h-4 w-4 object-cover">
                 </button>
                 <h2 class="lg:hidden text-lg font-semibold">Medical History</h2>
-                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="injuriesBtn">
                   Injuries
                 </button>
-                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="surgeriesBtn">
                   Surgeries
                 </button>
-                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="treatmentsBtn">
                   Treatments
                 </button>
-                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="familyBtn">
                   Family Afflictions
                 </button>
-                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="medicationBtn">
                   Medications </button>
-                <button class="hover:text-gray-400 hidden lg:block" href="#">
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="allergiesBtn">
                   Allergies</button>
 
               </nav>
 
+              <!--Add Medical History btn and form-->
+              <button
+                class="select-none rounded-full bg-[#276973] p-3 text-center align-middle font-sans text-lg font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button" data-dialog-target="sign-in-dialog">
+                <img src="/public/assets/imgs/plus.png" class="h-4 w-4 object-contain" alt="">
+              </button>
+              <div data-dialog-backdrop="sign-in-dialog" data-dialog-backdrop-close="true"
+                class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
+                <div data-dialog="sign-in-dialog"
+                  class="relative mx-auto flex w-full max-w-[30rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                  <div class="flex flex-col gap-4 p-6">
+                    <h4
+                      class="block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+                      Medical History
+                    </h4>
+                    <p class="block mb-3 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
+                      Add Your Medical History
+                    </p>
+                    <h6
+                      class="block font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                      Category of Medical History
+                    </h6>
+                    <div class="relative h-10 w-full min-w-[200px]">
+                      <select
+                      id="historyType"
+                        class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                        <option value="Injuries">Injuries</option>
+                        <option value="Treatments">Treatments</option>
+                        <option value="Surgeries">Surgeries</option>
+                        <option value="Family Afflictions">Family Afflictions</option>
+                      </select>
+                      <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Select a Category
+                      </label>
+                    </div>
+                    <h6
+                      class="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                      Type of Medical History
+                    </h6>
+                    <div class="relative h-11 w-full min-w-[200px]">
+                      <input
+                      id="historyTitle"
+                        class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        placeholder=" " />
+                      <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Type
+                      </label>
+                    </div>
+                    <h6
+                      class="block  font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                      Date of Medical History
+                    </h6>
+                    <div class="relative h-11 w-full min-w-[200px]">
+                      <input
+                      id="historyDate"
+                        class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                        type="date" />
+                      <label
+                        class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Date
+                      </label>
+                    </div>
+                    <h6
+                      class="block  font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+                      Description
+                    </h6>
+                    <div class="relative w-full min-w-[200px]">
+                      <textarea
+                      id="historyDescription"
+                        class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200  bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-green-500  focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+                        placeholder="Enter brief details about the chosen medical history"></textarea>
+
+                    </div>
+
+                  </div>
+                  <div class="p-6 pt-0">
+                    <button
+                    id="historySubmitBtn"
+                      class="block w-full select-none rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                      type="button">
+                      Submit
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+              <!--End of Add Medical History btn and form-->
+
             </div>
             <div id="historyNav"
               class="absolute bg-gray-200 transition-opacity opacity-0 duration-300 p-4 rounded-xl lg:hidden  flex flex-col gap-2 items-start ">
-              <a class="hover:text-gray-400 " href="#">
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="injuriesBtn">
                 Injuries
-              </a>
-              <button class="hover:text-gray-400 " href="#">
+              </button>
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="surgeriesBtn">
                 Surgeries
               </button>
-              <button class="hover:text-gray-400 " href="#">
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="treatmentsBtn">
                 Treatments
               </button>
-              <button class="hover:text-gray-400 " href="#">
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="familyBtn">
                 Family Afflictions
               </button>
-              <button class="hover:text-gray-400 " href="#">
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="medicationBtn">
                 Medications </button>
-              <button class="hover:text-gray-400 " href="#">
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="allergiesBtn">
                 Allergies</button>
             </div>
           </header>
@@ -240,16 +337,7 @@
             <div id="medical_history_container" class=" space-y-8">
 
               <!--Skeleton Loader-->
-              <div role="status" class="animate-pulse">
-                <div class="h-2.5 bg-gray-400 rounded-full  w-48 mb-4"></div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                  <div class="h-2 bg-gray-400 rounded-full w-48 mb-2.5"></div>
-                  <div class="h-2 bg-gray-400 rounded-full w-40 mb-2.5"></div>
-                  <div class="h-2 bg-gray-400 rounded-full  mb-2.5"></div>
-                  <div class="h-2 bg-gray-400 rounded-full max-w-[300px] mb-2.5"></div>
-                </div>
-                <span class="sr-only">Loading...</span>
-              </div>
+
               <!--End of Skeleton Loader-->
 
 
@@ -271,30 +359,30 @@
 
               <div id="injuries">
                 <h2 class="text-2xl font-bold mb-4">Past Injuries</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md ">
-                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                <div id="injuries_details" class="space-y-4">
+                  <!--Details of the card-->
                 </div>
               </div>
 
               <div id="surgeries">
                 <h2 class="text-2xl font-bold mb-4">Past Surgeries</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md ">
-                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                <div id="surgeries_details" class="space-y-4">
+                  <!--Details of the card-->
                 </div>
               </div>
 
 
               <div id="treatments">
                 <h2 class="text-2xl font-bold mb-4">Past Treatments</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md ">
-                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                <div id="treatments_details" class="space-y-4">
+                  <!--Details of the card-->
                 </div>
               </div>
 
               <div id="family">
                 <h2 class="text-2xl font-bold mb-4">Family Afflictions</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md ">
-                  <h2 class="text-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                <div id="family_details" class="space-y-4">
+                  <!--Details of the card-->
                 </div>
               </div>
 
@@ -315,11 +403,13 @@
   </div>
 
 
+  <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
 
   <script src="../js/sidebar_script.js">
   </script>
-  <script src="./js/script.js">
+  <script type="module" src="./js/script.js">
   </script>
+  <script src="./js/historyForm.js"></script>
 
 
 </body>

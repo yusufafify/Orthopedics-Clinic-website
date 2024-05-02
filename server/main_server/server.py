@@ -282,9 +282,9 @@ def getmedicalhistory():
         history_list=[]
         for h in history:
             history_list.append({
-                'historytype':h['historytype'],
-                'titleofproblem':h['titleofproblem'],
-                'dateofproblem':h['dateofproblem'],
+                'historyType':h['historytype'],
+                'title':h['titleofproblem'],
+                'date':h['dateofproblem'],
                 'description':h['description']
             })
 
