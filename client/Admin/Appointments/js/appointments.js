@@ -26,7 +26,7 @@
     
     const data = sampleData; // Use the sample data array
     const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-    const searchInput = document.getElementById('search');
+    
 
     // Clear existing data in table body
     tableBody.innerHTML = ' ';
@@ -80,11 +80,11 @@
 
        
     });
-// })
-// .catch((error) => {
-//     console.error("Error:", error.message);
-//     alert('Failed to fetch data: ' + error.message);
-// });
+})
+.catch((error) => {
+    console.error("Error:", error.message);
+    alert('Failed to fetch data: ' + error.message);
+});
 
 
 function openModal(item) {
