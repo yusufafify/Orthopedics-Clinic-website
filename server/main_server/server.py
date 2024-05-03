@@ -5,6 +5,7 @@ from pymongo.mongo_client import MongoClient
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
 from datetime import datetime, timedelta
 import bcrypt
+from bson.objectid import ObjectId
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
 
@@ -295,32 +296,104 @@ def getmedicalhistory():
 
 
 
-@app.route('/medical_images', methods=['GET'])
+@app.route('/medical_images', methods=['POST'])
 @jwt_required()
 def getMedicalImages():
     try:
-        patemail=get_jwt_identity()['email']
-        patid=users.find_one({'email':patemail})['_id']
-        medicalImages=images.find({'patientId':patid})
-
-        if not medicalImages:
+        data=request.get_json()
+        category=data.get('category')
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+        imagesArray=images.find({'patientId':patid})
+        if not imagesArray:
             return jsonify({
                 'message':'no images found'
             }), 404
         
-        images_list=[]
-        for img in medicalImages:
-            images_list.append({
-                'src':img['src'],
-                'imageType':img['imageType'],
-                'date':img['date'],
-            })
+        return_images=[]
 
-        return jsonify(images_list)
+        for image in imagesArray:
+            if category.lower()=='all':
+                return_images.append({
+                    'image_id':str(image['_id']),
+                    'category':image['imageType'],
+                    'src':image['src'],
+                    'date':image['date'],
+                    'create':image['createdAt']
+                })
+            elif category.lower() in image['imageType'].lower():
+                return_images.append({
+                    'image_id':str(image['_id']),
+                    'category':image['imageType'],
+                    'src':image['src'],
+                    'date':image['date'],
+                    'create':image['createdAt']
+                })
+
+
+        if not return_images:
+            return jsonify({
+                'message':'no images found'
+            }), 404
+        
+        return jsonify(return_images),200
+
+
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
 
+
+
+@app.route('/delete_medical_image', methods=['DELETE'])
+@jwt_required()
+def deleteImage():
+    try:
+        data=request.get_json()
+        image_id=data.get('image_id')
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+
+        imagesarray=images.find({'patientId':patid})
+        if not imagesarray:
+            return jsonify({
+                'message':'no images found'
+            }), 404
+        
+        for image in imagesarray:
+            if str(image['_id'])==image_id:
+                images.delete_one({'_id':image['_id']})
+                return jsonify({
+                    'message':'success'
+                }),200
+            
+        return jsonify({'message':'image not found'}),404
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+@app.route('/add_medical_image', methods=['POST'])
+@jwt_required()
+def addImage():
+    try:
+        data=request.get_json()
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+        imageType=data.get('imageType')
+        src=data.get('src')
+        date=data.get('date')
+        images.insert_one({
+            'patientId':patid,
+            'imageType':imageType,
+            'src':src,
+            'date':date
+        })
+        return jsonify({'message':'success'}),200
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 
@@ -350,6 +423,159 @@ def delete_user():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+    
+
+
+
+
+
+@app.route('/get_today_appointments', methods=['GET'])
+@jwt_required()
+def today_appointments():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        today=datetime.now().strftime('%Y-%m-%d')
+        appointments=appointment.find({'doctorId':docid})
+        
+        arrayoftoday=[]
+        
+        for app in appointments:
+            if app['status']=='pending' and str(today) in str(app['date']):
+                arrayoftoday.append({
+                    'patientId':str(app['patientId']),
+                    'patientName':users.find_one({'_id':app['patientId']})['name'],
+                    'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                    'date':app['date'],
+                    'type':app['type'],
+                    'paymentMethod':app['paymentMethod']
+                })
+
+        if not arrayoftoday:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify(arrayoftoday)
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+
+@app.route('/get_patient_info', methods=['POST'])
+@jwt_required()
+def get_patient_info():
+    try:
+        data=request.get_json()
+        patid=ObjectId(data.get('patientId'))
+        user=users.find_one({'_id':patid})
+        if not user:
+            return jsonify({
+                'message':'patient not found'
+            }), 404
+
+        return_user={
+            "patienId":str(user['_id']),
+            "email":user['email'],
+            "phoneNumber":user['phoneNumber'],
+            "address":user['address'],
+            "age":user['age'],
+            "name":user['name'],
+            "role":user['role'],
+            "gender":user['gender']
+        }
+            
+
+        imagesArray=images.find({'patientId':patid})
+        return_images=[]
+
+        for image in imagesArray:
+            return_images.append({
+                'image_id':str(image['_id']),
+                'category':image['imageType'],
+                'src':image['src'],
+                'date':image['date']
+            })
+
+        medical_history_array=medical_history.find({'patientId':patid})
+        history_list=[]
+        for history in medical_history_array:
+            history_list.append({
+                'historyType':history['historytype'],
+                'title':history['titleofproblem'],
+                'date':history['dateofproblem'],
+                'description':history['description']
+            })
+
+
+    
+        if not return_images and not history_list:
+            return jsonify({
+                'message':'no images & history found',
+                'user':return_user
+            }), 200
+        elif not return_images:
+            return jsonify({
+                'message':'no images found',
+                'user':return_user,
+                'medical_history':history_list
+            }), 200
+        elif not history_list:
+            return jsonify({
+                'message':'no history found',
+                'user':return_user,
+                'images':return_images
+            }), 200
+        return jsonify({
+                'message':'success',
+                'user':return_user,
+                'images':return_images,
+                'medical_history':history_list
+
+            }), 200
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+@app.route('/all_appointments', methods=['GET'])
+@jwt_required()
+def all_appointments():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        appointments=appointment.find({'doctorId':docid})
+        arrayofall=[]
+        
+        for app in appointments:
+            arrayofall.append({
+                'patientId':str(app['patientId']),
+                'patientName':users.find_one({'_id':app['patientId']})['name'],
+                'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                'date':app['date'],
+                'type':app['type'],
+                'paymentMethod':app['paymentMethod'],
+                'treatment':app['treatment'],
+                'diagnosis':app['diagnosis'],
+                'doctorNotes':app['doctorNotes'],
+                'status':app['status']
+            })
+
+        if not arrayofall:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify(arrayofall)
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500    
+
+
 
 
 if __name__ == "__main__":
