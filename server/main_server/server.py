@@ -282,9 +282,9 @@ def getmedicalhistory():
         history_list=[]
         for h in history:
             history_list.append({
-                'historytype':h['historytype'],
-                'titleofproblem':h['titleofproblem'],
-                'dateofproblem':h['dateofproblem'],
+                'historyType':h['historytype'],
+                'title':h['titleofproblem'],
+                'date':h['dateofproblem'],
                 'description':h['description']
             })
 
@@ -293,6 +293,33 @@ def getmedicalhistory():
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
 
+
+
+@app.route('/medical_images', methods=['GET'])
+@jwt_required()
+def getMedicalImages():
+    try:
+        patemail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patemail})['_id']
+        medicalImages=images.find({'patientId':patid})
+
+        if not medicalImages:
+            return jsonify({
+                'message':'no images found'
+            }), 404
+        
+        images_list=[]
+        for img in medicalImages:
+            images_list.append({
+                'src':img['src'],
+                'imageType':img['imageType'],
+                'date':img['date'],
+            })
+
+        return jsonify(images_list)
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 

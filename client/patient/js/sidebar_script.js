@@ -2,6 +2,7 @@ var sideNav = document.getElementById("sidebar");
 var toggleBtn = document.getElementById("sideOpenBtn");
 let closeBtn = document.getElementById("sideCloseBtn");
 let navLinks = document.querySelectorAll("#sidebar a");
+const logoutBtn = document.getElementById("logOutBtn");
 // const modal = document.getElementById("modal");
 // const editInfo = document.getElementById("edit_info");
 // const body = document.querySelector("body");
@@ -43,8 +44,6 @@ navLinks.forEach((link, index) => {
   });
 });
 
-
-
 //fetch function to get user data from the server and check on the status
 fetch("http://localhost:8008/personal_data", {
   method: "GET",
@@ -54,16 +53,21 @@ fetch("http://localhost:8008/personal_data", {
   },
 })
   .then((response) => {
-    if(response.status === 401 || response.status === 403){
-      console.log('Unauthorized');
-      localStorage.removeItem('token');
-      window.location.href = "http://" + window.location.host + "/client/Login/login.html";
+    if (
+      response.status === 401 ||
+      response.status === 403 ||
+      response.status === 422 ||
+      !localStorage.getItem("token")
+    ) {
+      console.log("Unauthorized");
+      localStorage.removeItem("token");
+      window.location.href =
+        "http://" + window.location.host + "/client/Login/login.html";
     }
 
     return response.json();
-  } )
+  })
   .then((data) => {
-
     console.log(data);
   })
 
@@ -71,3 +75,10 @@ fetch("http://localhost:8008/personal_data", {
     console.error("Error:", error);
   });
 
+console.log(localStorage.getItem("token"));
+
+logoutBtn.addEventListener("click", function () {
+  localStorage.removeItem("token");
+  window.location.href =
+    "http://" + window.location.host + "/client/Login/login.html";
+});

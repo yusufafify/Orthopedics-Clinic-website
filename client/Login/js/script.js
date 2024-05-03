@@ -8,14 +8,15 @@ document.getElementById('loginform').addEventListener('submit', function(event) 
 
 // localStorage.removeItem('token');
 //if token exists override the login page elements with a message
-// if(localStorage.getItem('token') != null){
-//   // Override the login page elements with a message
-//   let message = document.createElement('p');
-//   message.textContent = 'Redirecting...';
-//   document.getElementById('loginform').innerHTML = '';
-//   document.getElementById('loginform').appendChild(message);
-//   window.location.href = 'http://127.0.0.1:5500/client/patient/info/info.html';
-// }
+if(localStorage.getItem('token') != null){
+  // Override the login page elements with a message
+  let message = document.createElement('p');
+  message.textContent = 'Redirecting...';
+  document.getElementById('loginform').innerHTML = '';
+  document.getElementById('loginform').appendChild(message);
+  window.history.back()
+
+}
 
 
 
