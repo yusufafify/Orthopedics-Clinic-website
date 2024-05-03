@@ -315,7 +315,7 @@ def getMedicalImages():
         for image in imagesArray:
             if category.lower()=='all':
                 return_images.append({
-                    'image_id':(image['_id']),
+                    'image_id':str(image['_id']),
                     'category':image['imageType'],
                     'src':image['src'],
                     'date':image['date'],
@@ -515,19 +515,19 @@ def get_patient_info():
             return jsonify({
                 'message':'no images & history found',
                 'user':return_user
-            }), 404
+            }), 200
         elif not return_images:
             return jsonify({
                 'message':'no images found',
                 'user':return_user,
                 'medical_history':history_list
-            }), 404
+            }), 200
         elif not history_list:
             return jsonify({
                 'message':'no history found',
                 'user':return_user,
                 'images':return_images
-            }), 404
+            }), 200
         return jsonify({
                 'message':'success',
                 'user':return_user,
