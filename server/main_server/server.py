@@ -444,6 +444,7 @@ def today_appointments():
             if app['status']=='pending' and str(today) in str(app['date']):
                 arrayoftoday.append({
                     'patientId':str(app['patientId']),
+                    'appointmentID':str(app['_id']),
                     'patientName':users.find_one({'_id':app['patientId']})['name'],
                     'patientAge':users.find_one({'_id':app['patientId']})['age'],
                     'date':app['date'],
@@ -553,6 +554,7 @@ def all_appointments():
         for app in appointments:
             arrayofall.append({
                 'patientId':str(app['patientId']),
+                'appointmentID':str(app['_id']), #changed from 'appointmentId' to 'appointmentID
                 'patientName':users.find_one({'_id':app['patientId']})['name'],
                 'patientAge':users.find_one({'_id':app['patientId']})['age'],
                 'date':app['date'],

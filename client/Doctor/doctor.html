@@ -27,6 +27,8 @@
       </path>
     </svg>
   </button>
+  <div class="text-center">
+
   <!--End of Button to open the side bar-->
 
 
@@ -72,7 +74,7 @@
               <path
                 d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
+            <span class=" ms-3 whitespace-nowrap">Dashboard</span>
           </a>
         </li>
         <!--End of Navigation 1-->
@@ -87,7 +89,7 @@
               <path
                 d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
+            <span class="ms-3 whitespace-nowrap">Profile</span>
           </a>
         </li>
 
@@ -119,7 +121,7 @@
                 </g>
               </g>
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap">Appointments</span>
+            <span class="ms-3 whitespace-nowrap">Appointments</span>
           </a>
         </li>
 
@@ -136,7 +138,7 @@
               <path
                 d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
             </svg>
-            <span class="flex-1 ms-3 whitespace-nowrap">Patients</span>
+            <span class="ms-3 whitespace-nowrap">Patients</span>
           </a>
         </li>
         <!--End of Navigation 5-->
@@ -144,14 +146,14 @@
 
         <!--Navigation 7-->
         <li>
-          <a onclick="dropAppointment()" href="../Login/Login.html" class="flex items-end p-2 text-gray-900  rounded-lg  hover:bg-gray-100 ">
+          <button onclick="logout() "  class="flex p-2 text-gray-900 w-full rounded-lg  hover:bg-gray-100 ">
             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 rotate-180"
               aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
             </svg>
-            <span class="flex-1 gap-y-4 ms-3 whitespace-nowrap">Log out</span>
-          </a>
+            <span class="gap-y-4 ms-3 whitespace-nowrap">Log out</span>
+          </button>
         </li>
 
         <!--End of Navigation 7-->
@@ -203,7 +205,7 @@
               <div class="space-y-5">
                 <div class="flex-1">
                   <div class="flex items-center justify-between">
-                    <h1 class="text-2xl font-bold">Welcome, Dr. Jane Doe!</h1>
+                    <h1 id="welcome" class="text-2xl font-bold">Welcome, Dr. Jane Doe!</h1>
                   </div>
                   <div id="active1" class="space-y-6">
                    
@@ -240,7 +242,7 @@
 
                         </tr>
                       </thead>
-                      <tbody id="todaysAppointments" class="[&amp;_tr:last-child]:border-0">
+                      <tbody id="todaysAppointmentsTable" class="[&amp;_tr:last-child]:border-0">
 
                       </tbody>
                     </table>
@@ -250,6 +252,7 @@
               </div>
 
             </div>
+            
             <div class="card bg-white h-full shadow rounded">
               <div class="p-4">
                 <h3 class="font-bold text-2xl">Record</h3>
@@ -264,7 +267,15 @@
               </div>
             </div>
 
-
+            <div id="loading" style="display: none; position: fixed; top: 0; left: 250px; width: calc(100% - 250px); height: 100%; background-color:lightgrey; z-index: 1000; display: flex; justify-content: center; align-items: center;">
+              <div role="status">
+                <svg aria-hidden="true" class="inline w-32 h-32 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                  <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                </svg>
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
             <div class="card bg-white shadow rounded p-4 h-full overflow-x-auto overflow-y-hidden">
 
               <div id="container1" class="p-2 rounded  h-80">
@@ -358,7 +369,7 @@
 
 
         <!-- Confirm Appointment Modal -->
-        <div id="confirmModal" onclick="resetChange()"
+        <div id="confirmModal" onclick="closeModal('confirmModal')"
           class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
           <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -367,7 +378,7 @@
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div onclick="event.stopPropagation()"
               class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <button onclick="resetChange()"
+              <button onclick="closeModal('confirmModal')"
                 class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
               <div class="p-6">
                 <p class="text-lg mb-4">Are you sure you want to confirm this appointment?</p>
@@ -375,7 +386,7 @@
                 <p class="text-lg mb-4">It will be set as your current active appointment.</p>
                 <button onclick="switchAppointment()"
                   class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">Yes</button>
-                <button onclick="closeModal('confirmModal');"
+                <button onclick="closeModal('confirmModal')"
                   class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">No</button>
               </div>
             </div>
@@ -499,7 +510,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
         <script src="./js/doctor.js"></script>
-
+        <script src="logout.js"></script>
 </body>
 
 </html>

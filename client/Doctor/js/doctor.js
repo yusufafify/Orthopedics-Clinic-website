@@ -1,20 +1,30 @@
 
-// Today's Appointments Table 
-const todaysAppointments = [
-  {
-    id: 1,
-    name: 'John Doe',
-    number: '1',
-    type: 'Routine Checkup'
+todaysAppointments=[];
+startLoading();
+fetch ("http://localhost:8008/get_today_appointments", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
-  {
-    id: 2,
-    name: 'Jane Doe',
-    number: '2',
-    type: 'Follow-up Visit'
-  },
-  // Add more appointments as needed
-];
+})
+.then((response) => response.json())
+.then((data) => {
+  todaysAppointments=data;
+  updateAppointments();
+  displayActiveAppointment();
+  stopLoading();
+})
+.catch((error) => {
+
+  console.error("Error:", error);
+});
+
+
+
+
+
+
 
 let _activeAppointmentID = -1; // This will hold the actual value of activeAppointmentID
 let activeAppointment = null; // This will hold the active appointment object
@@ -23,14 +33,14 @@ let activeAppointment = null; // This will hold the active appointment object
 const storedAppointment = localStorage.getItem('activeAppointment');
 if (storedAppointment) {
   activeAppointment = JSON.parse(storedAppointment);
-  _activeAppointmentID = activeAppointment.id;
+  _activeAppointmentID = activeAppointment.appointmentID;
 }
 
 function setActiveAppointmentID(id) {
   _activeAppointmentID = id;
 
   // Find the active appointment
-  activeAppointment = todaysAppointments.find(appointment => appointment.id === id);
+  activeAppointment = todaysAppointments.find(appointment => appointment.appointmentID === id);
 
   // Check if activeAppointment is undefined
   if (!activeAppointment) {
@@ -46,12 +56,15 @@ function setActiveAppointmentID(id) {
   localStorage.setItem('activeAppointment', JSON.stringify(activeAppointment));
 }
 
+
 function dropAppointment() {
-  todaysAppointments.push(oldAppointment);
+todaysAppointments.push(oldAppointment);
+  
   oldAppointment=null;
   setActiveAppointmentID(-1);
   updateAppointments();
   displayActiveAppointment();
+  
 }
 
 function getActiveAppointmentID() {
@@ -99,18 +112,20 @@ function closeModal(modalId) {
 
 
 // Function to generate table rows
-function generateTodaysAppointmentsTableRows(data) {
+function generateTodaysAppointmentsTableRows(dataa) {
   let rows = '';
+data=todaysAppointments;
   for (let appointment of data) {
+
     rows += `
       <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">${appointment.name}</td>
-        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${appointment.number}</td>
+        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">${appointment.patientName}</td>
+        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${appointment.appointmentID}</td>
         <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${appointment.type}</td>
         <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
         <div class="flex items-center gap-4">
         <button
-        onclick="openModal('confirmModal'); changeAppointment(${appointment.id})"
+        onclick="openModal('confirmModal'); changeAppointment('${appointment.appointmentID}')"
           class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -135,18 +150,18 @@ function generateTodaysAppointmentsTableRows(data) {
 }
 
 function changeAppointment(id){
-
+console.log("Dooo");
   setActiveAppointmentID(id);
 }
 
 function resetChange(){
-  setActiveAppointmentID(oldAppointment.id);
+  setActiveAppointmentID(oldAppointment.appointmentID);
   closeModal('confirmModal');
 }
 
 // Add the generated rows to the table
 function updateAppointments(){
-  document.querySelector('#todaysAppointments').innerHTML = generateTodaysAppointmentsTableRows(todaysAppointments);
+  document.querySelector('#todaysAppointmentsTable').innerHTML = generateTodaysAppointmentsTableRows(todaysAppointments);
 }
 updateAppointments();
 // Function to handle the Confirm button click
@@ -188,8 +203,8 @@ document.querySelector('#medicalImages').innerHTML = generateMedicalImages(medic
 // Write a function to check the activeAppointmentID, and does one of two things: either displays "No active appointment" or it displays the details of the active ID's appointment
 
 function displayActiveAppointment() {
-
-  if (getActiveAppointmentID() === -1) {
+  console.log(getActiveAppointmentID())
+  if (getActiveAppointmentID() === -1 || getActiveAppointmentID() === undefined){
     document.getElementById('active1').innerHTML = `
     <div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
     <br>
@@ -223,7 +238,7 @@ document.getElementById('active1').innerHTML = `<div data-orientation="horizonta
 </div>
 <div>
   <h3 class="font-medium">Number</h3>
-  <p id="appointmentNumber">56</p>
+  <p id="appointmentNumber"></p>
 </div>
 
 <div>
@@ -252,12 +267,12 @@ document.getElementById('active2').innerHTML = `<div>
 <div>
 
 <h3 class="font-medium">Phone Number</h3>
-<p id="appointmentPhone">0100</p>
+<p id="appointmentPhone"></p>
 </div>
 <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4"></div>
 <div>
 <h3 class="font-medium">Appointment Type</h3>
-<p id="appointmentType">Follow-up</p>
+<p id="appointmentType"></p>
 </div>
 <div class="flex items-center gap-4">
 
@@ -299,23 +314,24 @@ document.getElementById('active2').innerHTML = `<div>
 
 `
 
-  let appointment= todaysAppointments.find(appointment => appointment.id === getActiveAppointmentID());
- 
-  document.getElementById('appointmentName').innerHTML = appointment.name;
-  document.getElementById('appointmentAge').innerHTML = appointment.age;
-  document.getElementById('appointmentNumber').innerHTML = appointment.number;
+  let appointment= todaysAppointments.find(appointment => appointment.appointmentID === getActiveAppointmentID());
+
+  document.getElementById('appointmentName').innerHTML = appointment.patientName;
+  document.getElementById('appointmentAge').innerHTML = appointment.patientAge;
+  document.getElementById('appointmentNumber').innerHTML = appointment.appointmentID;
   document.getElementById('appointmentType').innerHTML = appointment.type;
   document.getElementById('appointmentDate').innerHTML = appointment.date;
   document.getElementById('appointmentPhone').innerHTML = appointment.phoneNumber;
-  let appointmentIndex = todaysAppointments.findIndex(appointment => appointment.id === getActiveAppointmentID());
-  oldAppointment=todaysAppointments[appointmentIndex];
+  let appointmentIndex = todaysAppointments.findIndex(appointment => appointment.appointmentID === getActiveAppointmentID());
+  oldAppointment=appointment;
+  console.log(oldAppointment);
   todaysAppointments.splice(appointmentIndex, 1);
   updateAppointments();
   
   }
 }
 
-displayActiveAppointment();
+
 
 
 
@@ -343,3 +359,35 @@ function confirmAppointment(id) {
   setActiveAppointmentID(id);
   displayActiveAppointment();
 }
+
+fetch("http://localhost:8008/personal_data", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    //   document.getElementById('first_name').value=data.name.split(' ')[0];
+    //   document.getElementById('last_name').value=data.name.split(' ')[1];
+    //   email.value=data.email;
+    //   document.getElementById('phone').value=data.phone;
+    //  document.getElementById('address').value=data.address;
+    //   document.getElementById('age').value=data.age;
+    document.getElementById("welcome").innerHTML =
+      "Welcome, Dr. " + data.name;
+
+  })
+  .catch((error) => {
+    console.error("Error:");
+
+  });
+
+  function startLoading() {
+    document.getElementById('loading').style.display = 'flex';
+  }
+  
+  function stopLoading() {
+    document.getElementById('loading').style.display = 'none';
+  }
