@@ -59,7 +59,7 @@ async function register(){
   }
 
   try {
-    const response= await fetch("http://localhost:8080/register", {
+    const response= await fetch("http://localhost:8008/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -76,7 +76,7 @@ async function register(){
       })
     })
     const data = await response.json();
-    console.log(data);
+  
     
     localStorage.setItem("token", data.token);
     console.log(localStorage.getItem("token"));

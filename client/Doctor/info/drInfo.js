@@ -53,11 +53,11 @@ fetch("http://localhost:8008/personal_data", {
     email.value = data.email;
     document.getElementById("phone").value = data.phoneNumber;
     document.getElementById("address").value = data.address;
-    document.getElementById("patient_name").innerHTML =
-      data.name + "    -" + data.age + " years old";
-    document.getElementById("patient_email").innerHTML = data.email;
-    document.getElementById("patient_phone").innerHTML = data.phoneNumber;
-    document.getElementById("patient_address").innerHTML = data.address;
+    document.getElementById("drNameAge").innerHTML =
+      "Dr. " + data.name + "    -       " + data.age + " years old";
+    document.getElementById("drEmail").innerHTML = data.email;
+    document.getElementById("drPhone").innerHTML = data.phoneNumber;
+    document.getElementById("drAddress").innerHTML = data.address;
     data.profilePic
       ? (profilePic.src = data.profilePic)
       : data.gender === "male"

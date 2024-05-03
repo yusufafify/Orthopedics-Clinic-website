@@ -19,42 +19,12 @@ app.config['REFRESH_SECRET_KEY'] = 'r-DbyQUtefufnmfdusaYTY0KQ'
 db=client['orthopedic-clinic']
 users = db['users']
 appointment=db['appointments']
+medical_history=db['medicalhistories']
 images = db['images']
 jwt = JWTManager(app)
 # Roles=['admin','staff','patient']
 
-@jwt.expired_token_loader
-def expired_token_callback(jwt_header, jwt_payload):
-    return (
-        jsonify({"message": "The token has expired.", "error": "token_expired"}),
-        403,
-    )
 
-@jwt.invalid_token_loader
-def invalid_token_callback(error):
-    return (
-        jsonify(
-            {"message": "Signature verification failed.", "error": "invalid_token"}
-        ),
-        401,
-    )
-
-@jwt.unauthorized_loader
-def missing_token_callback(error):
-    return (
-        jsonify(
-            {
-                "description": "Request does not contain an access token.",
-                "error": "authorization_required",
-            }
-        ),
-        401,
-    )
-@jwt.additional_claims_loader
-def add_claims_to_jwt(identity):
-    if identity == 1:
-        return {"is_admin": True}
-    return {"is_admin": False}
 
 #a Test Route
 @app.route('/', methods=['GET'])
@@ -88,6 +58,7 @@ def login():
 			      'email': email,
             'role': user["role"]
 		})
+            print(user['role'])
             return jsonify({
                 'message': 'success',
                 'token': token,
@@ -249,6 +220,118 @@ def appointment_booking():
         })  
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+
+
+
+
+@app.route('/add_to_medical_history', methods=['POST'])
+@jwt_required()
+def add_to_medical_history():
+    try:
+        data=request.get_json()
+        patmail=get_jwt_identity()['email']
+
+
+        if not users.find_one({'email':patmail}):
+            return jsonify({
+                'message':'patient not found'
+            }), 404
+
+
+        patID=users.find_one({'email':patmail})['_id']
+        htype=data.get('historytype')
+        htitle=data.get('titleofproblem')
+        hdate=data.get('dateofproblem')
+        hdesc=data.get('description')
+        medical_history.insert_one({
+            'patientId':patID,
+            'historytype':htype,
+            'titleofproblem':htitle,
+            'dateofproblem':hdate,
+            'description':hdesc
+        })
+
+        return jsonify({
+            'message':'success'
+        })  
+
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+
+
+
+
+@app.route('/get_medical_history', methods=['GET'])
+@jwt_required()
+def getmedicalhistory():
+    try:
+        patemail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patemail})['_id']
+        history=medical_history.find({'patientId':patid})
+
+        if not history:
+            return jsonify({
+                'message':'no history found'
+            }), 404
+        
+        history_list=[]
+        for h in history:
+            history_list.append({
+                'historyType':h['historytype'],
+                'title':h['titleofproblem'],
+                'date':h['dateofproblem'],
+                'description':h['description']
+            })
+
+        return jsonify(history_list)
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+@app.route('/medical_images', methods=['GET'])
+@jwt_required()
+def getMedicalImages():
+    try:
+        patemail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patemail})['_id']
+        medicalImages=images.find({'patientId':patid})
+
+        if not medicalImages:
+            return jsonify({
+                'message':'no images found'
+            }), 404
+        
+        images_list=[]
+        for img in medicalImages:
+            images_list.append({
+                'src':img['src'],
+                'imageType':img['imageType'],
+                'date':img['date'],
+            })
+
+        return jsonify(images_list)
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/delete_user', methods=['DELETE'])

@@ -8,22 +8,21 @@
         { id: '3', name: "Carol Williams", doctor:" Ahmed",date: "20-3-2024", time:"21:30 ", status: "Paid" },
         
     ];
-    const searchInput = document.getElementById('search');
 
-fetch("http://localhost:8080/personal_data", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-    },
-})
-.then((response) => {
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    return response.json();
-})
-.then((data) => {
+// fetch("http://localhost:8008/personal_data", {
+//     method: "GET",
+//     headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("token")}`
+//     },
+// })
+// .then((response) => {
+//     if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//     }
+//     return response.json();
+// })
+// .then((data) => {
     
     const data = sampleData; // Use the sample data array
     const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
