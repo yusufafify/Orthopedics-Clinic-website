@@ -2,83 +2,39 @@
 
 
   //DATA received in this format
-  const sampleData = [
-    { id: '1', name: "Alice Smith", email: "pat@gmail.com", phone:"01212342134 ", nextAppointment: "2025-10-12"},
-    { id: '2', name: "Bob Johnson", email: "pat2@gmail.com", phone:"01212336434 ", nextAppointment: "2024-05-25"},
-    { id: '3', name: "Carol Williams", email: "pat3@3gmail.com", phone:"01254342134 ", nextAppointment: "2024-06-20" },
+//   const sampleData = [
+//     { id: '1', name: "Alice Smith", email: "pat@gmail.com", phone:"01212342134 ", nextAppointment: "2025-10-12"},
+//     { id: '2', name: "Bob Johnson", email: "pat2@gmail.com", phone:"01212336434 ", nextAppointment: "2024-05-25"},
+//     { id: '3', name: "Carol Williams", email: "pat3@3gmail.com", phone:"01254342134 ", nextAppointment: "2024-06-20" },
     
-];
+// ];
+const searchInput = document.getElementById('search');
 
-// fetch("http://localhost:8008/personal_data", {
-//     method: "GET",
-//     headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${localStorage.getItem("token")}`
-//     },
-// })
-// .then((response) => {
-//     if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//     }
-//     return response.json();
-// })
-// .then((data) => {
+let patientData = [];
+fetch("http://localhost:8008/get_patients", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then((data) => {
     
-    const data = sampleData; // Use the sample data array
-    const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
-    const searchInput = document.getElementById('search');
-
-    // Clear existing data in table body
-    tableBody.innerHTML = ' ';
-  
-
-    // Loop through each item in the data array
-    data.forEach(item => {
-        // Create a new row and cells for each data element
-        const row = tableBody.insertRow();
-        row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
-
-        const idCell = row.insertCell();
-        idCell.className = "p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium"
-
-        const nameCell = row.insertCell();
-        nameCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-        const emailCell = row.insertCell();
-        emailCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-        const phoneCell = row.insertCell();
-        phoneCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-        const nextAppointmentCell = row.insertCell();
-        nextAppointmentCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-        const editCell = row.insertCell();
-        editCell.className="p-4 font-bold  hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-        
-        // Add text to the cells
-        idCell.textContent = item.id;
-        nameCell.textContent = item.name;
-        emailCell.textContent = item.email;
-        phoneCell.textContent = item.phone;
-        nextAppointmentCell.textContent = item.nextAppointment;
-
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "\u2026";
-        editBtn.className = "edit-btn";
-        editBtn.onclick = function() {
-        openModal(item); // Function to open modal and pass current item
-    };
-        editCell.appendChild(editBtn);
-
-       
-    });
-// })
-// .catch((error) => {
-//     console.error("Error:", error.message);
-//     alert('Failed to fetch data: ' + error.message);
-// });
+    patientData = data;
+    console.log(patientData);
+    renderTable(patientData);
+   
+})
+.catch((error) => {
+    console.error("Error:", error.message);
+    alert('Failed to fetch data: ' + error.message);
+});
 
 
 function openModal(item) {
@@ -87,10 +43,16 @@ function openModal(item) {
   
     // Example of setting up the content dynamically
     // You need to have elements inside your modal to hold these values
-    dialog.querySelector('#modalName').value = item.name;
-    dialog.querySelector('#modalEmail').value = item.email;
-    dialog.querySelector('#modalPhone').value = item.phone;
-    dialog.querySelector('#modalNextApp').value = item.nextAppointment;
+    dialog.querySelector('#modalName').value = item.patientName;
+    dialog.querySelector('#modalEmail').value = item.patientEmail;
+    dialog.querySelector('#modalPhone').value = item.patientPhone;
+    dialog.querySelector('#modalNextApp').value = item.time;
+
+
+     // Store the patient Email in the delete button
+     const deleteBtn = document.getElementById('deleteBtn');
+     deleteBtn.dataset.patientEmail = item.patientEmail;  // Using data attributes to store the appointment ID
+   
    
 
   
@@ -112,32 +74,37 @@ function openModal(item) {
     });
   });
 
+ 
 
-
+// Function for search bar filtering
 function renderTable(filteredData) {
-    tableBody.innerHTML = ''; // Clear the table first
-    
-    filteredData.forEach(item => {
-        const row = tableBody.insertRow();
-        row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
+  const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+  tableBody.innerHTML = ''; // Clear the table first
 
-        // Creating cells as per your existing setup
-        const cells = ['id', 'name','email', 'phone', 'nextAppointment'].map(key => {
-            const cell = row.insertCell();
-            cell.textContent = item[key];
-            cell.className = "p-4   hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
-            return cell;
-        });
+  filteredData.forEach(item => {
+      const row = tableBody.insertRow();
+      row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
 
-        const editCell = row.insertCell();
-        editCell.className = "p-4   hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "\u2026";
-        editBtn.onclick = function() {
-            openModal(item);
-        };
-        editCell.appendChild(editBtn);
-    });
+      // Creating cells as per your existing setup
+      const cells = ['PatientId', 'patientName','patientEmail', 'patientPhone', 'time'].map(key => {
+        const cell = row.insertCell();
+          cell.textContent = item[key];
+          if (key === 'PatientId') {
+            cell.className = "p-4 font-bold align-middle"; // Change styles here for DoctorId
+        } else {
+            cell.className = "p-4  align-middle [&amp;:has([role=checkbox])]:pr-0";
+        }          return cell;
+      });
+
+      const editCell = row.insertCell();
+      editCell.className = "p-4 font-bold  hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "...";
+      editBtn.onclick = function() {
+          openModal(item);
+      };
+      editCell.appendChild(editBtn);
+  });
 }
 
 
@@ -149,17 +116,73 @@ function renderTable(filteredData) {
 
 // Event listener for the search bar input
 searchInput.addEventListener('input', () => {
-const searchText = searchInput.value.trim();
-if (!searchText) {
-    renderTable(data); // If no input, show all data
-    return;
-}
+  const searchText = searchInput.value.trim().toLowerCase();
+  if (!searchText) {
+      renderTable(patientData); // If no input, show all data
+      return;
+  }
 
-// Filter data based on ID match
-const filteredData = data.filter(item => item.id.includes(searchText));
-renderTable(filteredData)
+  // Filter data based on ID or name match (case insensitive)
+ 
+  const filteredData = patientData.filter(item => 
+      item.PatientId.toLowerCase().includes(searchText) ||
+      String(item.patientName).toLowerCase().includes(searchText)
 
+  );
+
+  
+  renderTable(filteredData);
 });
 
 
-  
+//Delete Patient Event listener
+document.getElementById('deleteBtn').addEventListener('click', function () {
+  const patientEmail = this.dataset.patientEmail; // Retrieve the stored appointment ID
+  deleteAppointment(patientEmail);
+});
+
+async function deleteAppointment(patientEmail) {
+  console.log('Deleting Patient Email:', patientEmail);
+
+try{
+  const response = await fetch(
+        "http://localhost:8008/add_to_medical_history",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({email: patientEmail}),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      window.location.reload();
+
+      
+}
+catch (error) {
+    console.log(error);
+   }
+
+  // try {
+  //   const response = await fetch(
+  //     "http://localhost:8008/add_to_medical_history",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: Bearer ${localStorage.getItem("token")},
+  //       },
+  //       body: JSON.stringify(historyForm),
+  //     }
+  //   );
+  //   const data = await response.json();
+  //   console.log(data);
+  //   window.location.reload();
+  // } catch (error) {
+  //   console.log(error);
+  // }
+}
+
