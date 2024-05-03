@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   age: Number,
   role: { type: String, enum: ['patient', 'Doctor', 'admin'], required: true },
   images:{ type: [String], default: [] },
-  workingHours: { type:String, default: undefined },
+  workingHours: { type:[Number], default: undefined },
   salary: { type: Number, default: undefined },
   profilePic: { type: String, default: '' }
 });
@@ -34,7 +34,8 @@ const appointmentSchema = new mongoose.Schema({
   diagnosis: { type: String, default: null },
   treatment: { type: [String], default: [] }, // esm eldawa, elmawa3eed, elgor3a, norbotha patient history, ma3 images, ma3 diagnosis 
   doctorNotes: { type: String, default: null },
-  price: { type: Number, default: undefined }
+  price: { type: Number, default: undefined },
+  status:{type: String, enum:['pending', 'completed', 'cancelled'], default: 'pending'}
 });
 
 const imageSchema = new mongoose.Schema({
