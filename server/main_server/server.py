@@ -444,6 +444,8 @@ def today_appointments():
             if app['status']=='pending' and str(today) in str(app['date']):
                 arrayoftoday.append({
                     'patientId':str(app['patientId']),
+                    'patientName':users.find_one({'_id':app['patientId']})['name'],
+                    'patientAge':users.find_one({'_id':app['patientId']})['age'],
                     'date':app['date'],
                     'type':app['type'],
                     'paymentMethod':app['paymentMethod']
@@ -462,7 +464,7 @@ def today_appointments():
 
 
 
-@app.route('/get_patient_info', methods=['GET'])
+@app.route('/get_patient_info', methods=['POST'])
 @jwt_required()
 def get_patient_info():
     try:
@@ -508,8 +510,6 @@ def get_patient_info():
             })
 
 
-        patientinfo=[user,return_images,history_list]
-        print(user)
     
         if not return_images and not history_list:
             return jsonify({
@@ -538,6 +538,42 @@ def get_patient_info():
         
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+    
+
+
+@app.route('/all_appointments', methods=['GET'])
+@jwt_required()
+def all_appointments():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        appointments=appointment.find({'doctorId':docid})
+        arrayofall=[]
+        
+        for app in appointments:
+            arrayofall.append({
+                'patientId':str(app['patientId']),
+                'patientName':users.find_one({'_id':app['patientId']})['name'],
+                'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                'date':app['date'],
+                'type':app['type'],
+                'paymentMethod':app['paymentMethod'],
+                'treatment':app['treatment'],
+                'diagnosis':app['diagnosis'],
+                'doctorNotes':app['doctorNotes'],
+                'status':app['status']
+            })
+
+        if not arrayofall:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify(arrayofall)
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500    
 
 
 
