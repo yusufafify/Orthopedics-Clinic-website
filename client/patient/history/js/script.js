@@ -84,6 +84,8 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Injuries")
         .reverse();
       injuriesDetails.innerHTML = getMedicalHistory(injuriesHistory, true);
+      familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
+
     }
     if (btnID === "surgeriesBtn") {
       injuriesContainer.classList.add("hidden");
@@ -97,6 +99,8 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Surgeries")
         .reverse();
       surgeriesDetails.innerHTML = getMedicalHistory(surgeriesHistory, true);
+      familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
+
     }
     if (btnID === "treatmentsBtn") {
       injuriesContainer.classList.add("hidden");
@@ -110,6 +114,8 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Treatments")
         .reverse();
       treatmentsDetails.innerHTML = getMedicalHistory(treatmentsHistory, true);
+      familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
+
     }
     if (btnID === "familyBtn") {
       injuriesContainer.classList.add("hidden");
@@ -123,6 +129,7 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Family Afflictions")
         .reverse();
       familyHistoryDetails.innerHTML = getMedicalHistory(familyHistory, true);
+      familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
     }
     if (btnID === "medicationBtn") {
       injuriesContainer.classList.add("hidden");
@@ -156,8 +163,7 @@ async function getHistory() {
   surgeriesDetails.innerHTML = getMedicalHistory([], false);
   treatmentsDetails.innerHTML = getMedicalHistory([], false);
   familyHistoryDetails.innerHTML = getMedicalHistory([], false);
-  try{
-
+  try {
     const response = await fetch("http://localhost:8008/get_medical_history", {
       method: "GET",
       headers: {
@@ -167,8 +173,8 @@ async function getHistory() {
     });
     const data = await response.json();
     medicalHistory.push(...data);
-  }
-  catch(error){
+    console.table(medicalHistory)
+  } catch (error) {
     console.log(error);
   }
   // Filter the medical history details based on the type of history
