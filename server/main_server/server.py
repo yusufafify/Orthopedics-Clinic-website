@@ -578,6 +578,165 @@ def all_appointments():
 
 
 
+
+#Admin Endpoints
+@app.route('/get_appointments', methods=['GET'])
+def get_appointments():
+    try:
+        app = list(appointment.find()) 
+
+        serialized_appointments = []
+        for info in app:
+
+            patient_info = users.find_one({'_id': ObjectId(info['patientId'])})
+            print(patient_info)
+            print("############")
+
+            print(ObjectId(info['patientId']))
+            patient_name = patient_info['name'] if patient_info else 'Unknown'
+            Doctor_info=users.find_one({'_id': ObjectId(info['doctorId'])})
+            Doctor_name = Doctor_info['name'] if Doctor_info else 'Unknown'
+
+            serialized_appointments.append({
+                'AppointmentId': str(info['_id']),
+                'patientName': patient_name ,
+                'doctorName': Doctor_name,
+                'date': info['date'].strftime('%Y-%m-%d'),
+                'time': info['date'].strftime('%H:%M:%S'),
+                'paymentMethod': info['paymentMethod']
+
+            })
+        for info in serialized_appointments:
+            print(info)
+        return jsonify(serialized_appointments)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+
+
+
+@app.route('/get_patients', methods=['GET'])
+def get_patients():
+    try:
+        User = list(users.find()) 
+
+        patients = []
+        for info in User:
+            if info['role'] == "Patient" or info['role'] == "patient":
+                patientid=str(info['_id'])
+                patient_appointment = appointment.find_one({'patientId': ObjectId(info['_id'])})
+                print(patient_appointment)
+                appointment_date = patient_appointment['date'].strftime('%Y-%m-%d') if patient_appointment else 'Unknown'
+
+                patients.append({
+                    'PatientId': patientid,
+                    'patientName': info['name'] ,
+                    'patientEmail': info['email'],
+                    'patientPhone': info['phoneNumber'],
+                    'time': appointment_date
+                    
+              })
+        for info in patients:
+            print(info)
+        return jsonify(patients)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+
+
+@app.route('/get_doctors', methods=['GET'])
+def get_doctors():
+    try:
+        User = list(users.find()) 
+
+        doctors = []
+        for info in User:
+            if info['role'] == "Doctor" or info['role'] == "doctor":
+                doctorid=str(info['_id'])
+
+                doctors.append({
+                    'DoctorId': doctorid,
+                    'DoctorName': info['name'] ,
+                    'DoctorEmail': info['email'],
+                    'DoctorPhone': info['phoneNumber']
+
+                })
+        for info in doctors:
+            print(info)
+        return jsonify(doctors)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+
+
+
+
+
+
+
+
+@app.route('/create_employee', methods=['POST'])
+def create_employee():
+    global refresh_token
+    try:
+        data = request.get_json()
+        email=data.get('email')
+
+        user = users.find_one({ 'email': email })
+        if user: 
+            return jsonify({ 'error': 'invalid email' }), 409
+
+        password=data.get('password').encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+
+        name=data.get('name')
+        age=data.get('age')
+        role=data.get('role')
+        gender=data.get('gender')
+        address=data.get('address')
+        #ssn=data.get('ssn')
+        phone=data.get('phone')
+        #salary=data.get('salary')
+        #working_hours=data.get('workingHours')
+        user = {
+            'name':name,
+            'email':email,
+            'password':hashed_password,
+            'age':int(age),
+            'role': role, 
+            'gender': gender,
+            'address': address,
+            #'ssn': ssn,
+            'phoneNumber':phone,
+            #'salary':salary,
+            #'working_hours': working_hours
+        }
+        users.insert_one(user)
+        token = create_access_token({
+                  'email': email,
+            'role': user["role"],
+            'exp' : datetime.utcnow() + timedelta(seconds= 15)
+        })
+        refresh_token = create_refresh_token({
+                  'email': email,
+            'role': user["role"]
+        })
+
+        return jsonify({
+                'message':'success',
+                'token': token,
+                'refresh_token': refresh_token
+
+            })
+    except Exception as e:
+        return jsonify({
+            'message': 'error',
+            'error': str(e)
+    })
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=8008)
 
