@@ -5,6 +5,7 @@ from pymongo.mongo_client import MongoClient
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
 from datetime import datetime, timedelta
 import bcrypt
+from bson.objectid import ObjectId
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
 
@@ -391,8 +392,6 @@ def addImage():
         })
         return jsonify({'message':'success'}),200
 
-    
-
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
 
@@ -424,6 +423,123 @@ def delete_user():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+    
+
+
+
+
+
+@app.route('/get_today_appointments', methods=['GET'])
+@jwt_required()
+def today_appointments():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        today=datetime.now().strftime('%Y-%m-%d')
+        appointments=appointment.find({'doctorId':docid})
+        
+        arrayoftoday=[]
+        
+        for app in appointments:
+            if app['status']=='pending' and str(today) in str(app['date']):
+                arrayoftoday.append({
+                    'patientId':str(app['patientId']),
+                    'date':app['date'],
+                    'type':app['type'],
+                    'paymentMethod':app['paymentMethod']
+                })
+
+        if not arrayoftoday:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify(arrayoftoday)
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+
+@app.route('/get_patient_info', methods=['GET'])
+@jwt_required()
+def get_patient_info():
+    try:
+        data=request.get_json()
+        patid=ObjectId(data.get('patientId'))
+        user=users.find_one({'_id':patid})
+        if not user:
+            return jsonify({
+                'message':'patient not found'
+            }), 404
+
+        return_user={
+            "patienId":str(user['_id']),
+            "email":user['email'],
+            "phoneNumber":user['phoneNumber'],
+            "address":user['address'],
+            "age":user['age'],
+            "name":user['name'],
+            "role":user['role'],
+            "gender":user['gender']
+        }
+            
+
+        imagesArray=images.find({'patientId':patid})
+        return_images=[]
+
+        for image in imagesArray:
+            return_images.append({
+                'image_id':str(image['_id']),
+                'category':image['imageType'],
+                'src':image['src'],
+                'date':image['date']
+            })
+
+        medical_history_array=medical_history.find({'patientId':patid})
+        history_list=[]
+        for history in medical_history_array:
+            history_list.append({
+                'historyType':history['historytype'],
+                'title':history['titleofproblem'],
+                'date':history['dateofproblem'],
+                'description':history['description']
+            })
+
+
+        patientinfo=[user,return_images,history_list]
+        print(user)
+    
+        if not return_images and not history_list:
+            return jsonify({
+                'message':'no images & history found',
+                'user':return_user
+            }), 404
+        elif not return_images:
+            return jsonify({
+                'message':'no images found',
+                'user':return_user,
+                'medical_history':history_list
+            }), 404
+        elif not history_list:
+            return jsonify({
+                'message':'no history found',
+                'user':return_user,
+                'images':return_images
+            }), 404
+        return jsonify({
+                'message':'success',
+                'user':return_user,
+                'images':return_images,
+                'medical_history':history_list
+
+            }), 200
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+
 
 
 if __name__ == "__main__":
