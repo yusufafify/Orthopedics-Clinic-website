@@ -296,7 +296,7 @@ def getmedicalhistory():
 
 
 
-@app.route('/medical_images', methods=['GET'])
+@app.route('/medical_images', methods=['POST'])
 @jwt_required()
 def getMedicalImages():
     try:
