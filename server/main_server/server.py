@@ -588,15 +588,15 @@ def get_patient_appointments():
             doctor_email=doctor_info['email'] if doctor_info else 'Unknown'
 
             patAppointments.append({
-                'appointmentId':str(info['_id']),
-                'doctorName':doctor_name,
-                'doctorEmail':doctor_email,
+                'id':str(info['_id']),
+                'doctor_name':doctor_name,
+                'doctor_email':doctor_email,
                 'date':info['date'],
-                'type':info['type'],
-                'paymentMethod':info['paymentMethod'],
+                'reason':info['type'],
+                'payment':info['paymentMethod'],
                 'treatment':info['treatment'],
                 'diagnosis':info['diagnosis'],
-                'doctorNotes':info['doctorNotes'],
+                'doctor_notes':info['doctorNotes'],
                 'status':info['status']
             })
         return jsonify(patAppointments)

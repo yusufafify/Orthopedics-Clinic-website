@@ -81,15 +81,15 @@ function getAppointments(appointments) {
                   class="text-sm font-light">${appointment.id}</span></p>
             </div>
             <div>
-              <p class="text-md font-semibold">Date: <span class="text-sm font-light">20/5/2024</span></p>
+              <p class="text-md font-semibold">Date: <span class="text-sm font-light">${appointment.date}</span></p>
             </div>
             <div>
               <p class="text-md font-semibold">Doctor's name: <span
-                  class="text-sm font-light">Youssef</span></p>
+                  class="text-sm font-light">${appointment.doctor_name}</span></p>
             </div>
             <div>
               <p class="text-md font-semibold">Doctor's email: <span
-                  class="text-sm font-light">youssefahmed@gmail.com</span></p>
+                  class="text-sm font-light">${appointment.doctor_email}</span></p>
             </div>
           </div>
           <div

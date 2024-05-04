@@ -1,51 +1,76 @@
 //object containing all the appointments
 import { getAppointments } from "../utils/getAppointments.js";
 const appointmentsDetails = [
-  {
-    id: 1,
-    date: "2018-01-01",
-    time: "10:00",
-    patient: "John Doe",
-    doctor_name: "Youssef Ahmed",
-    doctor_email: "hi@hmail.com",
-    reason: "Consultation",
-    payment: "Cash",
-    status: "paid",
-    doctor_notes:
-      "loremiqjdq qowdqowd, qwidbqwidn, diqwdbqwdm diqwdbq,whbdiqywdkqwddoqwhdo",
-  },
-
-  {
-    id: 2,
-    date: "2018-01-01",
-    time: "11:00",
-    patient: "Jane Doe",
-    doctor_name: "Mahmoud Batoot",
-
-    doctor_email: "qidj@gmail.com",
-    reason: "Examination",
-    payment: "Insurance",
-    status: "paid",
-  },
-
-  {
-    id: 3,
-    date: "2018-01-01",
-    time: "12:00",
-    patient: "Youssef",
-    doctor_name: "Amr Doma",
-
-    doctor_email: "oqudhoqd@gmail.com",
-    reason: "Consultatiion",
-    payment: "Cash",
-    status: "UNPaid",
-    doctor_notes:
-      "loremiqjdq qowdqowd, qwidbqwidn, diqwdbqwdm diqwdbq,whbdiqywdkqwddoqwhdo",
-  },
+  // {
+  //   id: 1,
+  //   date: "2018-01-01",
+  //   time: "10:00",
+  //   patient: "John Doe",
+  //   doctor_name: "Youssef Ahmed",
+  //   doctor_email: "hi@hmail.com",
+  //   reason: "Consultation",
+  //   payment: "Cash",
+  //   status: "paid",
+  //   doctor_notes:
+  //     "loremiqjdq qowdqowd, qwidbqwidn, diqwdbqwdm diqwdbq,whbdiqywdkqwddoqwhdo",
+  // },
+  // {
+  //   id: 2,
+  //   date: "2018-01-01",
+  //   time: "11:00",
+  //   patient: "Jane Doe",
+  //   doctor_name: "Mahmoud Batoot",
+  //   doctor_email: "qidj@gmail.com",
+  //   reason: "Examination",
+  //   payment: "Insurance",
+  //   status: "paid",
+  // },
+  // {
+  //   id: 3,
+  //   date: "2018-01-01",
+  //   time: "12:00",
+  //   patient: "Youssef",
+  //   doctor_name: "Amr Doma",
+  //   doctor_email: "oqudhoqd@gmail.com",
+  //   reason: "Consultatiion",
+  //   payment: "Cash",
+  //   status: "UNPaid",
+  //   doctor_notes:
+  //     "loremiqjdq qowdqowd, qwidbqwidn, diqwdbqwdm diqwdbq,whbdiqywdkqwddoqwhdo",
+  // },
 ];
 
+async function getPatientAppointmentsData() {
+  try{
+    const response=await fetch("http://localhost:8008/get_patient_appointments",{
+      method:"GET",
+      headers:{
+        "Content-Type":"application/json",
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    if(data){
+      appointmentsDetails.push(...data);
+    }
+    console.log(appointmentsDetails);
+    
 document.getElementById("appointment_table_body").innerHTML =
-  getAppointments(appointmentsDetails);
+getAppointments(appointmentsDetails.slice(0, 3));
+var buttons = document.querySelectorAll("button");
+buttons.forEach(function (button) {
+  button.addEventListener("click", handleButtonClick);
+});
+
+  }catch(error){
+    console.error(error);
+    
+  }
+}
+getPatientAppointmentsData();
+
+
 
 function handleButtonClick(event) {
   // event.currentTarget is the button that the event listener is attached to
