@@ -602,7 +602,44 @@ def get_patient_appointments():
         return jsonify(patAppointments)
     except Exception as e:
         return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+@app.route('/cancel_appointment', methods=['DELETE'])
+@jwt_required()
+def cancel_appointment():
+    try:
+        data = request.get_json()
+        appointment_id = ObjectId(data.get('appointmentId'))
+        appointment_info = appointment.find_one({'_id': appointment_id})
+        if not appointment_info:
+            return jsonify({'message': 'appointment not found','flag':False}), 404
+        if appointment_info['date']==datetime.now().strftime('%Y-%m-%d'):
+            return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
+        if appointment_info['date']<datetime.now().strftime('%Y-%m-%d'):
+            return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
+        appointment.delete_one({'_id': appointment_id})
+        return jsonify({'message': 'success','flag':True}), 200
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
 
+@app.route('/edit_appointment', methods=['PATCH'])
+@jwt_required()
+def edit_appointment():
+    try:
+        data = request.get_json()
+        patappointment = ObjectId(data.get('appointmentId'))
+        appointment_info = appointment.find_one({'_id': patappointment})
+        appointment_date=data.get('date')
+        if not appointment_info:
+            return jsonify({'message': 'appointment not found','flag':False}), 404
+        if appointment_info['date']==datetime.now().strftime('%Y-%m-%d'):
+            return jsonify({'message': 'cannot edit an appointment on the same day','flag':False}), 400
+        if appointment_info['date']<datetime.now().strftime('%Y-%m-%d'):
+            return jsonify({'message': 'cannot edit an appointment in the past','flag':False}), 400
+        appointment.find_one_and_update({'_id': patappointment}, {'$set': {'date': appointment_date}}, upsert=True, return_document=ReturnDocument.AFTER)
+        return jsonify({'message': 'success','flag':True}), 200
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
 #Admin Endpoints
 @app.route('/get_appointments', methods=['GET'])
 def get_appointments():
