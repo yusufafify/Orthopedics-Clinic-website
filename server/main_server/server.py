@@ -573,8 +573,35 @@ def all_appointments():
         return jsonify({ 'error': str(err) }), 500    
 
 
+@app.route('/get_patient_appointments', methods=['GET'])
+@jwt_required()
+def get_patient_appointments():
+    try:
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+        print
+        appointments=list(appointment.find({'patientId':patid}))
+        patAppointments=[]
+        for info in appointments:
+            doctor_info=users.find_one({'_id':info['doctorId']})
+            doctor_name=doctor_info['name'] if doctor_info else 'Unknown'
+            doctor_email=doctor_info['email'] if doctor_info else 'Unknown'
 
-
+            patAppointments.append({
+                'appointmentId':str(info['_id']),
+                'doctorName':doctor_name,
+                'doctorEmail':doctor_email,
+                'date':info['date'],
+                'type':info['type'],
+                'paymentMethod':info['paymentMethod'],
+                'treatment':info['treatment'],
+                'diagnosis':info['diagnosis'],
+                'doctorNotes':info['doctorNotes'],
+                'status':info['status']
+            })
+        return jsonify(patAppointments)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
 
 #Admin Endpoints
 @app.route('/get_appointments', methods=['GET'])
