@@ -82,3 +82,6 @@ logoutBtn.addEventListener("click", function () {
   window.location.href =
     "http://" + window.location.host + "/Orthopedics-Clinic-website/client/Login/login.html";
 });
+
+
+
