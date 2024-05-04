@@ -82,6 +82,7 @@ fetch("http://localhost:8008/get_patient_info", {
 .then((response) => response.json())
 .then((data) => {
 
+
   document.querySelector('#medicalImages').innerHTML = generateMedicalImages(data.images);
   
   document.querySelector('#recordBox').innerHTML = displayMedicalHistory(data.medical_history);
@@ -135,6 +136,15 @@ function closeModal(modalId) {
 }
 
   function displayMedicalHistory(medicalHistory) {
+    if (medicalHistory===undefined){
+      return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    <br>
+  
+    <br>  
+        No history found.
+    </div>
+  `;
+    }
     let formattedHistory = '';
   
     medicalHistory.forEach((item, index) => {
@@ -216,6 +226,17 @@ updateAppointments();
 // Function to generate images
 function generateMedicalImages(images) {
   console.log(images);
+
+  if (images === undefined){
+    return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    <br>
+  
+    <br>  
+        No images found.
+    </div>
+  `;
+
+  }
   let imageElements = '';
   for (let image of images) {
     imageElements += `
