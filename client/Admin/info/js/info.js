@@ -43,6 +43,7 @@ fetch("http://localhost:8008/personal_data", {
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
+    
   },
 })
   .then((response) => response.json())
@@ -63,6 +64,7 @@ fetch("http://localhost:8008/personal_data", {
       : data.gender === "male"
       ? (profilePic.src = "/public/assets/imgs/man.png")
       : (profilePic.src = "/public/assets/imgs/woman.png");
+
   })
   .catch((error) => {
     console.error("Error:", error);
@@ -157,8 +159,7 @@ const updateData = async (updatedData) => {
       },
       body: JSON.stringify(updatedData),
     });
-    const data = await response.json();
-  
+ 
   } catch (error) {
     console.error("Error:", error);
   }
@@ -178,3 +179,4 @@ updateBtn.addEventListener("click", function () {
   modal.classList.add("pointer-events-none","opacity-0");
   modalState = false;
 });
+console.log(localStorage.getItem('token'))

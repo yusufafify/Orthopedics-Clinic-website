@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   age: Number,
   role: { type: String, enum: ['patient', 'Doctor', 'admin'], required: true },
   images:{ type: [String], default: [] },
-  workingHours: { type:String, default: undefined },
+  workingHours: { type:[Number], default: undefined },
   salary: { type: Number, default: undefined },
   profilePic: { type: String, default: '' }
 });
@@ -34,7 +34,8 @@ const appointmentSchema = new mongoose.Schema({
   diagnosis: { type: String, default: null },
   treatment: { type: [String], default: [] }, // esm eldawa, elmawa3eed, elgor3a, norbotha patient history, ma3 images, ma3 diagnosis 
   doctorNotes: { type: String, default: null },
-  price: { type: Number, default: undefined }
+  price: { type: Number, default: undefined },
+  status:{type: String, enum:['pending', 'completed', 'cancelled'], default: 'pending'}
 });
 
 const imageSchema = new mongoose.Schema({
@@ -49,11 +50,11 @@ const Appointments = mongoose.model('Appointments', appointmentSchema);
 const Images = mongoose.model('Images', imageSchema);
 
 const appounrmentData={
-  doctorId: "66227ceb828269236367a6d0",
-  patientId: "662279eee6cb667641500cd9",
-  date: new Date(),
-  type: "Examination",
-  paymentMethod: "Insurance"
+  doctorId: "662a912c2c9bd6a529447214",
+  patientId: "662a990058c7edf6b14c99e6",
+  type: "Consultation",
+  paymentMethod: "Insurance",
+  
 }
 
 const userData={
@@ -73,10 +74,10 @@ const imageData = {
   src: 'ay haga for now'
 }
 
-const user = new Users(userData); // Create a new user in the database 
-// const appointment = new Appointments(appounrmentData); // Create a new appointment in the database
+//const user = new Users(userData); // Create a new user in the database 
+const appointment = new Appointments(appounrmentData); // Create a new appointment in the database
 // const image = new Images(imageData); // Create a new image in the database
 
-// appointment.save(); // Save the appointment to the database   
-user.save(); // Save the user to the database
+ appointment.save(); // Save the appointment to the database   
+//user.save(); // Save the user to the database
 // image.save(); // Save the image in the image collection

@@ -5,6 +5,7 @@ from pymongo.mongo_client import MongoClient
 from flask_jwt_extended import JWTManager,create_access_token,create_refresh_token,jwt_required, get_jwt_identity
 from datetime import datetime, timedelta
 import bcrypt
+from bson.objectid import ObjectId
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
 
@@ -415,6 +416,320 @@ def delete_user():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+    
+
+
+
+
+
+@app.route('/get_today_appointments', methods=['GET'])
+@jwt_required()
+def today_appointments():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        today=datetime.now().strftime('%Y-%m-%d')
+        appointments=appointment.find({'doctorId':docid})
+        
+        arrayoftoday=[]
+        
+        for app in appointments:
+            if app['status']=='pending' and str(today) in str(app['date']):
+                arrayoftoday.append({
+                    'patientId':str(app['patientId']),
+                    'appointmentID':str(app['_id']),
+                    'patientName':users.find_one({'_id':app['patientId']})['name'],
+                    'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                    'date':app['date'],
+                    'type':app['type'],
+                    'paymentMethod':app['paymentMethod']
+                })
+
+        if not arrayoftoday:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify(arrayoftoday)
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+
+@app.route('/get_patient_info', methods=['POST'])
+@jwt_required()
+def get_patient_info():
+    try:
+        data=request.get_json()
+        patid=ObjectId(data.get('patientId'))
+        user=users.find_one({'_id':patid})
+        if not user:
+            return jsonify({
+                'message':'patient not found'
+            }), 404
+
+        return_user={
+            "patienId":str(user['_id']),
+            "email":user['email'],
+            "phoneNumber":user['phoneNumber'],
+            "address":user['address'],
+            "age":user['age'],
+            "name":user['name'],
+            "role":user['role'],
+            "gender":user['gender']
+        }
+            
+
+        imagesArray=images.find({'patientId':patid})
+        return_images=[]
+
+        for image in imagesArray:
+            return_images.append({
+                'image_id':str(image['_id']),
+                'category':image['imageType'],
+                'src':image['src'],
+                'date':image['date']
+            })
+
+        medical_history_array=medical_history.find({'patientId':patid})
+        history_list=[]
+        for history in medical_history_array:
+            history_list.append({
+                'historyType':history['historytype'],
+                'title':history['titleofproblem'],
+                'date':history['dateofproblem'],
+                'description':history['description']
+            })
+
+
+    
+        if not return_images and not history_list:
+            return jsonify({
+                'message':'no images & history found',
+                'user':return_user
+            }), 200
+        elif not return_images:
+            return jsonify({
+                'message':'no images found',
+                'user':return_user,
+                'medical_history':history_list
+            }), 200
+        elif not history_list:
+            return jsonify({
+                'message':'no history found',
+                'user':return_user,
+                'images':return_images
+            }), 200
+        return jsonify({
+                'message':'success',
+                'user':return_user,
+                'images':return_images,
+                'medical_history':history_list
+
+            }), 200
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+@app.route('/all_appointments', methods=['GET'])
+@jwt_required()
+def all_appointments():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        appointments=appointment.find({'doctorId':docid})
+        arrayofall=[]
+        
+        for app in appointments:
+            arrayofall.append({
+                'patientId':str(app['patientId']),
+                'appointmentID':str(app['_id']), #changed from 'appointmentId' to 'appointmentID
+                'patientName':users.find_one({'_id':app['patientId']})['name'],
+                'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                'date':app['date'],
+                'type':app['type'],
+                'paymentMethod':app['paymentMethod'],
+                'treatment':app['treatment'],
+                'diagnosis':app['diagnosis'],
+                'doctorNotes':app['doctorNotes'],
+                'status':app['status']
+            })
+
+        if not arrayofall:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify(arrayofall)
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500    
+
+
+
+
+
+#Admin Endpoints
+@app.route('/get_appointments', methods=['GET'])
+def get_appointments():
+    try:
+        app = list(appointment.find()) 
+
+        serialized_appointments = []
+        for info in app:
+
+            patient_info = users.find_one({'_id': ObjectId(info['patientId'])})
+            print(patient_info)
+            print("############")
+
+            print(ObjectId(info['patientId']))
+            patient_name = patient_info['name'] if patient_info else 'Unknown'
+            Doctor_info=users.find_one({'_id': ObjectId(info['doctorId'])})
+            Doctor_name = Doctor_info['name'] if Doctor_info else 'Unknown'
+
+            serialized_appointments.append({
+                'AppointmentId': str(info['_id']),
+                'patientName': patient_name ,
+                'doctorName': Doctor_name,
+                'date': info['date'].strftime('%Y-%m-%d'),
+                'time': info['date'].strftime('%H:%M:%S'),
+                'paymentMethod': info['paymentMethod']
+
+            })
+        for info in serialized_appointments:
+            print(info)
+        return jsonify(serialized_appointments)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+
+
+
+@app.route('/get_patients', methods=['GET'])
+def get_patients():
+    try:
+        User = list(users.find()) 
+
+        patients = []
+        for info in User:
+            if info['role'] == "Patient" or info['role'] == "patient":
+                patientid=str(info['_id'])
+                patient_appointment = appointment.find_one({'patientId': ObjectId(info['_id'])})
+                print(patient_appointment)
+                appointment_date = patient_appointment['date'].strftime('%Y-%m-%d') if patient_appointment else 'Unknown'
+
+                patients.append({
+                    'PatientId': patientid,
+                    'patientName': info['name'] ,
+                    'patientEmail': info['email'],
+                    'patientPhone': info['phoneNumber'],
+                    'time': appointment_date
+                    
+              })
+        for info in patients:
+            print(info)
+        return jsonify(patients)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+
+
+@app.route('/get_doctors', methods=['GET'])
+def get_doctors():
+    try:
+        User = list(users.find()) 
+
+        doctors = []
+        for info in User:
+            if info['role'] == "Doctor" or info['role'] == "doctor":
+                doctorid=str(info['_id'])
+
+                doctors.append({
+                    'DoctorId': doctorid,
+                    'DoctorName': info['name'] ,
+                    'DoctorEmail': info['email'],
+                    'DoctorPhone': info['phoneNumber']
+
+                })
+        for info in doctors:
+            print(info)
+        return jsonify(doctors)
+    except Exception as e:
+        return jsonify({'message': 'error', 'error': str(e)}), 400
+    
+
+
+
+
+
+
+
+
+@app.route('/create_employee', methods=['POST'])
+def create_employee():
+    global refresh_token
+    try:
+        data = request.get_json()
+        email=data.get('email')
+
+        user = users.find_one({ 'email': email })
+        if user: 
+            return jsonify({ 'error': 'invalid email' }), 409
+
+        password=data.get('password').encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+
+        name=data.get('name')
+        age=data.get('age')
+        role=data.get('role')
+        gender=data.get('gender')
+        address=data.get('address')
+        #ssn=data.get('ssn')
+        phone=data.get('phone')
+        #salary=data.get('salary')
+        #working_hours=data.get('workingHours')
+        user = {
+            'name':name,
+            'email':email,
+            'password':hashed_password,
+            'age':int(age),
+            'role': role, 
+            'gender': gender,
+            'address': address,
+            #'ssn': ssn,
+            'phoneNumber':phone,
+            #'salary':salary,
+            #'working_hours': working_hours
+        }
+        users.insert_one(user)
+        token = create_access_token({
+                  'email': email,
+            'role': user["role"],
+            'exp' : datetime.utcnow() + timedelta(seconds= 15)
+        })
+        refresh_token = create_refresh_token({
+                  'email': email,
+            'role': user["role"]
+        })
+
+        return jsonify({
+                'message':'success',
+                'token': token,
+                'refresh_token': refresh_token
+
+            })
+    except Exception as e:
+        return jsonify({
+            'message': 'error',
+            'error': str(e)
+    })
+
+
 
 
 if __name__ == "__main__":
