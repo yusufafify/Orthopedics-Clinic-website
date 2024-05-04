@@ -62,6 +62,7 @@ def login():
             print(user['role'])
             return jsonify({
                 'message': 'success',
+                'id': str(user['_id']),
                 'token': token,
                 'role': user['role'],
                 'refresh_token': refresh_token
@@ -307,6 +308,7 @@ def getmedicalhistory():
         history_list=[]
         for h in history:
             history_list.append({
+                "history_id":str(h['_id']), 
                 'historyType':h['historytype'],
                 'title':h['titleofproblem'],
                 'date':h['dateofproblem'],
@@ -729,6 +731,31 @@ def create_employee():
             'error': str(e)
     })
 
+#route to delete a history
+@app.route('/delete_history', methods=['DELETE'])
+@jwt_required()
+def delete_history():
+    try:
+        data=request.get_json()
+        history_id=ObjectId(data.get('history_id'))
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+        history=medical_history.find_one({'_id':history_id})
+        if not history:
+            return jsonify({
+                'message':'history not found'
+            }), 404
+        if history['patientId']!=patid:
+            return jsonify({
+                'message':'unauthorized'
+            }), 401
+        medical_history.delete_one({'_id':history_id})
+        return jsonify({
+            'message':'success'
+        }), 200
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 

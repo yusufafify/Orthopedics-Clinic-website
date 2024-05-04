@@ -1,5 +1,7 @@
 //import the functions needed
 import { getMedicalHistory } from "./getMedicalHistory.js";
+import { handleDelete } from "./handleDelete.js";
+
 
 //variables for the header of the history page
 const historyOpenBtn = document.querySelector("#historyOpenBtn");
@@ -28,7 +30,8 @@ const injuriesDetails = document.getElementById("injuries_details");
 const surgeriesDetails = document.getElementById("surgeries_details");
 const treatmentsDetails = document.getElementById("treatments_details");
 const familyHistoryDetails = document.getElementById("family_details");
-
+const medicationsDetails = document.getElementById("medication_details");
+const allergiesDetails = document.getElementById("allergies_details");
 //Initial medical history details
 const medicalHistory = [];
 
@@ -85,7 +88,6 @@ navBtns.forEach((btn) => {
         .reverse();
       injuriesDetails.innerHTML = getMedicalHistory(injuriesHistory, true);
       familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
-
     }
     if (btnID === "surgeriesBtn") {
       injuriesContainer.classList.add("hidden");
@@ -99,8 +101,8 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Surgeries")
         .reverse();
       surgeriesDetails.innerHTML = getMedicalHistory(surgeriesHistory, true);
-      familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
 
+      familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
     }
     if (btnID === "treatmentsBtn") {
       injuriesContainer.classList.add("hidden");
@@ -115,7 +117,6 @@ navBtns.forEach((btn) => {
         .reverse();
       treatmentsDetails.innerHTML = getMedicalHistory(treatmentsHistory, true);
       familyContainer.parentElement.classList.remove("md:grid-cols-2", "gap-4");
-
     }
     if (btnID === "familyBtn") {
       injuriesContainer.classList.add("hidden");
@@ -142,6 +143,10 @@ navBtns.forEach((btn) => {
         "md:grid-cols-2",
         "gap-2"
       );
+      const medications = medicalHistory
+        .filter((history) => history.historyType === "Medications")
+        .reverse();
+      medicationsDetails.innerHTML = getMedicalHistory(medications, true);
     }
     if (btnID === "allergiesBtn") {
       injuriesContainer.classList.add("hidden");
@@ -154,7 +159,14 @@ navBtns.forEach((btn) => {
         "md:grid-cols-2",
         "gap-2"
       );
+      const allergies = medicalHistory
+        .filter((history) => history.historyType === "Allergies")
+        .reverse();
+      allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
     }
+    document.querySelectorAll("button").forEach(function (button) {
+      button.addEventListener("click", handleDelete);
+    });
   });
 });
 
@@ -163,6 +175,8 @@ async function getHistory() {
   surgeriesDetails.innerHTML = getMedicalHistory([], false);
   treatmentsDetails.innerHTML = getMedicalHistory([], false);
   familyHistoryDetails.innerHTML = getMedicalHistory([], false);
+  medicationsDetails.innerHTML = getMedicalHistory([], false);
+  allergiesDetails.innerHTML = getMedicalHistory([], false);
   try {
     const response = await fetch("http://localhost:8008/get_medical_history", {
       method: "GET",
@@ -173,7 +187,7 @@ async function getHistory() {
     });
     const data = await response.json();
     medicalHistory.push(...data);
-    console.table(medicalHistory)
+    console.table(medicalHistory);
   } catch (error) {
     console.log(error);
   }
@@ -194,10 +208,23 @@ async function getHistory() {
     .filter((history) => history.historyType === "Family Afflictions")
     .reverse()
     .slice(0, 2); // Limit to 2 items
+  const medications = medicalHistory
+    .filter((history) => history.historyType === "Medications")
+    .reverse()
+    .slice(0, 2); // Limit to 2 items
+  const allergies = medicalHistory
+    .filter((history) => history.historyType === "Allergies")
+    .reverse()
+    .slice(0, 2); // Limit to 2 items
   injuriesDetails.innerHTML = getMedicalHistory(injuriesHistory, true);
   surgeriesDetails.innerHTML = getMedicalHistory(surgeriesHistory, true);
   treatmentsDetails.innerHTML = getMedicalHistory(treatmentsHistory, true);
   familyHistoryDetails.innerHTML = getMedicalHistory(familyHistory, true);
+  medicationsDetails.innerHTML = getMedicalHistory(medications, true);
+  allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
+  document.querySelectorAll("button").forEach(function (button) {
+    button.addEventListener("click", handleDelete);
+  });
 }
 
 getHistory();

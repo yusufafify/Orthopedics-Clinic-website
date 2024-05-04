@@ -41,6 +41,7 @@ function login(){
 
     console.log(data.role)
     if(data.role=='patient'){
+      localStorage.setItem('patient_id', data.id);
       window.location.href = 'http://127.0.0.1:5500/client/patient/patient.html';
     }
     else if(data.role=='doctor'){

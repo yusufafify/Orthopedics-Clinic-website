@@ -1,29 +1,46 @@
-//fetch function to get user data from the server
-
-  fetch("http://localhost:8008/personal_data", {
-    method: "GET",
+import { landingMedicalHistory } from "./history.js";
+import { landingMedicalImages } from "./images.js";
+async function getPersonalData() {
+  const response = await fetch("http://localhost:8008/get_patient_info", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      //   document.getElementById('first_name').value=data.name.split(' ')[0];
-      //   document.getElementById('last_name').value=data.name.split(' ')[1];
-      //   email.value=data.email;
-      //   document.getElementById('phone').value=data.phone;
-      //  document.getElementById('address').value=data.address;
-      //   document.getElementById('age').value=data.age;
-      document.getElementById("patient_name").innerHTML =
-        data.name + "    -" + data.age + " years old";
-      document.getElementById("patient_email").innerHTML = data.email;
-      document.getElementById("patient_phone").innerHTML = data.phoneNumber;
-  
-      document.getElementById("patient_address").innerHTML = data.address;
-    })
-    .catch((error) => {
-      console.error("Error:");
+    body: JSON.stringify({
+      patientId: localStorage.getItem("patient_id"),
+    }),
+  });
+  const data = await response.json();
+  console.log(data);
+  document.getElementById("patient_name").innerHTML =
+    data.user.name + "    -" + data.user.age + " years old";
+  document.getElementById("patient_email").innerHTML = data.user.email;
+  document.getElementById("patient_phone").innerHTML = data.user.phoneNumber;
 
+  document.getElementById("patient_address").innerHTML = data.user.address;
+  console.log(data.images);
+  console.log(data.medical_history);
+  const images = [];
+  const history = [];
+  if(data.image){
+
+    data.images.forEach((image) => {
+      images.push(image.src);
     });
-  
+  }
+  console.log(images);
+  if(data.medical_history){
+
+    history.push(...data.medical_history);
+  }
+  console.log(history);
+  console.log(landingMedicalHistory(history));
+
+  document.getElementById("briefHistory").innerHTML =
+    landingMedicalHistory(history);
+  document.getElementById("briefImages").innerHTML =
+    landingMedicalImages(images);
+}
+
+getPersonalData();

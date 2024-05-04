@@ -5,7 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/public/assets/styles/tailwind.js"></script>
+  <script src="/public/assets/sweetAlert/sweetalert2.all.min.js"></script>
   <link rel="stylesheet" href="./styles/style.css">
+
 
   <title>Patient Portal</title>
 </head>
@@ -241,6 +243,9 @@
                         <option value="Treatments">Treatments</option>
                         <option value="Surgeries">Surgeries</option>
                         <option value="Family Afflictions">Family Afflictions</option>
+                        <option value="Medications">Medications</option>
+                        <option value="Allergies">Allergies</option>
+
                       </select>
                       <label
                         class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
@@ -344,15 +349,13 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div id="medications">
                   <h2 class="text-2xl font-bold mb-4">Medications</h2>
-                  <div class="bg-white p-6 rounded-lg shadow-md ">
-                    <h2 class="t-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                  <div id="medication_details" class="bg-white p-6 rounded-lg shadow-md ">
                   </div>
                 </div>
 
                 <div id="allergies">
                   <h2 class="text-2xl font-bold mb-4">Allergies</h2>
-                  <div class="bg-white p-6 rounded-lg shadow-md ">
-                    <h2 class="t-md ml-[10px] font-semibold mb-4"> No Medical History yet</h2>
+                  <div id="allergies_details" class="bg-white p-6 rounded-lg shadow-md ">
                   </div>
                 </div>
               </div>

@@ -1,5 +1,4 @@
 function getMedicalHistory(array, isFetchDone) {
-
   if (!isFetchDone) {
     return `
     
@@ -37,11 +36,15 @@ function getMedicalHistory(array, isFetchDone) {
       `
       
       <div class="bg-white p-6 rounded-lg shadow-md ">
-        <h3 class="text-lg font-bold mb-2">${history.title}</h3>
+      <div class="flex justify-between">
+          <h3 class="text-lg font-bold mb-2">${history.title}</h3>
+          <button id='deleteBtn${history.history_id}' class="text-red-700 hover:bg-red-500 hover:p-2 hover:text-white transition-all duration-300 rounded-xl">delete</button>
+          </div>
         <p class="mb-2">Date: ${history.date}</p>
         <p>
           Description: ${history.description}
         </p>
+        
       </div>
       
     
@@ -49,4 +52,4 @@ function getMedicalHistory(array, isFetchDone) {
   );
 }
 
-export {getMedicalHistory};
+export { getMedicalHistory };
