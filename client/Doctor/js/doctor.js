@@ -21,10 +21,9 @@ fetch ("http://localhost:8008/get_today_appointments", {
 });
 
 
+ 
 
-
-
-
+let oldAppointment;
 
 let _activeAppointmentID = -1; // This will hold the actual value of activeAppointmentID
 let activeAppointment = null; // This will hold the active appointment object
@@ -72,9 +71,32 @@ function getActiveAppointmentID() {
 }
 
 
+fetch("http://localhost:8008/get_patient_info", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+  body: JSON.stringify({ patientId : JSON.parse(localStorage.getItem('activeAppointment')).patientId}),
+})
+.then((response) => response.json())
+.then((data) => {
+
+
+  document.querySelector('#medicalImages').innerHTML = generateMedicalImages(data.images);
+  
+  document.querySelector('#recordBox').innerHTML = displayMedicalHistory(data.medical_history);
+  console.log(data.medical_history)
+  
+  console.log(displayMedicalHistory(data.medical_history));
+
+})
+.catch((error) => {
+console.error("Error:", error);
+});
 
 //setActiveAppointmentID(-1);
-let oldAppointment;
+
 
 
 function openImageModal(image) {
@@ -109,7 +131,34 @@ function closeModal(modalId) {
     }
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
+  function displayMedicalHistory(medicalHistory) {
+    if (medicalHistory===undefined){
+      return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    <br>
+  
+    <br>  
+        No history found.
+    </div>
+  `;
+    }
+    let formattedHistory = '';
+  
+    medicalHistory.forEach((item, index) => {
+      formattedHistory += `${index + 1}:${item.historyType}<br>`;
+      for (const key in item) {
+        if (key !=='historyType'){
+        formattedHistory += `${capitalizeFirstLetter(key)}: ${item[key]}<br>`;
+        }
+      }
+      formattedHistory += '----------------------------<br>';
+    });
+  
+    return formattedHistory;
+  }
 
 // Function to generate table rows
 function generateTodaysAppointmentsTableRows(dataa) {
@@ -170,27 +219,33 @@ updateAppointments();
 // Medical Images
 
 
-const medicalImages = [
-  'js/image1.jpg',
-  'js/image2.jpg',
-  'js/image1.jpg',
-  'js/image2.jpg',
-  'js/image1.jpg',
-  'js/image2.jpg'
-  // Add more image paths as needed
-];
 
+  
+  // Add more image paths as needed
+//image.category.split("_")[0]
 // Function to generate images
 function generateMedicalImages(images) {
+  console.log(images);
+
+  if (images === undefined){
+    return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    <br>
+  
+    <br>  
+        No images found.
+    </div>
+  `;
+
+  }
   let imageElements = '';
-  for (let imagePath of images) {
+  for (let image of images) {
     imageElements += `
     <div class="flex-none">
-    <a href="${imagePath}" data-lightbox="image-1" data-title="Description for Image 2">
-      <img src="${imagePath}" alt="Medical Image" class="w-48 h-48 object-cover cursor-pointer" />
+    <a href="${image.src}" data-lightbox="image-1" data-title="${image.category}">
+      <img src="${image.src}" alt="Medical Image" class="w-48 h-48 object-cover cursor-pointer" />
     </a>
-    <p class="mt-2 h-7 font-medium">Description for Image 1</p>
-    <p class="text-sm text-gray-500">Date for Image 1</p>
+    <p class="mt-2 h-7 font-medium">${image.category}</p>
+    <p class="text-sm text-gray-500">${image.date}</p>
   </div>
     `;
   }
@@ -198,7 +253,7 @@ function generateMedicalImages(images) {
 }
 
 // Add the generated images to the div
-document.querySelector('#medicalImages').innerHTML = generateMedicalImages(medicalImages);
+//document.querySelector('#medicalImages').innerHTML = generateMedicalImages(medicalImages);
 
 // Write a function to check the activeAppointmentID, and does one of two things: either displays "No active appointment" or it displays the details of the active ID's appointment
 
@@ -324,7 +379,7 @@ document.getElementById('active2').innerHTML = `<div>
   document.getElementById('appointmentPhone').innerHTML = appointment.phoneNumber;
   let appointmentIndex = todaysAppointments.findIndex(appointment => appointment.appointmentID === getActiveAppointmentID());
   oldAppointment=appointment;
-  console.log(oldAppointment);
+
   todaysAppointments.splice(appointmentIndex, 1);
   updateAppointments();
   
