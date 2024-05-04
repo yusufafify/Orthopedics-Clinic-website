@@ -1,5 +1,10 @@
 import { putImageInTheContainer } from "./putImageInTheContainer.js";
 import { initializeDialog } from "./initializeDialog.js";
+import { deleteImage } from "./deleteImage.js";
+
+const xrayBtn = document.querySelector("#xRay");
+const mriBtn = document.querySelector("#mri");
+const ctscanBtn = document.querySelector("#ct");
 
 const imgContainer = document.querySelector("#image_container");
 imgContainer.classList.remove(
@@ -12,17 +17,33 @@ imgContainer.classList.add("place-items-center");
 
 initializeDialog();
 
-const imgArray = [];
+let imgArray = [];
 
-function getImages() {
+function handleButtonClick(event) {
+  // event.currentTarget is the button that the event listener is attached to
+  let buttonId = event.currentTarget.id;
+  let number = buttonId.replace(/^\D+/g, "");
+
+  if (buttonId.includes("delete")) {
+    deleteImage(number);
+  }
+}
+
+function getImages(category) {
   imgContainer.innerHTML = putImageInTheContainer(imgArray, false);
-  fetch("http://localhost:8008/medical_images", {
-    method: "GET",
+  fetch("http://127.0.0.1:8008/medical_images", {
+    method: "POST",
     headers: {
+      "Content-Type": "application/json",
+
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
+    body: JSON.stringify({
+      category: category,
+    }),
   }).then((response) => {
     response.json().then((data) => {
+      console.log(data);
       imgArray.push(...data);
       imgContainer.classList.add(
         "grid-cols-1",
@@ -33,8 +54,28 @@ function getImages() {
 
       imgContainer.innerHTML = putImageInTheContainer(imgArray, true);
       initializeDialog();
+      const buttons = document.querySelectorAll("button");
+
+      buttons.forEach(function (button) {
+        button.addEventListener("click", handleButtonClick);
+      });
     });
   });
 }
 
-getImages();
+getImages("all");
+
+xrayBtn.addEventListener("click", () => {
+  imgArray = [];
+  getImages("x-ray");
+});
+
+mriBtn.addEventListener("click", () => {
+  imgArray = [];
+  getImages("mri");
+});
+
+ctscanBtn.addEventListener("click", () => {
+  imgArray = [];
+  getImages("ct");
+});

@@ -33,7 +33,7 @@ function putImageInTheContainer(array,isFetchDone) {
 
               </div>
           <div data-dialog-backdrop="image-dialog${i}" data-dialog-backdrop-close="true"
-            class="pointer-events-none fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
+            class="pointer-events-none fixed inset-0 z-[999] grid overflow-auto h-screen w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300">
             <div
               class="relative m-4 w-3/4 min-w-[75%] max-w-[75%] rounded-lg bg-white font-sans text-base font-light leading-relaxed text-blue-gray-500 antialiased shadow-2xl"
               role="dialog" data-dialog="image-dialog${i}">
@@ -43,11 +43,13 @@ function putImageInTheContainer(array,isFetchDone) {
 
                   <div class="flex flex-col -mt-px">
                     <p class="block font-sans text-sm antialiased font-medium leading-normal text-blue-gray-900">
-                      Tania Andrew
+                      Image Type: ${image.category.split("_")[0]}
                     </p>
 
                   </div>
-                </div>
+                  </div>
+                  <button type="button" id="delete${image.image_id}" class="focus:outline-none text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">delete</button>
+
 
               </div>
               <div
@@ -57,20 +59,20 @@ function putImageInTheContainer(array,isFetchDone) {
               </div>
               <div class="flex flex-wrap items-center justify-between p-4 shrink-0 text-blue-gray-500">
                 <div class="flex items-center gap-16">
-                  <div>
+                  <div >
                     <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                      Views
+                      Discription
                     </p>
                     <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                      44,082,044
+                      ${image.category.split("_")[1]}
                     </p>
                   </div>
-                  <div>
+                  <div >
                     <p class="block font-sans text-sm antialiased font-normal leading-normal text-gray-700">
-                      Downloads
+                      Date 
                     </p>
                     <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                      553,031
+                      ${image.date}
                     </p>
                   </div>
                 </div>

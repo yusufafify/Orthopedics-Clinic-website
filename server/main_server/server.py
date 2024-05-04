@@ -263,7 +263,31 @@ def add_to_medical_history():
 
 
 
+@app.route('/add_medical_image', methods=['POST'])
+@jwt_required()
+def addImage():
+    try:
+        data=request.get_json()
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+        imageType=data.get('imageType')
+        src=data.get('src')
+        date=data.get('date')
+        createdAt=data.get('createdAt')
+        updatedAt=data.get('updadtedAt')
 
+        images.insert_one({
+            'patientId':patid,
+            'imageType':imageType,
+            'src':src,
+            'date':date,
+            'createdAt':createdAt,
+            'updatedAt':updatedAt
+        })
+        return jsonify({'message':'success'}),200
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 @app.route('/get_medical_history', methods=['GET'])
@@ -295,28 +319,44 @@ def getmedicalhistory():
 
 
 
-@app.route('/medical_images', methods=['GET'])
+@app.route('/medical_images', methods=['POST'])
 @jwt_required()
 def getMedicalImages():
     try:
-        patemail=get_jwt_identity()['email']
-        patid=users.find_one({'email':patemail})['_id']
-        medicalImages=images.find({'patientId':patid})
-
-        if not medicalImages:
+        data=request.get_json()
+        category=data.get('category')
+        print(category)
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
+        imagesArray=images.find({'patientId':patid})
+        if not imagesArray:
             return jsonify({
                 'message':'no images found'
             }), 404
         
-        images_list=[]
-        for img in medicalImages:
-            images_list.append({
-                'src':img['src'],
-                'imageType':img['imageType'],
-                'date':img['date'],
-            })
+        return_images=[]
 
-        return jsonify(images_list)
+        for image in imagesArray:
+            if category.lower()=='all':
+                return_images.append({
+                    'image_id':str(image['_id']),
+                    'category':image['imageType'],
+                    'src':image['src'],
+                    'date':image['date'],
+                    'create':image['createdAt']
+                })
+            elif category.lower() in image['imageType'].lower():
+                return_images.append({
+                    'image_id':str(image['_id']),
+                    'category':image['imageType'],
+                    'src':image['src'],
+                    'date':image['date'],
+                    'create':image['createdAt']
+                })
+
+
+        
+        return jsonify(return_images)
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
@@ -324,7 +364,32 @@ def getMedicalImages():
 
 
 
+@app.route('/delete_medical_image', methods=['DELETE'])
+@jwt_required()
+def deleteImage():
+    try:
+        data=request.get_json()
+        image_id=data.get('image_id')
+        patmail=get_jwt_identity()['email']
+        patid=users.find_one({'email':patmail})['_id']
 
+        imagesarray=images.find({'patientId':patid})
+        if not imagesarray:
+            return jsonify({
+                'message':'no images found'
+            }), 404
+        
+        for image in imagesarray:
+            if str(image['_id'])==image_id:
+                images.delete_one({'_id':image['_id']})
+                return jsonify({
+                    'message':'success'
+                }),200
+            
+        return jsonify({'message':'image not found'}),404
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 
