@@ -597,7 +597,7 @@ def get_patient_appointments():
                 appointment_date = datetime.strptime(info['date'], '%Y-%m-%d').date()  # Parse date string
 
             
-            if appointment_date < current_date:
+            if appointment_date > current_date:
                 
                 flag = True
             else:
@@ -630,11 +630,18 @@ def cancel_appointment():
         data = request.get_json()
         appointment_id = ObjectId(data.get('appointmentId'))
         appointment_info = appointment.find_one({'_id': appointment_id})
+        current_date = datetime.now().date()  # Get current date
+
         if not appointment_info:
             return jsonify({'message': 'appointment not found','flag':False}), 404
-        if appointment_info['date']==datetime.now().strftime('%Y-%m-%d'):
+        if isinstance(appointment_info['date'], datetime):
+            appointment_date = appointment_info['date'].date()  # Convert to date
+        else:
+            appointment_date = datetime.strptime(appointment_info['date'], '%Y-%m-%d').date()  # Parse date string
+
+        if appointment_date==current_date:
             return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
-        if appointment_info['date']<datetime.now().strftime('%Y-%m-%d'):
+        if appointment_date<current_date:
             return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
         appointment.delete_one({'_id': appointment_id})
         return jsonify({'message': 'success','flag':True}), 200
@@ -648,14 +655,21 @@ def edit_appointment():
         data = request.get_json()
         patappointment = ObjectId(data.get('appointmentId'))
         appointment_info = appointment.find_one({'_id': patappointment})
-        appointment_date=data.get('date')
+        newDate=data.get('date')
+        current_date = datetime.now().date()  # Get current date
+
         if not appointment_info:
             return jsonify({'message': 'appointment not found','flag':False}), 404
-        if appointment_info['date']==datetime.now().strftime('%Y-%m-%d'):
-            return jsonify({'message': 'cannot edit an appointment on the same day','flag':False}), 400
-        if appointment_info['date']<datetime.now().strftime('%Y-%m-%d'):
-            return jsonify({'message': 'cannot edit an appointment in the past','flag':False}), 400
-        appointment.find_one_and_update({'_id': patappointment}, {'$set': {'date': appointment_date}}, upsert=True, return_document=ReturnDocument.AFTER)
+        if isinstance(appointment_info['date'], datetime):
+            appointment_date = appointment_info['date'].date()  # Convert to date
+        else:
+            appointment_date = datetime.strptime(appointment_info['date'], '%Y-%m-%d').date()  # Parse date string
+
+        if appointment_date==current_date:
+            return jsonify({'message': 'cannot Edit an appointment on the same day','flag':False}), 400
+        if appointment_date<current_date:
+            return jsonify({'message': 'cannot Edit an appointment in the past','flag':False}), 400
+        appointment.find_one_and_update({'_id': patappointment}, {'$set': {'date': newDate}}, upsert=True, return_document=ReturnDocument.AFTER)
         return jsonify({'message': 'success','flag':True}), 200
     except Exception as e:
         return jsonify({'message': 'error', 'error': str(e)}), 400

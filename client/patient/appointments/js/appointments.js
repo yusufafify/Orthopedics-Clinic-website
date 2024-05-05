@@ -1,46 +1,15 @@
 //object containing all the appointments
 import { getAppointments } from "../utils/getAppointments.js";
+import {loader} from "../utils/loader.js";
+import { handleCancel } from "../utils/handleCancel.js";
+import {handleSubmit} from "../utils/handleSubmit.js";
 const appointmentsDetails = [
-  // {
-  //   id: 1,
-  //   date: "2018-01-01",
-  //   time: "10:00",
-  //   patient: "John Doe",
-  //   doctor_name: "Youssef Ahmed",
-  //   doctor_email: "hi@hmail.com",
-  //   reason: "Consultation",
-  //   payment: "Cash",
-  //   status: "paid",
-  //   doctor_notes:
-  //     "loremiqjdq qowdqowd, qwidbqwidn, diqwdbqwdm diqwdbq,whbdiqywdkqwddoqwhdo",
-  // },
-  // {
-  //   id: 2,
-  //   date: "2018-01-01",
-  //   time: "11:00",
-  //   patient: "Jane Doe",
-  //   doctor_name: "Mahmoud Batoot",
-  //   doctor_email: "qidj@gmail.com",
-  //   reason: "Examination",
-  //   payment: "Insurance",
-  //   status: "paid",
-  // },
-  // {
-  //   id: 3,
-  //   date: "2018-01-01",
-  //   time: "12:00",
-  //   patient: "Youssef",
-  //   doctor_name: "Amr Doma",
-  //   doctor_email: "oqudhoqd@gmail.com",
-  //   reason: "Consultatiion",
-  //   payment: "Cash",
-  //   status: "UNPaid",
-  //   doctor_notes:
-  //     "loremiqjdq qowdqowd, qwidbqwidn, diqwdbqwdm diqwdbq,whbdiqywdkqwddoqwhdo",
-  // },
-];
 
+];
+document.getElementById("appointment_table_body").innerHTML =
+loader();
 async function getPatientAppointmentsData() {
+  
   try{
     const response=await fetch("http://localhost:8008/get_patient_appointments",{
       method:"GET",
@@ -70,7 +39,7 @@ buttons.forEach(function (button) {
 }
 getPatientAppointmentsData();
 
-
+let newAppointmentDate=""
 
 function handleButtonClick(event) {
   // event.currentTarget is the button that the event listener is attached to
@@ -81,6 +50,7 @@ function handleButtonClick(event) {
   //get the number from the id of the button
   let number = buttonId.replace(/^\D+/g, "");
   console.log(number);
+
 
   if (buttonId.includes("detailsbtn")) {
     const mainDialog = document.getElementById(`mainDialog${number}`);
@@ -152,6 +122,7 @@ function handleButtonClick(event) {
       "bg-opacity-60",
       "backdrop-blur-sm"
     );
+    
 
     setTimeout(() => {
       editDialogContainer.classList.add("opacity-100");
@@ -164,6 +135,13 @@ function handleButtonClick(event) {
       "scale-90",
       "pointer-events-none"
     );
+    console.log('iweufhwies'+newAppointmentDate);
+    // newAppointmentDate=document.getElementById(`date_picker${number}`).value 
+    //event listener for date picker
+    document.getElementById(`datePicker${number}`).addEventListener("change", (event) => {
+      newAppointmentDate = event.target.value;
+      console.log(newAppointmentDate);
+    });
   }
   if (buttonId.includes("exitEditBtn")) {
     const editDialogContainer = document.getElementById(
@@ -191,6 +169,19 @@ function handleButtonClick(event) {
       "scale-90"
     );
   }
+  if (buttonId.includes("cancel")) {
+    handleCancel(number);
+  }
+  if(buttonId.includes("submitEdit")){
+    
+    console.log(newAppointmentDate)
+    if(newAppointmentDate===""){
+      alert("Please select a date");
+      return;
+    }
+    handleSubmit(number,newAppointmentDate);
+  }
+
 }
 
 var buttons = document.querySelectorAll("button");
