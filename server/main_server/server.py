@@ -643,7 +643,7 @@ def cancel_appointment():
             return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
         if appointment_date<current_date:
             return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
-        appointment.delete_one({'_id': appointment_id})
+        appointment.find_one_and_update({'_id': appointment_id}, {'$set': {'status': 'cancelled'}}, upsert=True, return_document=ReturnDocument.AFTER)
         return jsonify({'message': 'success','flag':True}), 200
     except Exception as e:
         return jsonify({'message': 'error', 'error': str(e)}), 400

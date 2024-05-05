@@ -111,7 +111,7 @@ function getAppointments(appointments) {
             
 
           <div class="${
-            appointment.flag
+            appointment.flag&&appointment.status.toLowerCase() === "pending"
               ? "flex flex-wrap items-center mx-6 justify-end p-4 shrink-0 text-blue-gray-500"
               : "hidden"
           }">
