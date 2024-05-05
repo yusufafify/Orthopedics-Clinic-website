@@ -3,9 +3,7 @@ import { getAppointments } from "../utils/getAppointments.js";
 import {loader} from "../utils/loader.js";
 import { handleCancel } from "../utils/handleCancel.js";
 import {handleSubmit} from "../utils/handleSubmit.js";
-const appointmentsDetails = [
-
-];
+const appointmentsDetails = [];
 document.getElementById("appointment_table_body").innerHTML =
 loader();
 async function getPatientAppointmentsData() {

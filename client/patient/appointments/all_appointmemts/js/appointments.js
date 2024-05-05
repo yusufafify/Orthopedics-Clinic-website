@@ -3,6 +3,8 @@ import { getAppointments } from "../../utils/getAppointments.js";
 import { fetchAppointments } from "./fetchAppointments.js";
 
 import { loader } from "./loader.js";
+import {handleSubmit} from '../../utils/handleSubmit.js';
+import {handleCancel} from '../../utils/handleCancel.js';
 const appointmentsDetails = [];
 let pages = document.getElementById("pages");
 pages.innerHTML = `pages 1 of ${Math.ceil(appointmentsDetails.length / 4)}`;
@@ -11,6 +13,7 @@ let isOnePageState = false;
 let consultationState = false;
 let examinationState = false;
 let isFetchDone = false;
+let newAppointmentDate=''
 
 function attachButtonEventListeners() {
   var buttons = document.querySelectorAll("button");
@@ -272,6 +275,10 @@ function handleButtonClick(event) {
       "scale-90",
       "pointer-events-none"
     );
+    document.getElementById(`datePicker${number}`).addEventListener("change", (event) => {
+      newAppointmentDate = event.target.value;
+      console.log(newAppointmentDate);
+    });
   }
 
   if (buttonId.includes("exitEditBtn")) {
@@ -298,6 +305,18 @@ function handleButtonClick(event) {
       "scale-90",
       "pointer-events-none"
     );
+  }
+  if (buttonId.includes("cancel")) {
+    handleCancel(number);
+  }
+  if(buttonId.includes("submitEdit")){
+    
+    console.log(newAppointmentDate)
+    if(newAppointmentDate===""){
+      alert("Please select a date");
+      return;
+    }
+    handleSubmit(number,newAppointmentDate);
   }
 
   if (buttonId.includes("next")) {

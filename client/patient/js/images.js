@@ -11,7 +11,7 @@ function landingMedicalImages(images) {
       `
 
             <img alt="nature" class="object-cover h-96 w-full bg-clip-border  bg-white hover:opacity-90 shadow-md cursor-pointer rounded-xl"
-              src="${image}" />
+              src="${image.src}" />
 
             
   `)
@@ -22,7 +22,7 @@ function landingMedicalImages(images) {
       `
 
             <img alt="nature" class="object-cover h-96 w-full bg-clip-border  bg-white hover:opacity-90 shadow-md cursor-pointer rounded-xl"
-              src="${image}" />
+              src="${image.src}" />
 
             
   `)

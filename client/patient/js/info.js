@@ -23,12 +23,12 @@ async function getPersonalData() {
   console.log(data.medical_history);
   const images = [];
   const history = [];
-  if(data.image){
-
-    data.images.forEach((image) => {
-      images.push(image.src);
-    });
+  
+  if (data.images) {
+    images.push(...data.images);
+    console.log(images)
   }
+  
   console.log(images);
   if(data.medical_history){
 
