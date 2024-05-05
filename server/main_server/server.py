@@ -573,36 +573,56 @@ def all_appointments():
         return jsonify({ 'error': str(err) }), 500    
 
 
+
 @app.route('/get_patient_appointments', methods=['GET'])
 @jwt_required()
 def get_patient_appointments():
     try:
-        patmail=get_jwt_identity()['email']
-        patid=users.find_one({'email':patmail})['_id']
-        print
-        appointments=list(appointment.find({'patientId':patid}))
-        patAppointments=[]
+        patmail = get_jwt_identity()['email']
+        patid = users.find_one({'email': patmail})['_id']
+        flag = False
+        current_date = datetime.now().date()  # Get current date
+        appointments = list(appointment.find({'patientId': patid}))
+        patAppointments = []
+        
         for info in appointments:
-            doctor_info=users.find_one({'_id':info['doctorId']})
-            doctor_name=doctor_info['name'] if doctor_info else 'Unknown'
-            doctor_email=doctor_info['email'] if doctor_info else 'Unknown'
+            doctor_info = users.find_one({'_id': info['doctorId']})
+            doctor_name = doctor_info['name'] if doctor_info else 'Unknown'
+            doctor_email = doctor_info['email'] if doctor_info else 'Unknown'
+            
+            # Check if info['date'] is already a datetime object
+            if isinstance(info['date'], datetime):
+                appointment_date = info['date'].date()  # Convert to date
+            else:
+                appointment_date = datetime.strptime(info['date'], '%Y-%m-%d').date()  # Parse date string
 
+            
+            if appointment_date < current_date:
+                
+                flag = True
+            else:
+                flag = False
+            
             patAppointments.append({
-                'id':str(info['_id']),
-                'doctor_name':doctor_name,
-                'doctor_email':doctor_email,
-                'date':info['date'],
-                'reason':info['type'],
-                'payment':info['paymentMethod'],
-                'treatment':info['treatment'],
-                'diagnosis':info['diagnosis'],
-                'doctor_notes':info['doctorNotes'],
-                'status':info['status']
+                'id': str(info['_id']),
+                'doctor_name': doctor_name,
+                'doctor_email': doctor_email,
+                'date': info['date'],
+                'reason': info['type'],
+                'payment': info['paymentMethod'],
+                'treatment': info['treatment'],
+                'diagnosis': info['diagnosis'],
+                'doctor_notes': info['doctorNotes'],
+                'status': info['status'],
+                'flag': flag
             })
+        
         return jsonify(patAppointments)
+    
     except Exception as e:
         return jsonify({'message': 'error', 'error': str(e)}), 400
     
+
 @app.route('/cancel_appointment', methods=['DELETE'])
 @jwt_required()
 def cancel_appointment():

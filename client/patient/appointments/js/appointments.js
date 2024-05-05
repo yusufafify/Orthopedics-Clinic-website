@@ -76,11 +76,11 @@ function handleButtonClick(event) {
   // event.currentTarget is the button that the event listener is attached to
   let buttonId = event.currentTarget.id;
 
-  // console.log("Button clicked:", buttonId);
+  console.log("Button clicked:", buttonId);
 
   //get the number from the id of the button
   let number = buttonId.replace(/^\D+/g, "");
-  // console.log(number);
+  console.log(number);
 
   if (buttonId.includes("detailsbtn")) {
     const mainDialog = document.getElementById(`mainDialog${number}`);

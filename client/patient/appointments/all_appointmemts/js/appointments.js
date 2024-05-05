@@ -1,12 +1,16 @@
-import { appointmentsDetails } from "../../utils/appointmentsDetails.js";
+// import { appointmentsDetails } from "../../utils/appointmentsDetails.js";
 import { getAppointments } from "../../utils/getAppointments.js";
+import { fetchAppointments } from "./fetchAppointments.js";
 
+import { loader } from "./loader.js";
+const appointmentsDetails = [];
 let pages = document.getElementById("pages");
 pages.innerHTML = `pages 1 of ${Math.ceil(appointmentsDetails.length / 4)}`;
 let currentPage = 1;
 let isOnePageState = false;
 let consultationState = false;
 let examinationState = false;
+let isFetchDone = false;
 
 function attachButtonEventListeners() {
   var buttons = document.querySelectorAll("button");
@@ -18,7 +22,21 @@ function attachButtonEventListeners() {
 const table_body = document.getElementById("appointment_table_body");
 attachButtonEventListeners();
 
-handlePagination(appointmentsDetails);
+function showLoader() {
+  table_body.innerHTML = loader();
+}
+async function fetchDataAndDisplayAppointments() {
+  showLoader();
+  const data = await fetchAppointments();
+  if (data) {
+    isFetchDone = true;
+    appointmentsDetails.push(...data);
+
+    handlePagination(appointmentsDetails);
+  }
+}
+
+fetchDataAndDisplayAppointments();
 
 //function that handles the pagination logic of the appointments table
 function handlePagination(appointments) {
@@ -73,7 +91,7 @@ function handlePagination(appointments) {
   //attach event listeners to the buttons
   attachButtonEventListeners();
   //if there is only one page, display the page number as 1 of 1
-  if (appointments.length === 1 || appointments.length === 8) {
+  if (appointments.length >= 1 && appointments.length <= 8) {
     isOnePageState = true;
     currentPage = 1;
     pages.innerHTML = "page 1 of 1";
@@ -133,8 +151,9 @@ function handleListClick(event) {
   const filteredAppointments = appointmentsDetails.filter(
     (appointment) => appointment.reason.toLocaleLowerCase() === value
   );
+  console.log(filteredAppointments.length);
   //display the filtered appointments on the table
-  if (filteredAppointments.length === 1 || filteredAppointments.length === 8) {
+  if (filteredAppointments.length >= 1 && filteredAppointments.length <= 8) {
     isOnePageState = true;
     currentPage = 1;
     pages.innerHTML = "page 1 of 1";
@@ -144,7 +163,7 @@ function handleListClick(event) {
       appointmentsDetails.length / 8
     )}`;
   }
-
+  console.log(isOnePageState);
   handlePagination(filteredAppointments);
 }
 

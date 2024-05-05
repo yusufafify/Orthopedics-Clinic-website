@@ -81,15 +81,21 @@ function getAppointments(appointments) {
                   class="text-sm font-light">${appointment.id}</span></p>
             </div>
             <div>
-              <p class="text-md font-semibold">Date: <span class="text-sm font-light">${appointment.date}</span></p>
+              <p class="text-md font-semibold">Date: <span class="text-sm font-light">${
+                appointment.date
+              }</span></p>
             </div>
             <div>
               <p class="text-md font-semibold">Doctor's name: <span
-                  class="text-sm font-light">${appointment.doctor_name}</span></p>
+                  class="text-sm font-light">${
+                    appointment.doctor_name
+                  }</span></p>
             </div>
             <div>
               <p class="text-md font-semibold">Doctor's email: <span
-                  class="text-sm font-light">${appointment.doctor_email}</span></p>
+                  class="text-sm font-light">${
+                    appointment.doctor_email
+                  }</span></p>
             </div>
           </div>
           <div
@@ -101,8 +107,15 @@ function getAppointments(appointments) {
                 : "No Notes yet"
             }
           </div>
-          <div class="flex flex-wrap items-center mx-6 justify-end p-4 shrink-0 text-blue-gray-500">
-            <button data-ripple-dark="true" data-dialog-close="true"
+
+            
+
+          <div class="${
+            appointment.flag
+              ? "flex flex-wrap items-center mx-6 justify-end p-4 shrink-0 text-blue-gray-500"
+              : "hidden"
+          }">
+            <button id="cancel${appointment.id}" data-ripple-dark="true" data-dialog-close="true"
               class="px-6 py-3 mr-1 font-sans text-xs font-bold text-red-500 uppercase transition-all rounded-lg middle none center hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
               Cancel
             </button>
@@ -172,6 +185,7 @@ function getAppointments(appointments) {
             </div>
             <div class="p-6 pt-0">
               <button
+              id="submitEdit${appointment.id}"
                 class="middle none center rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button">
                 submit
@@ -188,4 +202,4 @@ function getAppointments(appointments) {
     .join("");
 }
 
-export  {getAppointments}
+export { getAppointments };
