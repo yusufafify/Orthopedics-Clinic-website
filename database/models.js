@@ -31,7 +31,7 @@ const appointmentSchema = new mongoose.Schema({
   date:{ type: Date, required: true, default: Date.now },
   type: { type: String, enum: ['Examination', 'Consultation'], required: true },
   paymentMethod: { type: String, enum: ['Insurance', 'Cash'], required: true },
-  diagnosis: { type: String, default: null },
+  diagnosis: { type: [String], default: null },
   treatment: { type: [String], default: [] }, // esm eldawa, elmawa3eed, elgor3a, norbotha patient history, ma3 images, ma3 diagnosis 
   doctorNotes: { type: String, default: null },
   price: { type: Number, default: undefined },
@@ -45,16 +45,25 @@ const imageSchema = new mongoose.Schema({
   src: { type: String, required: true }
 }, { timestamps: true })
 
+const medicalHistorySchema = new mongoose.Schema({
+  patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+  historytype: { type: String, required: true },
+  titleofproblem: { type: String, required: true },
+  dateofproblem: { type: String, required: true },
+  description: { type: String, required: true }
+})
+
+
 const Users = mongoose.model('Users', userSchema);
 const Appointments = mongoose.model('Appointments', appointmentSchema);
 const Images = mongoose.model('Images', imageSchema);
+const MedicalHistory = mongoose.model('medicalhistories', medicalHistorySchema);
 
 const appounrmentData={
   doctorId: "662a912c2c9bd6a529447214",
   patientId: "662a990058c7edf6b14c99e6",
   type: "Consultation",
-  paymentMethod: "Insurance",
-  
+  paymentMethod: "Insurance"  
 }
 
 const userData={
@@ -78,6 +87,6 @@ const imageData = {
 const appointment = new Appointments(appounrmentData); // Create a new appointment in the database
 // const image = new Images(imageData); // Create a new image in the database
 
- appointment.save(); // Save the appointment to the database   
+appointment.save(); // Save the appointment to the database   
 //user.save(); // Save the user to the database
 // image.save(); // Save the image in the image collection
