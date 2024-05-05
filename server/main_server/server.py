@@ -770,11 +770,6 @@ def get_doctors():
 
 
 
-
-
-
-
-
 @app.route('/create_employee', methods=['POST'])
 def create_employee():
     global refresh_token
@@ -834,6 +829,55 @@ def create_employee():
             'error': str(e)
     })
 
+
+@app.route('/complete_appointment', methods=['PATCH'])
+@jwt_required()
+def completeapp():
+    try:
+        data=request.get_json()
+        appid=ObjectId(data.get('appointmentId'))
+        diagnosis=data.get('diagnosis')
+        treatment=data.get('treatment')
+        notes=data.get('doctorNotes')
+
+        current_app=appointment.find_one({'_id':appid})
+
+        
+        if not current_app:
+            return jsonify({
+                'message':'appointment not found',
+                'flag':False
+            }), 404
+        
+                
+        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed'}},upsert=True,return_document=ReturnDocument.AFTER)
+        
+        
+        
+        for i in range(len(diagnosis)):
+            medical_history.insert_one({
+                'patientId':current_app['patientId'],
+                'historytype':'Treatmeant',
+                'titleofproblem':treatment[i],
+                'dateofproblem':current_app['date'],
+                'description':diagnosis[i]
+            })
+            
+        
+        
+        
+        
+        
+        return jsonify({
+            'message':'success',
+            'flag':True
+        }), 200
+
+    except:
+        return jsonify({ 'error': 'internal server error' }), 500  
+
+
+
 #route to delete a history
 @app.route('/delete_history', methods=['DELETE'])
 @jwt_required()
@@ -859,6 +903,52 @@ def delete_history():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+
+
+
+@app.route('/get_lifetime_doctor_appointments', methods=['GET'])
+@jwt_required()
+def get_lifetime_doctor():
+    try:
+        docmail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docmail})['_id']
+        all_appointments=appointment.find({'doctorId':docid})
+
+        lifetimeappointments=[]
+        for app in all_appointments:
+            lifetimeappointments.append({
+                'patientId':str(app['patientId']),
+                'appointmentID':str(app['_id']),
+                'patientName':users.find_one({'_id':app['patientId']})['name'],
+                'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                'date':app['date'],
+                'type':app['type'],
+                'paymentMethod':app['paymentMethod'],
+                'treatment':app['treatment'],
+                'diagnosis':app['diagnosis'],
+                'doctorNotes':app['doctorNotes'],
+                'status':app['status']
+            })
+
+        if not lifetimeappointments:
+            return jsonify({
+                'message':'no appointments found'
+            }), 404
+        
+        return jsonify({'message':'done','flag':True,'lifetimeappointments':lifetimeappointments})
+
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+
+        
+
+
+
+
+
+
 
 
 
