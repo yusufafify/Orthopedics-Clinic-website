@@ -52,7 +52,7 @@ uploadInput.addEventListener("change", (event) => {
 uploadInput.addEventListener("click", (event) => {
   event.stopPropagation();
 });
-
+let isImageURL = false;
 const getImageUrlAndPost = async () => {
   try {
     const response = await fetch("http://localhost:3000/api/v1/imageUploader", {
@@ -67,6 +67,9 @@ const getImageUrlAndPost = async () => {
 
     const data = await response.json();
     const imageUrl = data.data;
+    if (imageUrl) {
+      isImageURL = true;
+    }
     const uploadedData = {
       imageType:
         document.getElementById("imageType").value +
@@ -77,9 +80,18 @@ const getImageUrlAndPost = async () => {
       createdAt: new Date().toISOString(),
       updadtedAt: new Date().toISOString(),
     };
-    await uploadData(uploadedData);
-
-    return true;
+    if (isImageURL) {
+      await uploadData(uploadedData);
+      return true;
+    }
+    if (response.status !== 200) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please upload a valid image.",
+        icon: "error",
+      });
+    }
+    return false;
   } catch (error) {
     console.error("Error:", error);
     return false;
@@ -103,6 +115,20 @@ const uploadData = async (uploadedData) => {
 
 const uploadInfo = async () => {
   try {
+    const imageType = document.getElementById("imageType").value;
+    const imageDescription = document.getElementById("imageDiscription").value;
+    const imageDate = document.getElementById("imageDate").value;
+
+    // Check if all required fields are filled
+    if (!imageType || !imageDescription || !imageDate) {
+      Swal.fire({
+        title: "Error!",
+        text: "Please fill in all fields.",
+        icon: "error",
+      });
+      return;
+    }
+
     const swalWithTailwindButtons = Swal.mixin({
       customClass: {
         confirmButton:
