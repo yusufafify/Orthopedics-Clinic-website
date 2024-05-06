@@ -9,6 +9,8 @@
     rel="stylesheet">
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="/public/assets/sweetAlert/sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="../patient/history/styles/style.css">
 
   <title>Doctor Dashboard</title>
 </head>
@@ -374,25 +376,29 @@
             </div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div onclick="event.stopPropagation()"
-              class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
               <button onclick="closeModal('finalizeModal')"
                 class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
 
               <form class="p-6">
-                <label for="diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
-                <select id="diagnosis" onchange="showInputField(this, 'diagnosisInput')"
-                  class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                  <option>Orthopedic Diagnosis 1</option>
-                  <option>Orthopedic Diagnosis 2</option>
-                  <option>Orthopedic Diagnosis 3</option>
-                  <option>Other</option>
-                  <!-- Add more options as needed -->
-                </select>
+                <div id="Diagnosis">
 
-                <input type="text" id="diagnosisInput"
-                  class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-                <div class="grid grid-cols-3 gap-4 mt-4">
+                  <label for="diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
+                  <select id="diagnosis" onchange="showInputField(this, 'diagnosisInput')"
+                    class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                    <option>Orthopedic Diagnosis 1</option>
+                    <option>Orthopedic Diagnosis 2</option>
+                    <option>Orthopedic Diagnosis 3</option>
+                    <option>Other</option>
+                    <!-- Add more options as needed -->
+                  </select>
+              
+                  <input type="text" id="diagnosisInput"
+                    class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              
+                </div>
+                <div id="Treatment">
+                  <div class="grid grid-cols-3 gap-4 mt-4">
                   <div>
                     <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
                     <select id="medicine" onchange="showInputField(this, 'medicineInput')"
@@ -420,6 +426,7 @@
                     <input type="text" id="frequencyInput"
                       class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                   </div>
+                  
                   <div>
                     <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
                     <select id="dosage" onchange="showInputField(this, 'dosageInput')"
@@ -429,12 +436,22 @@
                       <option>Other</option>
                       <!-- Add more options as needed -->
                     </select>
+                
 
                     <input type="text" id="dosageInput"
                       class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  </div>
+                  
+                    </div>
                 </div>
-
+              </div>
+             <br>
+              <div class="flex justify-between">
+                <button class="w-auto mx-auto border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white" onclick="addTreatment()">Add Treatment</button>
+                <button class="w-auto mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-white" onclick="removeTreatment()">Remove Treatment</button>
+                <button class="w-auto mx-auto border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white" onclick="addDiagnosis()">Add Diagnosis</button>
+                <button class="w-auto mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-white" onclick="removeDiagnosis()">Remove Diagnosis</button>
+              </div>
+             
                 <label for="notes" class="block text-sm font-medium text-gray-700 mt-4">Doctor's Notes</label>
                 <textarea id="notes"
                   class="mt-1 block w-full h-32 rbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
@@ -448,6 +465,185 @@
         </div>
 
 
+
+
+        <!-- Patient Info Modal -->
+        <div id="patientInfoModal" onclick="closeModal('patientInfoModal')"
+        class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+          </div>
+          <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+          <div onclick="event.stopPropagation()"
+            class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-auto shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl sm:w-full  sm:h-full">
+  <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+      <div class="">
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+        
+          <div class="mt-2 w-full h-full overflow-auto">
+            <div class="p-2">
+              <div>
+                <div class="lg:col-span-6 w-full">
+          
+          
+          
+          
+          
+                  <!--Patient Medical History-->
+                  <div class="flex min-h-screen flex-col">
+          
+                    <header class="bg-gray-100 p-6  rounded-md shadow-md text-black">
+                      <div class="container mx-auto flex items-center justify-between">
+          
+                        <nav class="flex items-center space-x-4">
+                          <button id="historyOpenBtn" class="lg:hidden block">
+                            <img src="/public/assets/imgs/menu.png" alt="menu" class="h-4 w-4 object-cover">
+                          </button>
+                          <h2 class="lg:hidden text-lg font-semibold">Medical History</h2>
+                          <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                            id="injuriesBtn">
+                            Injuries
+                          </button>
+                          <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                            id="surgeriesBtn">
+                            Surgeries
+                          </button>
+                          <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                            id="treatmentsBtn">
+                            Treatments
+                          </button>
+                          <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                            id="familyBtn">
+                            Family Afflictions
+                          </button>
+                          <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                            id="medicationBtn">
+                            Medications </button>
+                          <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                            id="allergiesBtn">
+                            Allergies</button>
+          
+                        </nav>
+          
+                        <!--Add Medical History btn and form-->
+                        
+                        
+                        <!--End of Add Medical History btn and form-->
+          
+                      </div>
+                      <div id="historyNav"
+                        class="absolute bg-gray-200 transition-opacity opacity-0 duration-300 p-4 rounded-xl lg:hidden  flex flex-col gap-2 items-start ">
+                        <button class="link link-underline link-underline-black text-black  nav_btns" id="injuriesBtn">
+                          Injuries
+                        </button>
+                        <button class="link link-underline link-underline-black text-black  nav_btns" id="surgeriesBtn">
+                          Surgeries
+                        </button>
+                        <button class="link link-underline link-underline-black text-black  nav_btns" id="treatmentsBtn">
+                          Treatments
+                        </button>
+                        <button class="link link-underline link-underline-black text-black  nav_btns" id="familyBtn">
+                          Family Afflictions
+                        </button>
+                        <button class="link link-underline link-underline-black text-black  nav_btns" id="medicationBtn">
+                          Medications </button>
+                        <button class="link link-underline link-underline-black text-black  nav_btns" id="allergiesBtn">
+                          Allergies</button>
+                      </div>
+                    </header>
+          
+                    <div class="container mx-auto flex flex-col  py-8">
+                      <div class="bg-gray-100 p-6 mb-2 rounded-lg shadow-md  space-y-4">
+                        <div>
+                          <h2 class="text-lg font-bold mb-2">Patient Information</h2>
+                          <p>Age: 35</p>
+                          <p>Height: 6'2"</p>
+                          <p>Weight: 180 lbs</p>
+                          <p>Phone: 555-1234</p>
+                          <p>Email: john.doe@example.com</p>
+                        </div>
+                      </div>
+                      <div id="medical_history_container" class=" space-y-8">
+          
+                        <!--Skeleton Loader-->
+          
+                        <!--End of Skeleton Loader-->
+          
+          
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          <div id="medications">
+                            <h2 class="text-2xl font-bold mb-4">Medications</h2>
+                            <div id="medication_details" class="bg-white p-6 rounded-lg shadow-md ">
+                            </div>
+                          </div>
+          
+                          <div id="allergies">
+                            <h2 class="text-2xl font-bold mb-4">Allergies</h2>
+                            <div id="allergies_details" class="bg-white p-6 rounded-lg shadow-md ">
+                            </div>
+                          </div>
+                        </div>
+          
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div id="injuries">
+                            <h2 class="text-2xl font-bold mb-4">Past Injuries</h2>
+                            <div id="injuries_details" class="space-y-4">
+                              <!--Details of the card-->
+                            </div>
+                          </div>
+          
+                          <div id="surgeries">
+                            <h2 class="text-2xl font-bold mb-4">Past Surgeries</h2>
+                            <div id="surgeries_details" class="space-y-4">
+                              <!--Details of the card-->
+                            </div>
+                          </div>
+          
+          
+                          <div id="treatments">
+                            <h2 class="text-2xl font-bold mb-4">Past Treatments</h2>
+                            <div id="treatments_details" class="space-y-4">
+                              <!--Details of the card-->
+                            </div>
+                          </div>
+          
+                          <div id="family">
+                            <h2 class="text-2xl font-bold mb-4">Family Afflictions</h2>
+                            <div id="family_details" class="space-y-4">
+                              <!--Details of the card-->
+                            </div>
+                          </div>
+                        </div>
+          
+          
+          
+                      </div>
+                    </div>
+                  </div>
+          
+          
+                </div>
+                <!--End of Patient Medical History-->
+          
+          
+          
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+      <button type="button" onclick="closeModal('patientInfoModal')"
+        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+        
         <!-- Cancel Appointment Modal -->
         <div id="cancelModal" onclick="closeModal('cancelModal')"
           class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
@@ -483,6 +679,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
         <script src="./js/doctor.js"></script>
         <script src="logout.js"></script>
+
+        <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
+        <script type="module" src="js/patient_history.js">
+        </script>
+        
 </body>
 
 </html>

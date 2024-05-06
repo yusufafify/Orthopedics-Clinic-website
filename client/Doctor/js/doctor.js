@@ -1,6 +1,10 @@
 
 todaysAppointments=[];
 startLoading();
+if (localStorage.getItem("token") === null) {
+  window.location.href = "/login";
+}
+
 fetch ("http://localhost:8008/get_today_appointments", {
   method: "GET",
   headers: {
@@ -12,12 +16,17 @@ fetch ("http://localhost:8008/get_today_appointments", {
 .then((data) => {
   todaysAppointments=data;
   updateAppointments();
+  
   displayActiveAppointment();
+
   stopLoading();
+  
 })
 .catch((error) => {
-
-  console.error("Error:", error);
+confirmAppointment(-1);
+noActiveAppointments();
+stopLoading();
+  
 });
 
 
@@ -39,6 +48,7 @@ function setActiveAppointmentID(id) {
   _activeAppointmentID = id;
 
   // Find the active appointment
+  if (todaysAppointments.length>0){
   activeAppointment = todaysAppointments.find(appointment => appointment.appointmentID === id);
 
   // Check if activeAppointment is undefined
@@ -53,6 +63,7 @@ function setActiveAppointmentID(id) {
 
   // Store the active appointment in localStorage
   localStorage.setItem('activeAppointment', JSON.stringify(activeAppointment));
+}
 }
 
 
@@ -95,9 +106,6 @@ fetch("http://localhost:8008/get_patient_info", {
 console.error("Error:", error);
 });
 
-//setActiveAppointmentID(-1);
-
-
 
 function openImageModal(image) {
   document.getElementById('modal-image').src = image;
@@ -138,9 +146,8 @@ function closeModal(modalId) {
   function displayMedicalHistory(medicalHistory) {
     if (medicalHistory===undefined){
       return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
-    <br>
+
   
-    <br>  
         No history found.
     </div>
   `;
@@ -159,6 +166,8 @@ function closeModal(modalId) {
   
     return formattedHistory;
   }
+
+
 
 // Function to generate table rows
 function generateTodaysAppointmentsTableRows(dataa) {
@@ -209,6 +218,17 @@ function resetChange(){
 }
 
 // Add the generated rows to the table
+function noActiveAppointments(){
+  document.querySelector('#todaysAppointmentsTable').innerHTML = `<div class=" absolute p-4 text-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"  style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+  <br>
+
+  <br>  
+      No appointments found.
+  </div>
+`;
+
+}
+
 function updateAppointments(){
   document.querySelector('#todaysAppointmentsTable').innerHTML = generateTodaysAppointmentsTableRows(todaysAppointments);
 }
@@ -225,10 +245,10 @@ updateAppointments();
 //image.category.split("_")[0]
 // Function to generate images
 function generateMedicalImages(images) {
-  console.log(images);
+  console.log(todaysAppointments());
 
   if (images === undefined){
-    return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    return `<div style="display: flex; justify-content: center; margin-left:7em; align-items: center; height: 100%; font-size: 2em;">
     <br>
   
     <br>  
@@ -258,8 +278,9 @@ function generateMedicalImages(images) {
 // Write a function to check the activeAppointmentID, and does one of two things: either displays "No active appointment" or it displays the details of the active ID's appointment
 
 function displayActiveAppointment() {
-  console.log(getActiveAppointmentID())
+  
   if (getActiveAppointmentID() === -1 || getActiveAppointmentID() === undefined){
+    setActiveAppointmentID(-1);
     document.getElementById('active1').innerHTML = `
     <div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
     <br>
@@ -299,7 +320,7 @@ document.getElementById('active1').innerHTML = `<div data-orientation="horizonta
 <div>
   <!-- button to view patient info -->
 
-  <button onclick="viewPatientInfo()"
+  <button onclick="openModal('patientInfoModal'); updatePatientInfo();"
     class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
     View Patient Info
   </button>
@@ -446,3 +467,106 @@ fetch("http://localhost:8008/personal_data", {
   function stopLoading() {
     document.getElementById('loading').style.display = 'none';
   }
+
+  function addTreatment() {
+    event.preventDefault();
+    const treatmentsDiv = document.getElementById('Treatment');
+  
+    const newTreatmentDiv = document.createElement('div');
+    newTreatmentDiv.className = 'grid grid-cols-3 gap-4 mt-4';
+    newTreatmentDiv.innerHTML = `
+                  <div>
+                    <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
+                    <select id="medicine" onchange="showInputField(this, 'medicineInput')"
+                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                      <option>Medicine 1</option>
+                      <option>Medicine 2</option>
+                      <option>Other</option>
+                      <!-- Add more options as needed -->
+                    </select>
+
+                    <input type="text" id="medicineInput"
+                      class="hidden  mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                  </div>
+                  <div>
+                    <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
+                    <select id="frequency" onchange="showInputField(this, 'frequencyInput')"
+                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                      <option>Once a day</option>
+                      <option>Twice a day</option>
+                      <option>Other</option>
+                      <!-- Add more options as needed -->
+                    </select>
+
+                    <input type="text" id="frequencyInput"
+                      class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  </div>
+                  
+                  <div>
+                    <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
+                    <select id="dosage" onchange="showInputField(this, 'dosageInput')"
+                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                      <option>100mg</option>
+                      <option>200mg</option>
+                      <option>Other</option>
+                      <!-- Add more options as needed -->
+                    </select>
+                
+
+                    <input type="text" id="dosageInput"
+                      class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  
+                    </div>
+                
+    `;
+  
+    treatmentsDiv.appendChild(newTreatmentDiv);
+  }
+
+
+  function addDiagnosis() {
+    event.preventDefault();
+    const diagnosesDiv = document.getElementById('Diagnosis');
+  
+    const newDiagnosisDiv = document.createElement('div');
+    newDiagnosisDiv.innerHTML = `
+    <label for="diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
+    <select id="diagnosis" onchange="showInputField(this, 'diagnosisInput')"
+      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+      <option>Orthopedic Diagnosis 1</option>
+      <option>Orthopedic Diagnosis 2</option>
+      <option>Orthopedic Diagnosis 3</option>
+      <option>Other</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <input type="text" id="diagnosisInput"
+      class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+    `;
+  
+    diagnosesDiv.appendChild(newDiagnosisDiv);
+  }
+
+  function removeTreatment() {
+    event.preventDefault();
+    const treatmentsDiv = document.getElementById('Treatment');
+    if (treatmentsDiv.children.length > 1) {
+      treatmentsDiv.removeChild(treatmentsDiv.lastChild);
+    }
+  }
+  
+  function removeDiagnosis() {
+    event.preventDefault();
+    const diagnosesDiv = document.getElementById('Diagnosis');
+    if (diagnosesDiv.children.length > 1) {
+      diagnosesDiv.removeChild(diagnosesDiv.lastChild);
+    }
+  }
+
+
+ function updatePatientInfo(){
+
+  
+ }
