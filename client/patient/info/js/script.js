@@ -116,6 +116,7 @@ uploadInput.addEventListener("click", (event) => {
 
 const getImageUrlAndUpdateData = async () => {
   try {
+    
     const response = await fetch("http://localhost:3000/api/v1/imageUploader", {
       method: "POST",
       headers: {
@@ -125,7 +126,7 @@ const getImageUrlAndUpdateData = async () => {
         photo: imageFile,
       }),
     });
-
+    
     const data = await response.json();
     const imageUrl = data.data;
     const updatedData = {
@@ -164,12 +165,52 @@ const updateData = async (updatedData) => {
 };
 
 const updateInfo = async () => {
-  const response = await getImageUrlAndUpdateData();
-  if (response) {
-    window.location.reload();
+  try {
+    const swalWithTailwindButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "bg-green-500 hover:bg-green-700 text-white font-md p-2 rounded",
+        cancelButton: "bg-red-500 hover:bg-red-700 text-white font-md p-2 mr-2 rounded",
+      },
+      buttonsStyling: false,
+      showConfirmButton: false, // Hide the default "OK" button
+    });
+
+    swalWithTailwindButtons
+      .fire({
+        title: "Are you sure?",
+        text: "This action will update information.",
+        icon: "warning",
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Yes, update!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await getImageUrlAndUpdateData();
+          if (response) {
+            swalWithTailwindButtons.fire({
+              title: "Updated!",
+              text: "Information has been updated successfully.",
+              icon: "success",
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithTailwindButtons.fire({
+            title: "Cancelled",
+            text: "Information update has been cancelled.",
+            icon: "error",
+          });
+        }
+      });
+  } catch (error) {
+    console.error(error);
   }
 };
-
 updateBtn.addEventListener("click", function () {
   updateInfo();
   body.classList.remove("overflow-hidden");

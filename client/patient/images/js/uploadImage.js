@@ -3,14 +3,11 @@ const filenameLabel = document.getElementById("filename");
 const imagePreview = document.getElementById("image-preview");
 const submitBtn = document.getElementById("imageSubmitBtn");
 
-
 //states
 let imageFile = null;
 let imageUrl = "";
 let modalState = false;
 let isEventListenerAdded = false; // Check if the event listener has been added before
-
-
 
 uploadInput.addEventListener("change", (event) => {
   const file = event.target.files[0];
@@ -56,9 +53,6 @@ uploadInput.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
-
-
-
 const getImageUrlAndPost = async () => {
   try {
     const response = await fetch("http://localhost:3000/api/v1/imageUploader", {
@@ -75,15 +69,16 @@ const getImageUrlAndPost = async () => {
     const imageUrl = data.data;
     const uploadedData = {
       imageType:
-        document.getElementById("imageType").value+"_"+document.getElementById('imageDiscription').value,
-        src: imageUrl,
-        date: document.getElementById("imageDate").value,
+        document.getElementById("imageType").value +
+        "_" +
+        document.getElementById("imageDiscription").value,
+      src: imageUrl,
+      date: document.getElementById("imageDate").value,
       createdAt: new Date().toISOString(),
       updadtedAt: new Date().toISOString(),
-      
     };
     await uploadData(uploadedData);
-    
+
     return true;
   } catch (error) {
     console.error("Error:", error);
@@ -101,21 +96,63 @@ const uploadData = async (uploadedData) => {
       },
       body: JSON.stringify(uploadedData),
     });
- 
   } catch (error) {
     console.error("Error:", error);
   }
 };
 
 const uploadInfo = async () => {
-  const response = await getImageUrlAndPost();
-  if (response) {
-    window.location.reload();
+  try {
+    const swalWithTailwindButtons = Swal.mixin({
+      customClass: {
+        confirmButton:
+          "bg-green-500 hover:bg-green-700 text-white font-md p-2 rounded",
+        cancelButton:
+          "bg-red-500 hover:bg-red-700 text-white font-md p-2 mr-2 rounded",
+      },
+      buttonsStyling: false,
+      showConfirmButton: false, // Hide the default "OK" button
+    });
+
+    swalWithTailwindButtons
+      .fire({
+        title: "Are you sure?",
+        text: "This action will upload information.",
+        icon: "warning",
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Yes, upload!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const response = await getImageUrlAndPost();
+          if (response) {
+            swalWithTailwindButtons.fire({
+              title: "Uploaded!",
+              text: "Information has been uploaded successfully.",
+              icon: "success",
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithTailwindButtons.fire({
+            title: "Cancelled",
+            text: "Information upload has been cancelled.",
+            icon: "error",
+            showConfirmButton: true,
+            confirmButtonText: "Ok",
+          });
+        }
+      });
+  } catch (error) {
+    console.error(error);
   }
 };
 
 submitBtn.addEventListener("click", function () {
   uploadInfo();
 });
-
-
