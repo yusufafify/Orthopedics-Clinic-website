@@ -38,7 +38,6 @@ def home():
 
 refresh_token=''
 #This route is used to login a user
-# TODO add logic to check hashed password
 @app.route('/login', methods=['POST'])
 def login():
     global refresh_token
@@ -54,7 +53,7 @@ def login():
             token = create_access_token({
 			      'email': email,
             'role': user["role"]
-		},expires_delta=timedelta(minutes= 60))
+		},expires_delta=timedelta(minutes= 0.5))
             refresh_token = create_refresh_token({
 			      'email': email,
             'role': user["role"]
@@ -71,13 +70,13 @@ def login():
         else:
             return jsonify({
                 'message': 'error',
-            })
+            }), 400
     except Exception as e:
         print("Error:", e)
         return jsonify({
             'message': 'error',
             'error': str(e)
-        })
+        }), 500
 
 #This route is used to register a new user
 @app.route('/register', methods=['POST'])
@@ -949,7 +948,10 @@ def get_lifetime_doctor():
 
 
 
-
+@app.route('/check_token_validity', methods=['GET'])
+@jwt_required()
+def check_token_validity():
+    return jsonify({'message': 'valid'}), 200
 
 
 
