@@ -267,5 +267,75 @@
       <script src="drAppointments.js"></script>
       <script src="../logout.js"></script>
       </body>
+
+      <div id="appointmentModal"  onclick="closeModal('appointmentModal')"
+          class="opacity-0 px-5 mx-5 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div onclick="event.stopPropagation()"
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full p-8 m-4">
+                <button onclick="closeModal('appointmentModal')"
+                    class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+                <span class="close"></span>
+     
+                
+                <form id="appointmentForm" class="flex flex-wrap -mx-3 w-2xl">
+                  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                      <label for="appointmentID" class="block mb-2">Appointment ID</label>
+                      <input type="text" id="appointmentID" name="appointmentID" class="w-full p-2 border border-gray-300 rounded" readonly>
+                  </div>
+                  <div class="w-full md:w-1/2 px-3">
+                      <label for="date" class="block mb-2">Date</label>
+                      <input type="text" id="date" name="date" class="w-full p-2 border border-gray-300 rounded">
+                  </div>
+                  <div class="w-full md:w-1/2 px-3">
+                      <label for="diagnosis" class="block mb-2">Diagnosis</label>
+                      <input type="text" id="diagnosis" name="diagnosis" class="w-full p-2 border border-gray-300 rounded">
+                  </div>
+                  <div class="w-full md:w-1/2 px-3">
+                      <label for="treatment" class="block mb-2">Treatment</label>
+                      <input type="text" id="treatment" name="treatment" class="w-full p-2 border border-gray-300 rounded">
+                  </div>
+                  <div class="w-full md:w-1/2 px-3">
+                    <label for="doctorNotes" class="block mb-2">Doctor Notes</label>
+                    <textarea id="doctorNotes" name="doctorNotes" class="w-full p-2 border border-gray-300 rounded"></textarea>
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                    <label for="patientName" class="block mb-2">Patient Name</label>
+                    <input type="text" id="patientName" name="patientName" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                    <label for="paymentMethod" class="block mb-2">Payment Method</label>
+                    <input type="text" id="paymentMethod" name="paymentMethod" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                    <label for="type" class="block mb-2">Type</label>
+                    <input type="text" id="type" name="type" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                  <label for="status" class="block mb-2">Status</label>
+                  <input type="text" id="status" name="status" class="w-full p-2 border border-gray-300 rounded">
+              </div>
+              <div class="w-full md:w-1/2 px-3">
+                <label for="dummy" class="block mb-2">Dummy</label>
+                <input type="text" id="dummy" name="dummy" class="w-full p-2 border border-gray-300 rounded">
+            </div>
+                <div class="w-full w-1/2 px-3 mt-6">
+                    <button type="submit" class="w-full py-2 px-4 text-white bg-blue-500 rounded hover:bg-blue-700">Submit</button>
+                </div>
+                <div class="w-full w-1/2 px-3 mt-4">
+                    <button type="reset" class="w-full py-2 px-4 text-white bg-red-500 rounded hover:bg-red-700">Reset</button>
+                </div>
+            </form>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </html>
+
+      
       

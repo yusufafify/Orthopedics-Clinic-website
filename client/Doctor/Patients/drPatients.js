@@ -69,7 +69,11 @@ let patients;
   
     // Filter the patients based on the search term
     const filteredPatients = patients.filter(patient => 
-      patient.name.toLowerCase().includes(searchTerm)
+      patient.name.toLowerCase().includes(searchTerm) ||
+      patient.address.toLowerCase().includes(searchTerm) ||
+      patient.email.toLowerCase().includes(searchTerm) ||
+     
+      patient.address.toLowerCase().includes(searchTerm)
     );
   
     // Update the patients table with the filtered patients
