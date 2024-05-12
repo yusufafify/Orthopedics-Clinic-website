@@ -24,6 +24,13 @@ fetch("http://localhost:8008/all_appointments", {
   // Function to generate table rows
   function generateTableRows(data) {
     let rows = '';
+    if (data === undefined || data.length === 0) {
+      return `
+        <tr class="border-b">
+          <td class="p-4 align-middle text-center" colspan="6">No appointments found</td>
+        </tr>
+      `;
+    }
     for (let appointment of data) {
       rows += `
         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -50,4 +57,20 @@ fetch("http://localhost:8008/all_appointments", {
   
   function stopLoading() {
     document.getElementById('loading').style.display = 'none';
+  }
+ 
+  function searchInput() {
+    // Get the search term from the input field
+    const searchTerm = document.getElementById('searchValue').value.toLowerCase();
+
+    // Filter the appointments based on the search term
+    const filteredAppointments = appointments.filter(appointment => 
+      appointment.patientName.toLowerCase().includes(searchTerm) ||
+      appointment.date.toLowerCase().includes(searchTerm) ||
+      appointment.paymentMethod.toLowerCase().includes(searchTerm) ||
+      appointment.status.toLowerCase().includes(searchTerm)
+    );
+  
+    // Update the appointments table with the filtered appointments
+    document.querySelector('#appointmentsTable').innerHTML = generateTableRows(filteredAppointments);
   }

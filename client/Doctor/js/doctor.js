@@ -15,16 +15,24 @@ fetch ("http://localhost:8008/get_today_appointments", {
 .then((response) => response.json())
 .then((data) => {
   todaysAppointments=data;
-  updateAppointments();
-  
+  if (todaysAppointments.length>0){
+    console.log(getActiveAppointmentID());
+    console.log(localStorage.activeAppointment)
+    updateAppointments();
   displayActiveAppointment();
 
+  
+  }
+  else{
+    confirmAppointment(-1);
+noActiveAppointments();
+  }
   stopLoading();
   
 })
 .catch((error) => {
-confirmAppointment(-1);
-noActiveAppointments();
+  console.log(error);
+
 stopLoading();
   
 });
@@ -81,30 +89,40 @@ function getActiveAppointmentID() {
   return _activeAppointmentID;
 }
 
+function getPatientInfo(){
+let currentAppointment = JSON.parse(localStorage.getItem('activeAppointment'));
+console.log(currentAppointment)
+if (activeAppointment && activeAppointment.patientId) {
+  fetch("http://localhost:8008/get_patient_info", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({ patientId: activeAppointment.patientId }),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.user);
+    if (data != undefined){
+      document.querySelector('#medicalImages').innerHTML = generateMedicalImages(data.images);
+      document.querySelector('#recordBox').innerHTML = displayMedicalHistory(data.medical_history);
+      document.getElementById('infoName').innerHTML = "Name: "+data.user.name;
+      document.getElementById('infoAge').innerHTML = "Age: "+data.user.age;
+      document.getElementById('infoGender').innerHTML = "Gender: "+ data.user.gender;
+      document.getElementById('infoPhone').innerHTML = "Phone number: " +data.user.phone;
+      document.getElementById('infoEmail').innerHTML = "Email: " +data.user.email;
+      document.getElementById('infoAddress').innerHTML = "Address: " +data.user.address;
 
-fetch("http://localhost:8008/get_patient_info", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-  body: JSON.stringify({ patientId : JSON.parse(localStorage.getItem('activeAppointment')).patientId}),
-})
-.then((response) => response.json())
-.then((data) => {
-
-
-  document.querySelector('#medicalImages').innerHTML = generateMedicalImages(data.images);
-  
-  document.querySelector('#recordBox').innerHTML = displayMedicalHistory(data.medical_history);
-  console.log(data.medical_history)
-  
-  console.log(displayMedicalHistory(data.medical_history));
-
-})
+      
+    }
+  })
 .catch((error) => {
 console.error("Error:", error);
 });
+}
+}
+getPatientInfo();
 
 
 function openImageModal(image) {
@@ -245,7 +263,7 @@ updateAppointments();
 //image.category.split("_")[0]
 // Function to generate images
 function generateMedicalImages(images) {
-  console.log(todaysAppointments());
+  
 
   if (images === undefined){
     return `<div style="display: flex; justify-content: center; margin-left:7em; align-items: center; height: 100%; font-size: 2em;">
@@ -320,7 +338,7 @@ document.getElementById('active1').innerHTML = `<div data-orientation="horizonta
 <div>
   <!-- button to view patient info -->
 
-  <button onclick="openModal('patientInfoModal'); updatePatientInfo();"
+  <button onclick="openModal('patientInfoModal')"
     class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
     View Patient Info
   </button>
@@ -428,7 +446,7 @@ function switchAppointment(){
 
   displayActiveAppointment();
   closeModal('confirmModal');
-
+  getPatientInfo();
 }
 
 function confirmAppointment(id) {
@@ -566,7 +584,7 @@ fetch("http://localhost:8008/personal_data", {
   }
 
 
- function updatePatientInfo(){
+//  function updatePatientInfo(){
 
-  
- }
+//   g
+//  }

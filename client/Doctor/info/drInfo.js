@@ -1,4 +1,5 @@
 // Initialize variables
+startLoading();
 const modal = document.getElementById("modal");
 const editInfo = document.getElementById("edit_info");
 const body = document.querySelector("body");
@@ -63,6 +64,7 @@ fetch("http://localhost:8008/personal_data", {
       : data.gender === "male"
       ? (profilePic.src = "/public/assets/imgs/man.png")
       : (profilePic.src = "/public/assets/imgs/woman.png");
+      stopLoading();
   })
   .catch((error) => {
     console.error("Error:", error);
@@ -178,3 +180,11 @@ updateBtn.addEventListener("click", function () {
   modal.classList.add("pointer-events-none","opacity-0");
   modalState = false;
 });
+
+function startLoading() {
+  document.getElementById('loading').style.display = 'flex';
+}
+
+function stopLoading() {
+  document.getElementById('loading').style.display = 'none';
+}
