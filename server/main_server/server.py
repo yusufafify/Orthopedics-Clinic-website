@@ -6,8 +6,9 @@ from flask_jwt_extended import JWTManager,create_access_token,create_refresh_tok
 from datetime import datetime, timedelta
 import bcrypt
 from bson.objectid import ObjectId
-uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
-# uri = "mongodb://localhost:27017/"
+from flask_mail import Mail, Message
+# uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 
@@ -22,19 +23,25 @@ users = db['users']
 appointment=db['appointments']
 medical_history=db['medicalhistories']
 images = db['images']
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'clonereddit055@gmail.com'
+app.config['MAIL_PASSWORD'] = 'essw qgqj mtgx yvhr'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
 jwt = JWTManager(app)
-# Roles=['admin','staff','patient']
+
 
 
 
 #a Test Route
-@app.route('/', methods=['GET'])
-def home():
-    print('hello')
-
-    return {
-        'message': 'Hello World!'
-    }
+@app.route("/")
+def index():
+  msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = ['abdullahahmedfouad02@gmail.com'])
+  msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
+  mail.send(msg)
+  return "Message sent!"
 
 refresh_token=''
 #This route is used to login a user
@@ -412,18 +419,33 @@ def deleteImage():
 @jwt_required()
 def delete_user():
     try:
-        email = get_jwt_identity()['email']
-        user = users.find_one({ 'email': email })
-        
-        if not user: 
-            return jsonify({ 'error': 'no patient found' }), 404
+        # Get user's email from JWT token
+        data=request.get_json()
+        user_email = get_jwt_identity()['email']
 
-        users.delete_one({'email': email})
-        
-        return jsonify({ 'message': 'success' })
+        user = users.find_one({'email': user_email})
+        if not user['role'].lower() == 'admin':
+            return jsonify({'message': 'NO ADMIN ACCESS'}), 404
 
+        user_email = data.get('email')
+        user_id= users.find_one({'email': user_email})['_id']
+        user_role=users.find_one({'email': user_email})['role']
+        if not user_id:
+            return jsonify({'message': 'User not found'}), 404
+        
+        if user_role.lower() == 'doctor':
+           users.delete_one({'email': user_email})
+           appointment.delete_many({'doctorId': user_id})
+           return jsonify({'message': 'Doctor and all related data have been deleted'}), 200
+        else:
+            users.delete_one({'email': user_email})
+            appointment.delete_many({'patientId': user_id})
+            medical_history.delete_many({'patientId': user_id})
+            images.delete_many({'patientId': user_id})
+            return jsonify({'message': 'patient and all related data have been deleted'}), 200
+        
     except Exception as err:
-        return jsonify({ 'error': str(err) }), 500
+        return jsonify({'error': str(err)}), 500
     
 
 
@@ -1047,6 +1069,16 @@ def get_lifetime_doctor_patient():
 @jwt_required()
 def check_token_validity():
     return jsonify({'message': 'valid'}), 200
+
+
+
+
+
+
+
+
+
+
 
 
 
