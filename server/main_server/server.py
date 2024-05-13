@@ -6,8 +6,9 @@ from flask_jwt_extended import JWTManager,create_access_token,create_refresh_tok
 from datetime import datetime, timedelta
 import bcrypt
 from bson.objectid import ObjectId
-uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
-# uri = "mongodb://localhost:27017/"
+from flask_mail import Mail, Message
+# uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 
@@ -22,19 +23,25 @@ users = db['users']
 appointment=db['appointments']
 medical_history=db['medicalhistories']
 images = db['images']
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'clonereddit055@gmail.com'
+app.config['MAIL_PASSWORD'] = 'essw qgqj mtgx yvhr'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
 jwt = JWTManager(app)
-# Roles=['admin','staff','patient']
+
 
 
 
 #a Test Route
-@app.route('/', methods=['GET'])
-def home():
-    print('hello')
-
-    return {
-        'message': 'Hello World!'
-    }
+@app.route("/")
+def index():
+  msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = ['abdullahahmedfouad02@gmail.com'])
+  msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
+  mail.send(msg)
+  return "Message sent!"
 
 refresh_token=''
 #This route is used to login a user
