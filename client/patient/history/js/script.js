@@ -1,6 +1,7 @@
 //import the functions needed
 import { getMedicalHistory } from "./getMedicalHistory.js";
 import { handleDelete } from "./handleDelete.js";
+import {personalInfoSkeleton} from "./personalInfoSkeleton.js";
 
 
 //variables for the header of the history page
@@ -32,6 +33,10 @@ const treatmentsDetails = document.getElementById("treatments_details");
 const familyHistoryDetails = document.getElementById("family_details");
 const medicationsDetails = document.getElementById("medication_details");
 const allergiesDetails = document.getElementById("allergies_details");
+
+
+//patient info
+const patientInfo = document.getElementById("patientInfo");
 //Initial medical history details
 const medicalHistory = [];
 
@@ -228,3 +233,26 @@ async function getHistory() {
 }
 
 getHistory();
+
+
+
+async function getInfo() {
+try {
+  patientInfo.innerHTML=personalInfoSkeleton({},false);
+  const response= await fetch("http://localhost:8008/personal_data", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+  patientInfo.innerHTML=personalInfoSkeleton(data,true);
+} catch (error) {
+  
+}
+}
+
+getInfo();
+

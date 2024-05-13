@@ -99,6 +99,8 @@ def register():
         age=data.get('age')
         address=data.get('address')
         gender=data.get('gender')
+        weight=data.get('weight')
+        height=data.get('height')
         user = {
             'email':email,  
             'password':hashed_password,
@@ -108,7 +110,9 @@ def register():
             'gender': gender,
             'age':int(age),
             'address': address,
-            'profilePic': ''
+            'profilePic': '',
+            'weight': weight,
+            'height': height
 
         }
         users.insert_one(user)
@@ -121,12 +125,13 @@ def register():
 			      'email': email,
             'role': user["role"]
 		})
-
+        user_id = users.find_one({'email': email})['_id']
+        print(user_id)
         return jsonify({
                 'message':'success',
                 'token': token,
-                'refresh_token': refresh_token
-
+                'refresh_token': refresh_token,
+                'id': str(user_id)
             })
     except Exception as e:
         return jsonify({
@@ -163,7 +168,9 @@ def get_patient_data():
             'age': user['age'],
             'address': user['address'],
             'phoneNumber': user['phoneNumber'],
-            'profilePic': user['profilePic'] 
+            'profilePic': user['profilePic'],
+            'height': user['height'],
+            'weight': user['weight'] 
             
         }
         
@@ -431,7 +438,7 @@ def today_appointments():
         docid=users.find_one({'email':docmail})['_id']
         today=datetime.now().strftime('%Y-%m-%d')
         appointments=appointment.find({'doctorId':docid})
-        
+
         arrayoftoday=[]
         
         for app in appointments:

@@ -11,131 +11,51 @@
 
 <body>
 
-  <!--Nav-Bar-->
-  <header class="px-4 lg:px-6 h-14 flex items-center bg-[#f0f0f0] fixed w-full">
-    <a class="flex items-center justify-center" href="#">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-        <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
+  <section class="min-h-screen flex box-border justify-center items-center">
+    <div class="bg-green-100 rounded-2xl flex max-w-3xl p-5 items-center">
+      <div class="md:w-1/2 px-8">
+        <h2 class="font-bold text-3xl text-[#002D74]">Login</h2>
+        <p class="text-sm mt-4 text-[#002D74]">If you already a member, easily log in now.</p>
 
-      </svg>
-      <span class="sr-only">Acme Inc</span>
-    </a>
-    <nav class="ml-auto flex gap-4 sm:gap-6">
-      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Features
-      </a>
-      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Pricing
-      </a>
-      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Contact
-      </a>
+        <form id="loginform" class="flex flex-col gap-4">
+          <input class="p-2 mt-8 rounded-xl border focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+            id="email" placeholder="m@example.com" required type="email" name="email">
+          <div class="relative">
+            <input class="p-2 rounded-xl border w-full focus:outline-none focus:border-gray-400 focus:bg-white"
+              type="password" id="password" required name="password" id="password" placeholder="Password">
 
-    </nav>
-    <div class="px-2">
-
-      <a href="../SignUp/SignUp.html">
-        <button
-          class="text-sm text-black rounded-md font-medium py-1 px-5 hover:underline underline-offset-4 bg-[#a4d6d6]">Sign
-          up</button>
-      </a>
-    </div>
-  </header>
-
-  <!--End of Nav-Bar-->
-
-
-  <!--Login Form-->
-  <div class="flex items-center justify-center h-screen mb-[-65px] ">
-    <div class="mx-auto max-w-md space-y-8">
-
-
-      <!--Form-->
-      <form id="loginform" class="space-y-2 bg-[#f0f0f0] p-10 rounded-xl">
-
-        <!--Header of the Form-->
-        <div class="space-y-2 text-center">
-          <h1 class="text-3xl font-bold">Welcome</h1>
-          <p class="text-gray-500 text-gray-400">Enter your information to get started</p>
-        </div>
-        <!--End of The Form Header-->
-
-        <!--Form Inputs-->
-        <div class="space-y-4">
-          <!--Email Input -->
-          <div class="space-y-2">
-            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="email">
-              Email
-            </label>
-            <input
-              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              id="email" placeholder="m@example.com" required type="email" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-eye-slash-fill absolute top-1/2 right-3 -z-1 -translate-y-1/2 cursor-pointer hidden"
+              id="mama" viewBox="0 0 16 16">
+              <path
+                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z">
+              </path>
+              <path
+                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z">
+              </path>
+            </svg>
           </div>
-          <!--End of Email Input-->
-
-          <!--Password Input-->
-          <div class="space-y-2">
-            <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              for="password">
-              Password
-            </label>
-            <input
-              class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              id="password" required type="password" />
-          </div>
-          <!--End of Password Input-->
-
-          <!--Submit Button-->
-          <button id="login"
-            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
-            type="submit">
-            Login
-          </button>
-          <!--End of Submit Button-->
-
-        </div>
-        <!--End of Form Inputs-->
-
-      </form>
-      <!--End of Form-->
+          <button
+            class="bg-green-600 text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-green-400  font-medium"
+            type="submit">Login</button>
+        </form>
 
 
-      <!--Division Line-->
-      <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-8"></div>
-      <!--End of Division Line-->
+        <div class="mt-10 text-sm border-b border-gray-500 py-5 playfair tooltip">Forget password?</div>
 
-      <!--Footer of the Form-->
-      <div class="space-y-4">
-        <div class="mt-4 text-center text-sm text-white">
-          Don't have an account?
-          <a class="underline" href="../SignUp/SignUp.html">
-            Sign up
+        <div class="mt-4 text-sm flex justify-between items-center container-mr">
+          <p class="mr-3 md:mr-0 ">If you don't have an account..</p>
+          <a href="/client/SignUp/SignUp.html">
+            <button
+              class="hover:border register text-white bg-green-600   rounded-xl py-2 px-5 hover:scale-110 hover:bg-green-400 font-semibold duration-300">Register</button>
           </a>
         </div>
       </div>
-      <!--End of Footer of the Form-->
-
+      <div class="md:block hidden  w-1/2">
+        <img class="rounded-2xl max-h-[1600px]" src="/public/assets/images/doctor_patient.svg" alt="login form image">
+      </div>
     </div>
-
-  </div>
-  <!--End of Login Form-->
-
-  <!--Footer-->
-  <footer
-    class="flex absolute b-0 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-[#f0f0f0]">
-    <p class="text-xs text-gray-500 ">© 2024 Acme Inc. All rights reserved.</p>
-    <nav class="sm:ml-auto flex gap-4 sm:gap-6">
-      <a class="text-xs hover:underline underline-offset-4" href="#">
-        Terms of Service
-      </a>
-      <a class="text-xs hover:underline underline-offset-4" href="#">
-        Privacy
-      </a>
-    </nav>
-  </footer>
-  <!--End of Footer-->
+  </section>
 
   <script src="./js/script.js"></script>
 </body>

@@ -12,50 +12,17 @@
 
 <body>
 
-  <!--Nav-Bar-->
-  <header class="px-4 lg:px-6 h-14 flex items-center bg-[#f0f0f0] fixed w-full">
-    <a class="flex items-center justify-center" href="#">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
-        <path d="m8 3 4 8 5-5 5 15H2L8 3z"></path>
+  <section class="min-h-screen flex box-border justify-center items-center transition-all duration-500">
+    <div class="bg-green-100 rounded-2xl flex max-w-[1000px] p-5 items-center transition-all duration-500">
+      <div class="md:block hidden  w-1/2">
+        <img class="rounded-2xl max-h-[1600px]" src="/public/assets/images/doctor_patient.svg" alt="login form image">
+      </div>
+      <div class="md:w-1/2 px-8 transition-all duration-500">
+        <h2 class="font-bold text-3xl text-[#002D74]">Register</h2>
+        <p class="text-sm mt-4 text-[#002D74]">Create your own account now</p>
 
-      </svg>
-      <span class="sr-only">Acme Inc</span>
-    </a>
-    <nav class="ml-auto flex gap-4 sm:gap-6">
-      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Features
-      </a>
-      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Pricing
-      </a>
-      <a class="text-sm font-medium hover:underline underline-offset-4" href="#">
-        Contact
-      </a>
-
-    </nav>
-    <div class="px-2">
-
-      <button
-        class="text-sm text-black rounded-md font-medium py-1 px-5 hover:underline underline-offset-4 bg-[#a4d6d6]">Sign
-        up</button>
-    </div>
-  </header>
-
-  <!--End of Nav-Bar-->
-
-
-
-
-  <div class="flex items-center justify-center h-screen mb-[-65px]">
-    <div class="w-full space-y-12 flex flex-col items-center">
-      <div class="mx-auto max-w-md space-y-4 bg-[#f0f0f0] p-10 rounded-xl">
-        <div class="space-y-2 text-center">
-          <h1 class="text-3xl font-bold">Create an account</h1>
-          <p class="text-gray-500 dark:text-gray-400">Enter your information to create an account</p>
-        </div>
-        <form id="registerForm" class="space-y-2 ">
-          <div class="grid grid-cols-2 gap-4">
+        <form id="registerForm" class="flex flex-col mt-6 gap-4 transition-all duration-500">
+          <div id="name_section" class="grid transition-all duration-500 grid-cols-2 gap-4">
             <div class="space-y-2">
               <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 for="first-name">
@@ -72,10 +39,32 @@
               </label>
               <input
                 class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                id="last-name" placeholder="Enter your last name" required/>
+                id="last-name" placeholder="Enter your last name" required />
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-4">
+          
+          <div id="weight_height_section" class="hidden translate-x-[200px] transition-all duration-500 grid-cols-2 gap-4"><!--add class grid-->
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="weight">
+                Weight
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="weight" placeholder="your weight" type="number" required />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                for="height">
+                Height
+              </label>
+              <input
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                id="height" placeholder="150" type="number" required />
+            </div>
+          </div>
+
+          <div id="age_phone_section" class=" hidden translate-x-[200px] grid  transition-all duration-500 grid-cols-2 gap-4"><!--add class grid-->
             <div class="space-y-2">
               <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 for="age">
@@ -92,12 +81,12 @@
               </label>
               <input
                 class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                id="phoneNumber" placeholder="Phone number"  required/>
+                id="phoneNumber" placeholder="Phone number" required />
             </div>
           </div>
 
           <!--Address Section-->
-          <div class="grid grid-cols-1 gap-4">
+          <div id="address_section" class="hidden translate-x-[200px] transition-all duration-500 grid-cols-1 gap-4"> <!--add class grid-->
             <div class="space-y-2">
               <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 for="address">
@@ -107,166 +96,139 @@
                 class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 id="address" placeholder="your address" type="text" required />
             </div>
-            
+
           </div>
-          
+
 
 
           <!--Gender Section-->
 
-          <div class="flex grid grid-cols-2 sm:place-items-center sm:gap-20 place-items-start">
+          <div id="gender_section" class="hidden translate-x-[200px] transition-all duration-500 grid-cols-2 sm:place-items-center sm:gap-20 place-items-start"><!--add class grid and flex-->
 
-              <div class="inline-flex items-center">
-                <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="male">
-                  <input name="gender" type="radio"
-                    class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-900 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
-                    id="male" value="male" checked />
-                  <span
-                    class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
-                      <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                    </svg>
-                  </span>
-                </label>
-                <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="male">
-                  Male
-                </label>
-              </div>
-              <div class="inline-flex items-center">
-                <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="female">
-                  <input name="gender" type="radio"
-                    class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
-                    id="female"  value="female"/>
-                  <span
-                    class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
-                      <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
-                    </svg>
-                  </span>
-                </label>
-                <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="female">
-                  Female
-                </label>
-              </div>
+            <div class="inline-flex items-center">
+              <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="male">
+                <input name="gender" type="radio"
+                  class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-900 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+                  id="male" value="male" checked />
+                <span
+                  class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+                    <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+                  </svg>
+                </span>
+              </label>
+              <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="male">
+                Male
+              </label>
             </div>
+            <div class="inline-flex items-center">
+              <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="female">
+                <input name="gender" type="radio"
+                  class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+                  id="female" value="female" />
+                <span
+                  class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor">
+                    <circle data-name="ellipse" cx="8" cy="8" r="8"></circle>
+                  </svg>
+                </span>
+              </label>
+              <label class="mt-px font-light text-gray-700 cursor-pointer select-none" htmlFor="female">
+                Female
+              </label>
+            </div>
+          </div>
 
 
 
 
 
-          <div class="space-y-2">
+          <div id="email_section" class="space-y-2 transition-all duration-500">
             <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for="email">
               Email
             </label>
             <input
               class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              id="email" placeholder="m@example.com" type="email" required/>
+              id="email" placeholder="m@example.com" type="email" required />
           </div>
-          <div class="space-y-2">
+          <div id="password_section" class="space-y-2 transition-all duration-500">
             <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for="password">
               Password
             </label>
             <input
               class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              id="password" type="password" required/>
+              id="password" type="password" required />
           </div>
-        
-
-          <button id="SignUp"
-            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50  text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
-            type="submit">
-            Sign Up
-          </button>
-
-
+          <button
+          id="signUpBtn"
+            class="bg-green-600 hidden text-white py-2 rounded-xl hover:scale-105 duration-300 hover:bg-green-400  font-medium"
+            type="submit">Sign Up</button>
         </form>
 
-      </div>
 
-      <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full max-w-md my-8"></div>
-      <div class="space-y-4">
+        <div class="mt-4 w-full text-sm border-b border-gray-500 py-5 playfair tooltip">
+          <div class="w-full px-4 ">
+            <div class="relative flex items-center justify-between w-full">
+              <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-gray-300"></div>
+              <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-gray-900 transition-all duration-500">
+              </div>
+              <div
+              id="step1"
+                class="relative z-10 grid w-10 h-10 font-bold text-white transition-all duration-300 bg-gray-900 rounded-full place-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  aria-hidden="true" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z">
+                  </path>
+                </svg>
+                
+              </div>
+              <div
+              id="step2"
+                class="relative z-10 grid w-10 h-10 font-bold text-white transition-all duration-300 bg-gray-300 rounded-full place-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                  aria-hidden="true" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495">
+                  </path>
+                </svg>
+                
+              </div>
+              
+            </div>
+            <div class="flex justify-between mt-10">
+              <button
+              id="prevBtn"
+                class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button">
+                Prev
+              </button>
+              <button
+              id="nextBtn"
+                class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
 
-        <div class="mt-4 text-center text-sm text-white">
-          Already have an account?
-          <a class="underline" href="../Login/Login.html">
-            Sign in
+        <div class="mt-4 text-sm flex justify-between items-center container-mr">
+          <p class="mr-3 md:mr-0 ">Already have an account? </p>
+          <a href="/client/Login/Login.html">
+            <button
+              class="hover:border  text-white bg-green-600   rounded-xl py-2 px-5 hover:scale-110 hover:bg-green-400 font-semibold duration-300">Login</button>
           </a>
         </div>
       </div>
 
     </div>
-  </div>
+  </section>
 
-  <!-- <footer class="bg-gray-900 text-gray-50 py-4 text-center flex items-center justify-center gap-4">
-    <a href="#" class="text-gray-50 hover:text-gray-300">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-6 h-6"
-      >
-        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-      </svg>
-    </a>
-    <a href="#" class="text-gray-50 hover:text-gray-300">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-6 h-6"
-      >
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-      </svg>
-    </a>
-    <a href="#" class="text-gray-50 hover:text-gray-300">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-6 h-6"
-      >
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-      </svg>
-    </a>
-    <p>© 2024 EHR Inc. All rights reserved. For support, contact support@ehr.com</p>
-  </footer> -->
-
-  <footer
-    class="flex absolute b-0 flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-[#f0f0f0]">
-    <p class="text-xs text-gray-500 ">© 2024 Acme Inc. All rights reserved.</p>
-    <nav class="sm:ml-auto flex gap-4 sm:gap-6">
-      <a class="text-xs hover:underline underline-offset-4" href="#">
-        Terms of Service
-      </a>
-      <a class="text-xs hover:underline underline-offset-4" href="#">
-        Privacy
-      </a>
-    </nav>
-  </footer>
-
-<script src="./js/script.js"></script>
+  <script src="./js/script.js"></script>
+  <script src="./js/handlePagination.js"></script>
 </body>
 
 </html>

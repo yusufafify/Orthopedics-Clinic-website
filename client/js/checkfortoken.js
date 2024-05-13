@@ -1,3 +1,4 @@
+console.log(localStorage.getItem('token'));
 async function checkForToken() {
   const token = localStorage.getItem('token');
   
