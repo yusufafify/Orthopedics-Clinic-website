@@ -8,6 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <link rel="stylesheet" href="../../patient/history/styles/style.css">
+
 
   <title>Doctor Patient's View</title>
 </head>
@@ -249,105 +251,191 @@
 <script src="drPatients.js"></script>
 <script src="../logout.js"></script>
 </body>
-</html>
 
-<!-- <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                  <a class="font-medium" href="#">
-                    Jane Doe
-                  </a>
-                </td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">60</td>
+
+<div id="patientInfoModal" onclick="closeModal('patientInfoModal')"
+class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+<div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+  <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+  </div>
+  <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+  <div onclick="event.stopPropagation()"
+    class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-auto shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl sm:w-full  sm:h-full">
+<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+<div class="">
+<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+
+  <div class="mt-2 w-full h-full overflow-auto">
+    <div class="p-2">
+      <div>
+        <div class="lg:col-span-6 w-full">
   
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                  <div class="flex items-center gap-2">
-                    <span>November 1, 2023</span>
-                    <div class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
-                      Confirmed
+  
+  
+  
+  
+          <!--Patient Medical History-->
+          <div class="flex min-h-screen flex-col">
+  
+            <header class="bg-gray-100 p-6  rounded-md shadow-md text-black">
+              <div class="container mx-auto flex items-center justify-between">
+  
+                <nav class="flex items-center space-x-4">
+                  <button id="historyOpenBtn" class="lg:hidden block">
+                    <img src="/public/assets/imgs/menu.png" alt="menu" class="h-4 w-4 object-cover">
+                  </button>
+                  <h2 class="lg:hidden text-lg font-semibold">Medical History</h2>
+                  <button class="link link-underline link-underline-black text-black  nav_btns" id="allBtn">
+                    All
+                  </button>
+                  <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="injuriesBtn">
+                    Injuries
+                  </button>
+                  <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="surgeriesBtn">
+                    Surgeries
+                  </button>
+                  <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="treatmentsBtn">
+                    Treatments
+                  </button>
+                  <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="familyBtn">
+                    Family Afflictions
+                  </button>
+                  <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="medicationBtn">
+                    Medications </button>
+                  <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="allergiesBtn">
+                    Allergies</button>
+  
+                </nav>
+  
+                <!--Add Medical History btn and form-->
+                
+                
+                <!--End of Add Medical History btn and form-->
+  
+              </div>
+              <div id="historyNav"
+                class="absolute bg-gray-200 transition-opacity opacity-0 duration-300 p-4 rounded-xl lg:hidden  flex flex-col gap-2 items-start ">
+                <button class="link link-underline link-underline-black text-black  nav_btns" id="injuriesBtn">
+                  Injuries
+                </button>
+                <button class="link link-underline link-underline-black text-black  nav_btns" id="surgeriesBtn">
+                  Surgeries
+                </button>
+                <button class="link link-underline link-underline-black text-black  nav_btns" id="treatmentsBtn">
+                  Treatments
+                </button>
+                <button class="link link-underline link-underline-black text-black  nav_btns" id="familyBtn">
+                  Family Afflictions
+                </button>
+                <button class="link link-underline link-underline-black text-black  nav_btns" id="medicationBtn">
+                  Medications </button>
+                <button class="link link-underline link-underline-black text-black  nav_btns" id="allergiesBtn">
+                  Allergies</button>
+              </div>
+            </header>
+  
+            <div class="container mx-auto flex flex-col  py-8">
+              <div class="bg-gray-100 p-6 mb-2 rounded-lg shadow-md  space-y-4">
+                <div>
+                  <h2 class="text-lg font-bold mb-2">Patient Information</h2>
+                  <p id="infoName"></p>
+                  <p id="infoAge">Age: 35</p>
+                  <p id="infoPhone">Height: 6'2"</p>
+                  <p id="infoGender">Phone: 555-1234</p>
+                  <p id="infoEmail">Weight: 180 lbs</p>
+                  <p id="infoAddress">Email: john.doe@example.com</p>
+                </div>
+              </div>
+              <div id="medical_history_container" class=" space-y-8">
+  
+                <!--Skeleton Loader-->
+  
+                <!--End of Skeleton Loader-->
+  
+  
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <div id="medications">
+                    <h2 class="text-2xl font-bold mb-4">Medications</h2>
+                    <div id="medication_details" class="bg-white p-6 rounded-lg shadow-md ">
                     </div>
                   </div>
-                </td>
-                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                  <div class="flex items-center gap-2">
-                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="w-4 h-4"
-                      >
-                        <path d="M4 13.5V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2h-5.5"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <path d="M10.42 12.61a2.1 2.1 0 1 1 2.97 2.97L7.95 21 4 22l.99-3.95 5.43-5.44Z"></path>
-                      </svg>
-                      <span class="sr-only">Edit patient</span>
-                    </button>
-                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="w-4 h-4"
-                      >
-                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                        <circle cx="9" cy="9" r="2"></circle>
-                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                      </svg>
-                      <span class="sr-only">View medical images</span>
-                    </button>
-                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="w-4 h-4"
-                      >
-                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                        <line x1="16" x2="16" y1="2" y2="6"></line>
-                        <line x1="8" x2="8" y1="2" y2="6"></line>
-                        <line x1="3" x2="21" y1="10" y2="10"></line>
-                      </svg>
-                      <span class="sr-only">Reschedule appointment</span>
-                    </button>
-                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="w-4 h-4"
-                      >
-                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                        <line x1="16" x2="16" y1="2" y2="6"></line>
-                        <line x1="8" x2="8" y1="2" y2="6"></line>
-                        <line x1="3" x2="21" y1="10" y2="10"></line>
-                        <path d="m9 16 2 2 4-4"></path>
-                      </svg>
-                      <span class="sr-only">View upcoming appointments</span>
-                    </button>
+  
+                  <div id="allergies">
+                    <h2 class="text-2xl font-bold mb-4">Allergies</h2>
+                    <div id="allergies_details" class="bg-white p-6 rounded-lg shadow-md ">
+                    </div>
                   </div>
-                </td>
-              </tr> -->
+                </div>
+  
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div id="injuries">
+                    <h2 class="text-2xl font-bold mb-4">Past Injuries</h2>
+                    <div id="injuries_details" class="space-y-4">
+                      <!--Details of the card-->
+                    </div>
+                  </div>
+  
+                  <div id="surgeries">
+                    <h2 class="text-2xl font-bold mb-4">Past Surgeries</h2>
+                    <div id="surgeries_details" class="space-y-4">
+                      <!--Details of the card-->
+                    </div>
+                  </div>
+  
+  
+                  <div id="treatments">
+                    <h2 class="text-2xl font-bold mb-4">Past Treatments</h2>
+                    <div id="treatments_details" class="space-y-4">
+                      <!--Details of the card-->
+                    </div>
+                  </div>
+  
+                  <div id="family">
+                    <h2 class="text-2xl font-bold mb-4">Family Afflictions</h2>
+                    <div id="family_details" class="space-y-4">
+                      <!--Details of the card-->
+                    </div>
+                  </div>
+                </div>
+  
+  
+  
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+        <!--End of Patient Medical History-->
+  
+  
+  
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+<button type="button" onclick="closeModal('patientInfoModal')"
+class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
+<script type="module" src="../../patient/js/history.js">
+</script>
+<script type="module" src="../js/patient_history.js"></script>
+</html>
+
