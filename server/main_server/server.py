@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 import bcrypt
 from bson.objectid import ObjectId
 from flask_mail import Mail, Message
-# uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
-uri = "mongodb://localhost:27017/"
+uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
+# uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 

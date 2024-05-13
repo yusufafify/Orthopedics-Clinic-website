@@ -1,8 +1,7 @@
 //import the functions needed
 import { getMedicalHistory } from "./getMedicalHistory.js";
 import { handleDelete } from "./handleDelete.js";
-import {personalInfoSkeleton} from "./personalInfoSkeleton.js";
-
+import { personalInfoSkeleton } from "./personalInfoSkeleton.js";
 
 //variables for the header of the history page
 const historyOpenBtn = document.querySelector("#historyOpenBtn");
@@ -33,7 +32,6 @@ const treatmentsDetails = document.getElementById("treatments_details");
 const familyHistoryDetails = document.getElementById("family_details");
 const medicationsDetails = document.getElementById("medication_details");
 const allergiesDetails = document.getElementById("allergies_details");
-
 
 //patient info
 const patientInfo = document.getElementById("patientInfo");
@@ -80,6 +78,47 @@ navBtns.forEach((btn) => {
       "underline-offset-[3px]"
     );
     const btnID = btn.id;
+    console.log(btnID);
+    if (btnID === "allBtn") {
+      injuriesContainer.classList.remove("hidden");
+      surgeriesContainer.classList.remove("hidden");
+      treatmentsContainer.classList.remove("hidden");
+      familyContainer.classList.remove("hidden");
+      medicationsContainer.classList.remove("hidden");
+      allergiesContainer.classList.remove("hidden");
+      familyContainer.parentElement.classList.add("md:grid-cols-2", "gap-4");
+      allergiesContainer.parentElement.classList.add("md:grid-cols-2", "gap-2");
+      const injuriesHistory = medicalHistory
+        .filter((history) => history.historyType === "Injuries")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
+      const surgeriesHistory = medicalHistory
+        .filter((history) => history.historyType === "Surgeries")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
+      const treatmentsHistory = medicalHistory
+        .filter((history) => history.historyType === "Treatments")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
+      const familyHistory = medicalHistory
+        .filter((history) => history.historyType === "Family Afflictions")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
+      const medications = medicalHistory
+        .filter((history) => history.historyType === "Medications")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
+      const allergies = medicalHistory
+        .filter((history) => history.historyType === "Allergies")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
+      injuriesDetails.innerHTML = getMedicalHistory(injuriesHistory, true);
+      surgeriesDetails.innerHTML = getMedicalHistory(surgeriesHistory, true);
+      treatmentsDetails.innerHTML = getMedicalHistory(treatmentsHistory, true);
+      familyHistoryDetails.innerHTML = getMedicalHistory(familyHistory, true);
+      medicationsDetails.innerHTML = getMedicalHistory(medications, true);
+      allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
+    }
     if (btnID === "injuriesBtn") {
       injuriesContainer.classList.remove("hidden");
       surgeriesContainer.classList.add("hidden");
@@ -234,25 +273,20 @@ async function getHistory() {
 
 getHistory();
 
-
-
 async function getInfo() {
-try {
-  patientInfo.innerHTML=personalInfoSkeleton({},false);
-  const response= await fetch("http://localhost:8008/personal_data", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-  });
-  const data = await response.json();
-  console.log(data);
-  patientInfo.innerHTML=personalInfoSkeleton(data,true);
-} catch (error) {
-  
-}
+  try {
+    patientInfo.innerHTML = personalInfoSkeleton({}, false);
+    const response = await fetch("http://localhost:8008/personal_data", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+    patientInfo.innerHTML = personalInfoSkeleton(data, true);
+  } catch (error) {}
 }
 
 getInfo();
-
