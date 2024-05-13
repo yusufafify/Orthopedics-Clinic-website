@@ -53,7 +53,7 @@ def login():
             token = create_access_token({
 			      'email': email,
             'role': user["role"]
-		},expires_delta=timedelta(minutes= 0.5))
+		},expires_delta=timedelta(minutes= 60))
             refresh_token = create_refresh_token({
 			      'email': email,
             'role': user["role"]
@@ -945,7 +945,95 @@ def get_lifetime_doctor():
         return jsonify({ 'error': str(err) }), 500
 
         
+@app.route('/get_lifetime_doctor_patients', methods=['GET'])
+@jwt_required()
+def get_lifetime_doctor_patient():
+    try:
+        docemail=get_jwt_identity()['email']
+        docid=users.find_one({'email':docemail})['_id']
+        docappointments=appointment.find({'doctorId':docid})
 
+
+        patientIds=[]
+
+        for app in docappointments:
+            patientIds.append(app['patientId'])
+
+
+        already_added=[]
+        patients=[]
+        imagesArray=[]
+        medical_history_array=[]
+        return_images=[]
+        return_history=[]
+
+        for patid in patientIds:
+            patient=users.find_one({'_id':patid})
+            
+
+            if not patient:
+                continue
+
+            if str(patid) in already_added:
+                continue
+
+            patients.append({
+                'patientId':str(patid),
+                'name':patient['name'],
+                'email':patient['email'],
+                'phoneNumber':patient['phoneNumber'],
+                'address':patient['address'],
+                'age':patient['age']})
+            
+
+            image=images.find({'patientId':patid})
+            if not image:
+                return_images.append([])
+            else:
+                for img in image:
+                    imagesArray.append({
+                        'image_id':str(img['_id']),
+                        'category':img['imageType'],
+                        'src':img['src'],
+                        'date':img['date']
+                    })
+                return_images.append(imagesArray)
+            
+
+            history=medical_history.find({'patientId':patid})
+            if not history:
+                return_history.append([])
+            else:
+                for h in history:
+                    medical_history_array.append({
+                        'historyType':h['historytype'],
+                        'title':h['titleofproblem'],
+                        'date':h['dateofproblem'],
+                        'description':h['description']
+                    })
+                return_history.append(medical_history_array)
+
+            already_added.append(str(patid))
+            imagesArray=[]
+            medical_history_array=[]
+
+        if not patients:
+            return jsonify({
+                'message':'no patients found'
+            }), 404
+        
+
+        return jsonify({
+                'message':'success',
+                'patients':patients,
+                'images':return_images,
+                'medical_history':return_history
+
+            }), 200
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 @app.route('/check_token_validity', methods=['GET'])

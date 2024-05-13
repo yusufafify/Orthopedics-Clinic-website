@@ -557,11 +557,12 @@
                       <div class="bg-gray-100 p-6 mb-2 rounded-lg shadow-md  space-y-4">
                         <div>
                           <h2 class="text-lg font-bold mb-2">Patient Information</h2>
-                          <p>Age: 35</p>
-                          <p>Height: 6'2"</p>
-                          <p>Weight: 180 lbs</p>
-                          <p>Phone: 555-1234</p>
-                          <p>Email: john.doe@example.com</p>
+                          <p id="infoName"></p>
+                          <p id="infoAge">Age: 35</p>
+                          <p id="infoPhone">Height: 6'2"</p>
+                          <p id="infoGender">Phone: 555-1234</p>
+                          <p id="infoEmail">Weight: 180 lbs</p>
+                          <p id="infoAddress">Email: john.doe@example.com</p>
                         </div>
                       </div>
                       <div id="medical_history_container" class=" space-y-8">
@@ -679,6 +680,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
         <script src="./js/doctor.js"></script>
         <script src="logout.js"></script>
+        <script src="js/getPatientInfo.js"></script>
 
         <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>
         <script type="module" src="js/patient_history.js">
