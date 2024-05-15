@@ -95,7 +95,7 @@ def login():
     try:
         data = request.get_json()
         
-        email = data.get('email')
+        email = data.get('email').lower()
         password = data.get('password').encode('utf-8')
 
 
@@ -135,7 +135,7 @@ def register():
     global refresh_token
     try:
         data = request.get_json()
-        email=data.get('email')
+        email=data.get('email').lower()
 
         user = users.find_one({ 'email': email })
         if user: 
