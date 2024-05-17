@@ -57,11 +57,11 @@ def forget_password():
         expires = datetime.utcnow() + timedelta(minutes=15)
 
         msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = [email])
-        msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/{reset_token}">here</a> to reset your password</p>"""
+        msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/reset.html">here</a> to reset your password</p>"""
         mail.send(msg)
 
         users.update_one({"_id": user["_id"]}, {"$set": {"passwordResetToken": reset_token, "passwordResetExpires": expires}})
-        return jsonify({ 'message': 'success' }), 200
+        return jsonify({ 'message': 'success', 'reset_token': reset_token }), 200
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500    
 
