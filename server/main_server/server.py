@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import bcrypt
 from bson.objectid import ObjectId
 from flask_mail import Mail, Message
+import secrets
 uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
 # uri = "mongodb://localhost:27017/"
 
@@ -43,6 +44,49 @@ def index():
   mail.send(msg)
   return "Message sent!"
 
+@app.route('/forget_password', methods=['POST'])
+def forget_password():
+    try: 
+        data = request.get_json()
+        email = data.get('email')
+        user = users.find_one({ 'email': email })
+        if not user:
+            return jsonify({ 'error': 'invalid email' }), 404
+        
+        reset_token = secrets.token_hex(16)
+        expires = datetime.utcnow() + timedelta(minutes=15)
+
+        msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = [email])
+        msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/{reset_token}">here</a> to reset your password</p>"""
+        mail.send(msg)
+
+        users.update_one({"_id": user["_id"]}, {"$set": {"passwordResetToken": reset_token, "passwordResetExpires": expires}})
+        return jsonify({ 'message': 'success' }), 200
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500    
+
+@app.route('/client/forget_password/reset_password/<token>', methods=['PATCH'])
+def reset_password(token):
+    try: 
+        data = request.get_json()
+        user = users.find_one({ 'passwordResetToken': token })
+        if not user: 
+            return jsonify({ 'error': 'invalid token' })
+        
+        if datetime.utcnow() > user['passwordResetExpires']: 
+            users.update_one({"_id": user["_id"]}, {"$unset": {"passwordResetToken": "", "passwordResetExpires": ""}})
+            return jsonify({ 'error': 'Token expired' }), 400
+
+        password = data.get('password').encode('utf-8')
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
+
+        users.update_one({"_id": user["_id"]}, {"$set": {"password": hashed_password}, "$unset": {"passwordResetToken": "", "passwordResetExpires": ""}})
+        return jsonify({ 'message': 'Password updated successfully' }), 200
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500 
+
 refresh_token=''
 #This route is used to login a user
 @app.route('/login', methods=['POST'])
@@ -51,7 +95,7 @@ def login():
     try:
         data = request.get_json()
         
-        email = data.get('email')
+        email = data.get('email').lower()
         password = data.get('password').encode('utf-8')
 
 
@@ -91,7 +135,7 @@ def register():
     global refresh_token
     try:
         data = request.get_json()
-        email=data.get('email')
+        email=data.get('email').lower()
 
         user = users.find_one({ 'email': email })
         if user: 

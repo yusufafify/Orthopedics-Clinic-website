@@ -22,7 +22,10 @@ const userSchema = new mongoose.Schema({
   images:{ type: [String], default: [] },
   workingHours: { type:[Number], default: undefined },
   salary: { type: Number, default: undefined },
-  profilePic: { type: String, default: '' }
+  profilePic: { type: String, default: '' },
+
+  passwordResetToken: { type: String, default: null },
+  passwordResetExpires: { type: Date, default: null }
 });
 
 const appointmentSchema = new mongoose.Schema({
