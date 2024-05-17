@@ -6,11 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/public/assets/styles/tailwind.js"></script>
   <link rel="stylesheet" href="../styles/styles.css">
+  <script src="/public/assets/sweetAlert/sweetalert2.all.min.js"></script>
+
 
   <title>reset_password</title>
 </head>
 
-<body class="">
+<body id="resetBody">
   <section class="min-h-screen flex box-border justify-center items-center">
     <div class="bg-green-100 rounded-2xl flex md:max-w-[900px] p-5 items-center">
       <div class="md:w-1/2 px-8">
@@ -24,14 +26,14 @@
             id="email" placeholder="m@example.com" required type="email" name="email">
           <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">New Password</label>
-            <input type="new_password" name="new_password" id="new_password"
+            <input type="password" name="new_password" id="new_password"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
               placeholder="••••••••••••••••••••" required>
           </div>
           <div>
             <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900">Confirm
               Password</label>
-            <input type="confirm_password" name="confirm_password" id="confirm_password"
+            <input type="password" name="confirm_password" id="confirm_password"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
               placeholder="••••••••••••••••••••" required>
           </div>
@@ -50,7 +52,7 @@
     </div>
   </section>
 
-
+<script type="module" src="./js/resetPassword.js"></script>
 </body>
 
 </html>

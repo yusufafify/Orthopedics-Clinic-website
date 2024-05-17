@@ -27,9 +27,17 @@ const forgetPassword = async (e) => {
     });
 
     const data = await response.json();
-
+    if(response.status === 404) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No user found with this email address!',
+      });
+      return;
+    }
     if (data.reset_token) {
       localStorage.setItem('reset_token', data.reset_token);
+      localStorage.setItem('reset_email', email);
       console.log(localStorage.getItem('reset_token'));
       Swal.fire({
         icon: 'success',

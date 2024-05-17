@@ -56,13 +56,14 @@ def forget_password():
         reset_token = secrets.token_hex(16)
         expires = datetime.utcnow() + timedelta(minutes=15)
 
-        msg = Message('Password reset link', subject='PASSWORD RESET LINK', sender =   'clonereddit055@gmail.com', recipients = [email])
+        msg = Message(subject='PASSWORD RESET LINK', sender =   'clonereddit055@gmail.com', recipients = [email])
         msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/reset.html">here</a> to reset your password</p>"""
         mail.send(msg)
 
         users.update_one({"_id": user["_id"]}, {"$set": {"passwordResetToken": reset_token, "passwordResetExpires": expires}})
         return jsonify({ 'message': 'success', 'reset_token': reset_token }), 200
     except Exception as err:
+      
         return jsonify({ 'error': str(err) }), 500    
 
 @app.route('/reset_password/<token>', methods=['PATCH'])
