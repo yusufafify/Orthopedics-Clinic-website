@@ -61,7 +61,7 @@ def forget_password():
         mail.send(msg)
 
         users.update_one({"_id": user["_id"]}, {"$set": {"passwordResetToken": reset_token, "passwordResetExpires": expires}})
-        return jsonify({ 'message': 'success' }), 200
+        return jsonify({ 'message': 'success', 'reset_token': reset_token }), 200
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500    
 
