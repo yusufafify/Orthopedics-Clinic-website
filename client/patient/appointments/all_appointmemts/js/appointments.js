@@ -14,6 +14,7 @@ let consultationState = false;
 let examinationState = false;
 let isFetchDone = false;
 let newAppointmentDate=''
+const search = document.getElementById("search");
 
 function attachButtonEventListeners() {
   var buttons = document.querySelectorAll("button");
@@ -31,6 +32,7 @@ function showLoader() {
 async function fetchDataAndDisplayAppointments() {
   showLoader();
   const data = await fetchAppointments();
+  console.log(data)
   if (data) {
     isFetchDone = true;
     appointmentsDetails.push(...data);
@@ -371,3 +373,18 @@ function handleButtonClick(event) {
     }
   }
 }
+
+//function that handles the search input
+//The function filters the appointments based on the search input
+//The function displays the filtered appointments on the table
+search.addEventListener("input", (event) => {
+  const value = event.target.value;
+  console.log(value)
+  const filteredAppointments = appointmentsDetails.filter((appointment) =>
+    appointment.date.toLocaleLowerCase().includes(value.toLocaleLowerCase())||
+    appointment.payment.toLocaleLowerCase().includes(value.toLocaleLowerCase())||
+    appointment.status.toLocaleLowerCase().includes(value.toLocaleLowerCase())||
+    appointment.reason.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+  );
+  handlePagination(filteredAppointments);
+});

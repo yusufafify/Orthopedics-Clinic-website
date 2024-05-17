@@ -28,7 +28,7 @@ function getAppointments(appointments) {
       <div class="w-max">
         <div
           class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap ${
-            appointment.status.toLowerCase() === "paid"
+            appointment.status.toLowerCase() === "paid"||appointment.status.toLowerCase() === "completed"
               ? "bg-green-500/20"
               : "bg-red-500/20"
           } ">

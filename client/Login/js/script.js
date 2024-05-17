@@ -2,7 +2,6 @@ document
   .getElementById("loginform")
   .addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
-
     login();
   });
 
@@ -24,10 +23,20 @@ if (localStorage.getItem("token") != null) {
     window.location.href = "http://127.0.0.1:5500/client/Admin/admin.html";
   }
 }
-
 function login() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
+
+  // Check if both fields are filled
+  if (!email || !password) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please fill out both email and password fields!",
+    });
+    return;
+  }
+
   fetch("http://localhost:8008/login", {
     method: "POST",
     headers: {
@@ -40,25 +49,58 @@ function login() {
   })
     .then((response) => response.json())
     .then((data) => {
-      // console.log('token:', JSON.stringify(data.token) );
-      localStorage.setItem("token", data.token);
-
-      console.log(data.role);
-      if (data.role == "patient") {
-        localStorage.setItem("patient_id", data.id);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
-        window.location.href =
-          "http://127.0.0.1:5500/client/patient/patient.html";
-      } else if (data.role == "doctor") {
-        localStorage.setItem("role", data.role);
-        window.location.href =
-          "http://127.0.0.1:5500/client/Doctor/doctor.html";
-      } else if (data.role == "admin") {
-        localStorage.setItem("role", data.role);
-        window.location.href = "http://127.0.0.1:5500/client/Admin/admin.html";
+        if (data.role == "patient") {
+          localStorage.setItem("patient_id", data.id);
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            text: "Redirecting to patient dashboard...",
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.href =
+              "http://127.0.0.1:5500/client/patient/patient.html";
+          });
+        } else if (data.role == "doctor") {
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            text: "Redirecting to doctor dashboard...",
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.href =
+              "http://127.0.0.1:5500/client/Doctor/doctor.html";
+          });
+        } else if (data.role == "admin") {
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            text: "Redirecting to admin dashboard...",
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+            window.location.href =
+              "http://127.0.0.1:5500/client/Admin/admin.html";
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: "Invalid email or password. Please try again.",
+        });
       }
     })
     .catch((error) => {
       console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong. Please try again later.",
+      });
     });
 }
