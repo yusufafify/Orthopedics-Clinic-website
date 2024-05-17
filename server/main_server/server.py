@@ -56,7 +56,7 @@ def forget_password():
         reset_token = secrets.token_hex(16)
         expires = datetime.utcnow() + timedelta(minutes=15)
 
-        msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = [email])
+        msg = Message('Password reset link', subject='PASSWORD RESET LINK', sender =   'clonereddit055@gmail.com', recipients = [email])
         msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/reset.html">here</a> to reset your password</p>"""
         mail.send(msg)
 
