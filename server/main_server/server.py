@@ -39,10 +39,10 @@ jwt = JWTManager(app)
 #a Test Route
 @app.route("/")
 def index():
-  msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = ['abdullahahmedfouad02@gmail.com'])
-  msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
-  mail.send(msg)
-  return "Message sent!"
+  # msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = ['abdullahahmedfouad02@gmail.com'])
+  # msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
+  # mail.send(msg)
+  return "hi there! this is the server for the orthopedic clinic app!"
 
 @app.route('/forget_password', methods=['POST'])
 def forget_password():
@@ -57,7 +57,7 @@ def forget_password():
         expires = datetime.utcnow() + timedelta(minutes=15)
 
         msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = [email])
-        msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/{reset_token}">here</a> to reset your password</p>"""
+        msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/reset.html">here</a> to reset your password</p>"""
         mail.send(msg)
 
         users.update_one({"_id": user["_id"]}, {"$set": {"passwordResetToken": reset_token, "passwordResetExpires": expires}})
@@ -65,7 +65,7 @@ def forget_password():
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500    
 
-@app.route('/client/forget_password/reset_password/<token>', methods=['PATCH'])
+@app.route('/reset_password/<token>', methods=['PATCH'])
 def reset_password(token):
     try: 
         data = request.get_json()
