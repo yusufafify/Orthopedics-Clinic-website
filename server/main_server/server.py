@@ -32,7 +32,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 jwt = JWTManager(app)
-
+arbitraryconstant = 12
 
 
 
@@ -261,12 +261,12 @@ def appointment_booking():
         docid=users.find_one({'email':docmail})['_id']
         patid=users.find_one({'email':patmail})['_id']
 
-        if appointment.find_one({'doctorId':docid,'date':date}):
+        duplicate=appointment.find_one({'doctorId':docid,'patientId':patid,'date':date,'type':visittype})
+        if duplicate:
             return jsonify({
-                'message':'doctor is not available at this time'
+                'message':'appointment already exists'
             }), 409
 
-        
         appointment.insert_one({
             'doctorId':docid,
             'patientId':patid,
@@ -1122,6 +1122,50 @@ def check_token_validity():
 
 
 
+
+
+
+
+
+
+
+@app.route('/get_available_doctor', methods=['GET'])
+@jwt_required()
+def get_available_doctor():
+    try:
+        data=request.get_json()
+        date=str(data.get('date'))
+        returndoc=[]
+        max_appointments = 10  # Arbitrary constant
+
+        # Aggregate appointments by doctorId and count them
+        pipeline = [
+            {"$match": {"date": date}},
+            {"$group": {"_id": "$doctorId", "count": {"$sum": 1}}},
+            {"$match": {"count": {"$lt": max_appointments}}}
+        ]
+        available_doctors = list(appointment.aggregate(pipeline))
+
+        for doctor in available_doctors:
+            docid = str(doctor['_id'])
+            doctor_info = users.find_one({'_id': ObjectId(docid)})
+            returndoc.append({
+                'DoctorId': docid,
+                'DoctorName': doctor_info['name'],
+                'DoctorEmail': doctor_info['email'],
+                'DoctorPhone': doctor_info['phoneNumber'],
+                'DoctorWorkingHours': doctor_info['working_hours']
+            })
+
+
+        if returndoc:
+            return jsonify(returndoc), 200
+        else:
+            return jsonify({'message': 'no available doctors at this date'}), 404
+
+        
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 
 
