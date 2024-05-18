@@ -272,7 +272,11 @@ def appointment_booking():
             'patientId':patid,
             'date':date,
             'type':visittype,
-            'paymentMethod':pay
+            'paymentMethod':pay,
+            'diagnosis':[],
+            'treatment':[],
+            'doctorNotes':"",
+            'status':'pending'
         })
 
         return jsonify({
