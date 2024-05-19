@@ -705,6 +705,8 @@ def get_patient_appointments():
 @jwt_required()
 def cancel_appointment():
     try:
+        user=get_jwt_identity()['email']
+        userid=users.find_one({'email':user})['role']
         data = request.get_json()
         appointment_id = ObjectId(data.get('appointmentId'))
         appointment_info = appointment.find_one({'_id': appointment_id})
@@ -717,7 +719,7 @@ def cancel_appointment():
         else:
             appointment_date = datetime.strptime(appointment_info['date'], '%Y-%m-%d').date()  # Parse date string
 
-        if appointment_date==current_date:
+        if appointment_date==current_date and userid=='patient':
             return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
         if appointment_date<current_date:
             return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
