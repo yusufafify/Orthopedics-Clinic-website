@@ -925,13 +925,6 @@ def completeapp():
         rating=data.get('rating')
         title=appointment.find_one({'_id':appid})['type']
         
-        print(data)
-        print(appid)
-        print(diagnosis)
-        print(treatment)
-        print(notes)
-        print(rating)
-
         current_app=appointment.find_one({'_id':appid})
 
         finaldiagnosis=''
@@ -944,7 +937,7 @@ def completeapp():
             }), 404
         
                 
-        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed'}},upsert=True,return_document=ReturnDocument.AFTER)
+        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed','rating':rating}},upsert=True,return_document=ReturnDocument.AFTER)
         
         
         
