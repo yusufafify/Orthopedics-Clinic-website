@@ -771,7 +771,7 @@ let durations=[
                         </select>
 
                         <input type="text" id="medicineInput${indexTreat}"
-                          class="hidden  mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          class="hidden  mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
 
                       </div>
                       <div>
@@ -783,7 +783,7 @@ let durations=[
                         </select>
 
                         <input type="text" id="frequencyInput${indexTreat}"
-                          class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                       </div>
 
                       <div>
@@ -796,7 +796,7 @@ let durations=[
 
 
                         <input type="text" id="dosageInput${indexTreat}"
-                          class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
 
                       </div>
 
@@ -809,7 +809,7 @@ let durations=[
                         </select>
 
                         <input type="text" id="durationInput${indexTreat}"
-                          class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                       </div>
     `;
     indexTreat=indexTreat+1;
@@ -832,7 +832,7 @@ let durations=[
     </select>
 
     <input type="text" id="diagnosisInput${indexDiag}"
-      class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
     `;
     indexDiag=indexDiag+1;
     diagnosesDiv.appendChild(newDiagnosisDiv);
