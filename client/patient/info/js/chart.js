@@ -1,11 +1,11 @@
 //Bar chart for the patient's appointment data
-
+let data = null;
 
 const chartConfig = {
   series: [
     {
       name: "Sales",
-      data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
   ],
   chart: {
@@ -44,17 +44,7 @@ const chartConfig = {
         fontWeight: 400,
       },
     },
-    categories: [
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   },
   yaxis: {
     labels: {
@@ -87,8 +77,30 @@ const chartConfig = {
     theme: "dark",
   },
 };
- 
-const chart = new ApexCharts(document.querySelector("#line-chart"), chartConfig);
- 
+
+const chart = new ApexCharts(
+  document.querySelector("#line-chart"),
+  chartConfig
+);
 
 chart.render();
+
+const getChartData = async () => {
+  try {
+    const response = await fetch("http://localhost:8008/get_Avg_rating", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+getChartData();
