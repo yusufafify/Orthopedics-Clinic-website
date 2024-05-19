@@ -526,7 +526,8 @@ def today_appointments():
 
         if not arrayoftoday:
             return jsonify({
-                'message':'no appointments found'
+                'message':'no appointments found',
+                'flag':[]
             }), 404
         
         return jsonify(arrayoftoday)
@@ -705,6 +706,8 @@ def get_patient_appointments():
 @jwt_required()
 def cancel_appointment():
     try:
+        user=get_jwt_identity()['email']
+        userid=users.find_one({'email':user})['role']
         data = request.get_json()
         appointment_id = ObjectId(data.get('appointmentId'))
         appointment_info = appointment.find_one({'_id': appointment_id})
@@ -717,7 +720,7 @@ def cancel_appointment():
         else:
             appointment_date = datetime.strptime(appointment_info['date'], '%Y-%m-%d').date()  # Parse date string
 
-        if appointment_date==current_date:
+        if appointment_date==current_date and userid=='patient':
             return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
         if appointment_date<current_date:
             return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
@@ -917,12 +920,16 @@ def completeapp():
     try:
         data=request.get_json()
         appid=ObjectId(data.get('appointmentId'))
-        diagnosis=data.get('diagnosis')
-        treatment=data.get('treatment')
-        notes=data.get('doctorNotes')
-
+        diagnosis=data.get('diagnoses')
+        treatment=data.get('treatments')
+        notes=data.get('notes')
+        rating=data.get('rating')
+        title=appointment.find_one({'_id':appid})['type']
+        
         current_app=appointment.find_one({'_id':appid})
 
+        finaldiagnosis=''
+        finaltreatment='\n'
         
         if not current_app:
             return jsonify({
@@ -931,23 +938,29 @@ def completeapp():
             }), 404
         
                 
-        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed'}},upsert=True,return_document=ReturnDocument.AFTER)
+        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed','patientrating':rating}},upsert=True,return_document=ReturnDocument.AFTER)
         
         
         
-        for i in range(len(diagnosis)):
-            medical_history.insert_one({
-                'patientId':current_app['patientId'],
-                'historytype':'Treatmeant',
-                'titleofproblem':treatment[i],
-                'dateofproblem':current_app['date'],
-                'description':diagnosis[i]
-            })
+        for diagnose in range(len(diagnosis)):
+            finaldiagnosis+=diagnosis[diagnose]
+            if diagnose!=len(diagnosis)-1:
+                finaldiagnosis+=','
+
+        for treat in range(len(treatment)):
+            value=treatment[treat].split(',')
+            finaltreatment+=f'Medicine: {value[0]} ,Frequency:{value[1]} ,Dosage: {value[2]}  ,Duration: {value[3]}'
+            if treat!=len(treatment)-1:
+                finaltreatment+=',\n'
             
-        
-        
-        
-        
+
+        medical_history.insert_one({
+            'patientId':current_app['patientId'],
+            'historytype':'appointment',
+            'titleofproblem':title,
+            'dateofproblem':current_app['date'],
+            'description':f'Diagnosis: {finaldiagnosis} \nTreatment: {finaltreatment} \nDoctor Notes: {notes}'
+        }) 
         
         return jsonify({
             'message':'success',
@@ -1142,6 +1155,15 @@ def get_available_doctor():
         date=data.get('date')
         max_appointments = 10  # Arbitrary constant
         returndoc = []
+        today=datetime.now().date()  # Get current date
+
+        if isinstance(date, datetime):
+            date = date.date()  # Convert to date
+        else:
+            date = datetime.strptime(date, '%Y-%m-%d').date()
+
+        if date<today:
+            return jsonify({'message': 'cannot book an appointment in the past'}), 400
 
         # Get all doctors
         all_doctors = users.find({ 'role': 'doctor' })
@@ -1170,8 +1192,60 @@ def get_available_doctor():
         
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+    
 
 
+
+
+@app.route('/get_number_of_app_per_month', methods=['GET'])
+@jwt_required()
+def get_number_of_app_per_month():
+    try:
+        user=get_jwt_identity()['email']
+        userid=users.find_one({'email':user})['_id']
+        all_appointments=appointment.find({'patientId':userid})
+        returndict={'JAN':0,'FEB':0,'MAR':0,'APR':0,'MAY':0,'JUN':0,'JUL':0,'AUG':0,'SEP':0,'OCT':0,'NOV':0,'DEC':0}
+        arrayofmonths=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+        for app in all_appointments:
+            date=app['date']
+            month=date.split('-')[1]
+            returndict[arrayofmonths[int(month)-1]]+=1
+
+        return jsonify(returndict), 200
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
+
+
+@app.route('/get_Avg_rating', methods=['GET'])
+@jwt_required()
+def get_Avg_rating():
+    try:
+        user=get_jwt_identity()['email']
+        userid=users.find_one({'email':user})['_id']
+        all_appointments=appointment.find({'patientId':userid})
+        returndict={'JAN':0,'FEB':0,'MAR':0,'APR':0,'MAY':0,'JUN':0,'JUL':0,'AUG':0,'SEP':0,'OCT':0,'NOV':0,'DEC':0}
+        arrayofmonths=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+        arrayofratings=[0,0,0,0,0,0,0,0,0,0,0,0]
+        for app in all_appointments:
+            date=app['date']
+            month=date.split('-')[1]
+            returndict[arrayofmonths[int(month)-1]]+=int(app['patientrating'])
+            arrayofratings[int(month)-1]+=1
+
+        for i in range(12):
+            if arrayofratings[i]!=0:
+                returndict[arrayofmonths[i]]/=arrayofratings[i]    
+
+        
+        return jsonify(returndict), 200
+
+
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 # batal 3atah
 
