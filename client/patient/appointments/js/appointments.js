@@ -37,7 +37,8 @@ buttons.forEach(function (button) {
 }
 getPatientAppointmentsData();
 
-let newAppointmentDate=""
+let newAppointmentDate="";
+const appointmentDate=document.getElementById("datetime");
 
 function handleButtonClick(event) {
   // event.currentTarget is the button that the event listener is attached to
@@ -180,9 +181,99 @@ function handleButtonClick(event) {
     handleSubmit(number,newAppointmentDate);
   }
 
+
 }
 
 var buttons = document.querySelectorAll("button");
 buttons.forEach(function (button) {
   button.addEventListener("click", handleButtonClick);
 });
+
+//event listener for checking available slots btn
+document.getElementById("checkForDateBtn").addEventListener("click",async (event)=>{
+  event.preventDefault();
+  const date=appointmentDate.value;
+  if(date===""){
+    alert("Please select a date");
+    return;
+  }
+  const availableSlots=await checkAvailableSlots(date);
+  if(availableSlots.length===0){
+    alert("No available slots for the selected date");
+    return;
+  }
+  
+console.log(availableSlots);
+  document.getElementById("slotsContainer").classList.remove("hidden");
+  let uniqueSlots = availableSlots.filter((slot, index, self) =>
+    index === self.findIndex((s) => s.doctorhours === slot.doctorhours)
+  );
+  console.log(uniqueSlots);
+  document.getElementById("slots").innerHTML = uniqueSlots.map((slot, index) => {
+    return `<option id='${slot.DoctorEmail}' value="${slot.doctorhours}">${slot.doctorhours}</option>`
+  }).join("");
+  document.getElementById("checkForDateBtn").classList.add("hidden");
+  document.getElementById("submitAppointmentBtn").classList.remove("hidden");
+})
+
+//check for available slots
+async function checkAvailableSlots(date){
+try {
+  const response =await fetch("http://localhost:8008/get_available_doctor",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      Authorization:`Bearer ${localStorage.getItem("token")}`,
+    },
+    body:JSON.stringify({
+      date:`${date}`,
+    }),
+  });
+  const data=await response.json();
+  console.log(data.returned_doctors)
+  return data.returned_doctors
+} catch (error) {
+  console.log(error)
+}
+}
+
+
+
+document.getElementById("submitAppointmentBtn").addEventListener("click",async (e)=>{
+  const date=appointmentDate.value;
+  const type=document.getElementById('type').value;
+  const paymentMethod=document.getElementById('paymentMethod').value;
+  console.log(paymentMethod);
+  const email=document.getElementById("slots").selectedOptions[0].id;
+  const appointmentsObj={
+    date,
+    email,
+    type,
+    paymentMethod
+
+  }
+  console.log(appointmentsObj);
+  scheduleAppointment(appointmentsObj);
+
+})
+
+async function scheduleAppointment(appointmentsObj){
+  try {
+    const response=await fetch("http://localhost:8008/appointment_booking",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        Authorization:`Bearer ${localStorage.getItem("token")}`,
+      },
+      body:JSON.stringify(appointmentsObj),
+    });
+    const data=await response.json();
+    console.log(data);
+    if(data){
+      alert("Appointment scheduled successfully");
+      window.location.reload();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

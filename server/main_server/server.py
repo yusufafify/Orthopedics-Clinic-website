@@ -671,7 +671,8 @@ def get_patient_appointments():
             if isinstance(info['date'], datetime):
                 appointment_date = info['date'].date()  # Convert to date
             else:
-                appointment_date = datetime.strptime(info['date'], '%Y-%m-%d').date()  # Parse date string
+                
+                appointment_date = datetime.strptime((info['date']), '%Y-%m-%d').date()  # Parse date string
 
             
             if appointment_date > current_date:
@@ -1133,7 +1134,7 @@ def check_token_validity():
 
 
 
-@app.route('/get_available_doctor', methods=['GET'])
+@app.route('/get_available_doctor', methods=['POST'])
 @jwt_required()
 def get_available_doctor():
     try:
@@ -1160,9 +1161,11 @@ def get_available_doctor():
 
 
         if returndoc:
-            return jsonify(returndoc), 200
+            return jsonify({
+                'returned_doctors': returndoc,
+            }), 200
         else:
-            return jsonify({'message': 'no available doctors at this date'}), 404
+            return jsonify({'message': 'no available doctors at this date','returned_doctors':[]}), 404
 
         
     except Exception as err:
