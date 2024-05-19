@@ -146,7 +146,7 @@ async function deleteAppointment(patientEmail) {
 
 try{
   const response = await fetch(
-        "http://localhost:8008/add_to_medical_history",
+        "http://localhost:8008/delete_user",
         {
           method: "DELETE",
           headers: {
@@ -186,3 +186,73 @@ catch (error) {
   // }
 }
 
+
+//Edit Patient Event listener
+
+
+
+
+const submitBtn = document.getElementById('confirmEditbtn');
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const submitBtn = document.getElementById('submitBtn');
+
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action (form submission in this case)
+
+        // Fetch all inputs
+        const name = document.getElementById('modalName').value.trim();
+        const email = document.getElementById('modalEmail').value.trim();
+        //const password = document.getElementById('password').value.trim();
+        //const age = document.getElementById('age').value.trim();
+        //const role = document.querySelector('input[name="role"]:checked');
+        //const gender = document.querySelector('input[name="gender"]:checked');
+        //const address = document.getElementById('address').value.trim();
+        const nextApp = document.getElementById('modalNextApp').value.trim();
+        const phone = document.getElementById('modalPhone').value.trim();
+        //const salary = document.getElementById('salary').value.trim();
+        //const workinghours = document.getElementById('working-hours').value.trim();
+
+        // Validate all required inputs
+        if (!name || !email || !phone || nextApp) {
+            alert("Please fill in all required fields.");
+            return; // Stop the function if validation fails
+        }
+
+        // Prepare data object with validated values
+        const patientData = {
+            name,
+            email,
+            phone,
+            nextApp
+        };
+
+        console.log(patientData);
+        //UpdatePatientForm(employeeData);  // Call the function to submit data
+    });
+});
+
+
+
+
+async function UpdatePatientForm(patientData) {
+    try {
+      const response = await fetch(
+        "http://localhost:8008/create_employee",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(patientData),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
