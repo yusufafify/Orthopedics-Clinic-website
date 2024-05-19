@@ -526,7 +526,8 @@ def today_appointments():
 
         if not arrayoftoday:
             return jsonify({
-                'message':'no appointments found'
+                'message':'no appointments found',
+                'flag':[]
             }), 404
         
         return jsonify(arrayoftoday)
