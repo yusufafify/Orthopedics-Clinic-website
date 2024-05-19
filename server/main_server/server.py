@@ -777,8 +777,8 @@ def get_appointments():
                 'AppointmentId': str(info['_id']),
                 'patientName': patient_name ,
                 'doctorName': Doctor_name,
-                'date': info['date'].strftime('%Y-%m-%d'),
-                'time': info['date'].strftime('%H:%M:%S'),
+                'date': info['date'],
+                'time': info['date'],
                 'paymentMethod': info['paymentMethod']
 
             })
@@ -802,7 +802,7 @@ def get_patients():
                 patientid=str(info['_id'])
                 patient_appointment = appointment.find_one({'patientId': ObjectId(info['_id'])})
                 print(patient_appointment)
-                appointment_date = patient_appointment['date'].strftime('%Y-%m-%d') if patient_appointment else 'Unknown'
+                appointment_date = patient_appointment['date'] if patient_appointment else 'Unknown'
 
                 patients.append({
                     'PatientId': patientid,
