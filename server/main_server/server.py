@@ -781,8 +781,8 @@ def get_appointments():
                 'AppointmentId': str(info['_id']),
                 'patientName': patient_name ,
                 'doctorName': Doctor_name,
-                'date': info['date'].strftime('%Y-%m-%d'),
-                'time': info['date'].strftime('%H:%M:%S'),
+                'date': info['date'],
+                'time': info['date'],
                 'paymentMethod': info['paymentMethod']
 
             })
