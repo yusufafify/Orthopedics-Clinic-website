@@ -1015,6 +1015,7 @@ def get_lifetime_doctor():
                 'appointmentID':str(app['_id']),
                 'patientName':users.find_one({'_id':app['patientId']})['name'],
                 'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                'gender':users.find_one({'_id':app['patientId']})['gender'],
                 'date':app['date'],
                 'type':app['type'],
                 'paymentMethod':app['paymentMethod'],
@@ -1075,7 +1076,9 @@ def get_lifetime_doctor_patient():
                 'email':patient['email'],
                 'phoneNumber':patient['phoneNumber'],
                 'address':patient['address'],
-                'age':patient['age']})
+                'age':patient['age'],
+                'gender':patient['gender']}),
+                
             
 
             image=images.find({'patientId':patid})

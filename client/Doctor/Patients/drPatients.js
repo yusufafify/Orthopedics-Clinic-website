@@ -57,11 +57,13 @@ let patients;
       console.log(patient);
       rows += `
         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${patient.patientId}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">${patient.name}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${patient.age}</td>
-          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${patient.upcomingAppointment}</td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${patient.phoneNumber}</td>
+
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
-            <button data-id="${i}" onclick="openModal('patientInfoModal'); showPatientDetails(this)">View Details</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" onclick="openModal('patientInfoModal'); showPatientDetails(this)">View</button>
           </td>
         </tr>
       `;
@@ -95,7 +97,8 @@ let patients;
       patient.name.toLowerCase().includes(searchTerm) ||
       patient.address.toLowerCase().includes(searchTerm) ||
       patient.email.toLowerCase().includes(searchTerm) ||
-     
+     patient.phoneNumber.toLowerCase().includes(searchTerm) ||
+     patient.age.toLowerCase().includes(searchTerm) ||
       patient.address.toLowerCase().includes(searchTerm)
     );
   
@@ -110,7 +113,7 @@ let patients;
     
     // Get the appointment details using the index
     const patient = patients[index];
-    
+    console.log(patient)
     // Populate the form with the appointment details
     document.getElementById('infoName').innerHTML = "Name: "+patient.name;
     document.getElementById('infoAge').innerHTML = "Age: "+patient.age;

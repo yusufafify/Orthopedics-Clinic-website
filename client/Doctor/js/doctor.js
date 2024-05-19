@@ -278,20 +278,26 @@ function closeModal(modalId) {
     </div>
   `;
     }
-    let formattedHistory = '';
-  
-    medicalHistory.forEach((item, index) => {
-      formattedHistory += `${index + 1}:${item.historyType}<br>`;
-      for (const key in item) {
-        if (key !=='historyType'){
-        formattedHistory += `${capitalizeFirstLetter(key)}: ${item[key]}<br>`;
-        }
-      }
-      formattedHistory += '----------------------------<br>';
-    });
-  
-    return formattedHistory;
+    let formattedHistory = ``;
+  for (let i=0;i<medicalHistory.length;i++){
+    console.log(medicalHistory[i])
+    let item= medicalHistory[i]
+    console.log(item)
+    let thing=item["description"];
+    let things=thing.split('\n');
+    things.splice(1,1);
+    console.log(things);
+formattedHistory+=`Date: ${item.date}<br>
+${things.join('<br>')}<br>
+Type: ${item.title} <br>
+--------------------------------<br>
+`
   }
+  console.log(formattedHistory);
+  return formattedHistory;
+      }
+    
+
 
 
 
@@ -618,10 +624,141 @@ fetch("http://localhost:8008/personal_data", {
     document.getElementById('loading').style.display = 'none';
   }
 
+  let diagnosesList=["Arthritis",
+  "Osteoarthritis"
+  ,"Rheumatoid Arthritis"
+  ,"Bursitis"
+  ,"Fibromyalgia"
+  ,"Fractures"
+  ,"Hip Fracture"
+  ,"Low Back Pain"
+  ,"Hand Pain and Problems"
+  ,"Knee Pain and Problems"
+  ,"Kyphosis"
+  ,"Neck Pain and Problems"
+  ,"Osteoporosis"
+  ,"Paget’s Disease of the Bone"
+  ,"Scoliosis"
+  ,"Shoulder Pain and Problems"
+  ,"Soft-Tissue Injuries","Other"]
+
+let medicineList=[
+  "Acetaminophen",
+  "Acetylsalicylic Acid",
+  "Alprazolam",
+  "Amoxicillin",
+  "Atorvastatin",
+  "Azithromycin",
+  "Citalopram",
+  "Clonazepam",
+  "Diazepam",
+  "Fluoxetine",
+  "Gabapentin",
+  "Hydrochlorothiazide",
+  "Ibuprofen",
+  "Levothyroxine",
+  "Lisinopril",
+  "Losartan",
+  "Meloxicam",
+  "Metformin",
+  "Metoprolol",
+  "Omeprazole",
+  "Pantoprazole",
+  "Prednisone",
+  "Sertraline",
+  "Simvastatin",
+  "Tamsulosin",
+  "Tramadol",
+  "Trazodone",
+  "Zolpidem",
+  "Other"
+]
+let dosages=[
+  "1mg",
+  "2mg",
+  "2.5mg",
+  "5mg",
+  "10mg",
+  "20mg",
+  "25mg",
+  "50mg",
+  "75mg",
+  "100mg",
+  "200mg",
+  "300mg",
+  "400mg",
+  "500mg",
+  "600mg",
+  "700mg",
+  "800mg",
+  "900mg",
+  "1g",
+  "1.5g",
+  "2g",
+  "3g",
+  "4g",
+  "5g",
+  "10g",
+  "20g",
+  "30g",
+  "40g",
+  "50g",
+  "100g",
+  "Other"
+];
+
+let frequencies=[
+"Once a day",
+"Twice a day",
+"Three times a day",
+"Four times a day",
+"Every 4 hours",
+"Every 6 hours",
+"Every 8 hours",
+"Every 12 hours",
+"After every meal",
+"Before every meal",
+"Every night",
+"Every morning",
+"Every evening",
+"Every afternoon",
+"Every week",
+"Every month",
+"Every year",
+"Other"
+];
+
+let durations=[
+  "1 day",
+  "2 days",
+  "3 days",
+  "4 days",
+  "5 days",
+  "6 days",
+  "1 week",
+  "2 weeks",
+  "3 weeks",
+  "4 weeks",
+  "1 month",
+  "2 months",
+  "3 months",
+  "4 months",
+  "5 months",
+  "6 months",
+  "1 year",
+  "2 years",
+  "3 years",
+  "Other"
+
+];
  
   function addTreatment() {
     const treatmentsDiv = document.getElementById('Treatment');
-  
+    let medNames = medicineList.map(medicine => `<option>${medicine}</option>`).join('\n');
+    let frequenciesList = frequencies.map(frequency => `<option>${frequency}</option>`).join('\n');
+    let dosagesList = dosages.map(dosage => `<option>${dosage}</option>`).join('\n');
+    let durationsList = durations.map(duration => `<option>${duration}</option>`).join('\n');
+
     const newTreatmentDiv = document.createElement('div');
     newTreatmentDiv.className = 'grid grid-cols-4 gap-4 mt-4 pl-6';
     newTreatmentDiv.innerHTML = `
@@ -629,9 +766,7 @@ fetch("http://localhost:8008/personal_data", {
                         <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
                         <select id="medicine" class="medicine h-10" onchange="showInputField(this, 'medicineInput${indexTreat}')"
                           class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                          <option>Medicine 1</option>
-                          <option>Medicine 2</option>
-                          <option>Other</option>
+                          ${medNames}
                           <!-- Add more options as needed -->
                         </select>
 
@@ -643,9 +778,7 @@ fetch("http://localhost:8008/personal_data", {
                         <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
                         <select id="frequency" class="frequency  h-10" onchange="showInputField(this, 'frequencyInput${indexTreat}')"
                           class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                          <option>Once a day</option>
-                          <option>Twice a day</option>
-                          <option>Other</option>
+                          ${frequenciesList}
                           <!-- Add more options as needed -->
                         </select>
 
@@ -657,9 +790,7 @@ fetch("http://localhost:8008/personal_data", {
                         <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
                         <select id="dosage" class="dosage h-10" onchange="showInputField(this, 'dosageInput${indexTreat}')"
                           class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                          <option>100mg</option>
-                          <option>200mg</option>
-                          <option>Other</option>
+                          ${dosagesList}
                           <!-- Add more options as needed -->
                         </select>
 
@@ -673,9 +804,7 @@ fetch("http://localhost:8008/personal_data", {
                         <label for="duration" class="block text-sm font-medium text-gray-700">Duration</label>
                         <select id="duration" class="duration h-10" onchange="showInputField(this, 'durationInput${indexTreat}')"
                           class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                          <option>Once a day</option>
-                          <option>Twice a day</option>
-                          <option>Other</option>
+                          ${durationsList}
                           <!-- Add more options as needed -->
                         </select>
 
@@ -688,19 +817,17 @@ fetch("http://localhost:8008/personal_data", {
   }
 
 
+
   function addDiagnosis() {
     const diagnosesDiv = document.getElementById('Diagnosis');
-  
+    let optionsHTML = diagnosesList.map(diagnosis => `<option>${diagnosis}</option>`).join('\n');
     const newDiagnosisDiv = document.createElement('div');
     newDiagnosisDiv.className="pl-6 pt-6 pr-6"
     newDiagnosisDiv.innerHTML = `
     <label for="diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
     <select id="diagnosis" class="diagnosis h-10 w-full" onchange="showInputField(this, 'diagnosisInput${indexDiag}')"
       class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-      <option>Orthopedic Diagnosis 1</option>
-      <option>Orthopedic Diagnosis 2</option>
-      <option>Orthopedic Diagnosis 3</option>
-      <option>Other</option>
+      ${optionsHTML}
       <!-- Add more options as needed -->
     </select>
 
@@ -718,6 +845,7 @@ fetch("http://localhost:8008/personal_data", {
     const treatmentsDiv = document.getElementById('Treatment');
     if (treatmentsDiv.children.length > 1) {
       treatmentsDiv.removeChild(treatmentsDiv.lastChild);
+      indexTreat=indexTreat-1;
     }
   }
   
@@ -726,6 +854,7 @@ fetch("http://localhost:8008/personal_data", {
     const diagnosesDiv = document.getElementById('Diagnosis');
     if (diagnosesDiv.children.length > 1) {
       diagnosesDiv.removeChild(diagnosesDiv.lastChild);
+      indexDiag=indexDiag-1;
     }
   }
 
