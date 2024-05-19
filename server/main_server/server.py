@@ -261,9 +261,9 @@ def appointment_booking():
         docid=users.find_one({'email':docmail})['_id']
         patid=users.find_one({'email':patmail})['_id']
 
-        if appointment.find_one({'doctorId':docid,'date':date}):
+        if appointment.find_one({'patientId':patid,'doctorId':docid,'date':date}):
             return jsonify({
-                'message':'doctor is not available at this time'
+                'message':'already booked an appointment with this doctor on this date'
             }), 409
 
         
@@ -272,7 +272,11 @@ def appointment_booking():
             'patientId':patid,
             'date':date,
             'type':visittype,
-            'paymentMethod':pay
+            'paymentMethod':pay,
+            'diagnosis':[],
+            'treatment':[],
+            'doctorNotes':'',
+            'status':'pending'
         })
 
         return jsonify({
