@@ -1146,7 +1146,7 @@ def check_token_validity():
 
 
 
-@app.route('/get_available_doctor', methods=['GET'])
+@app.route('/get_available_doctor', methods=['POST'])
 @jwt_required()
 def get_available_doctor():
     try:
@@ -1154,6 +1154,15 @@ def get_available_doctor():
         date=data.get('date')
         max_appointments = 10  # Arbitrary constant
         returndoc = []
+        today=datetime.now().date()  # Get current date
+
+        if isinstance(date, datetime):
+            date = date.date()  # Convert to date
+        else:
+            date = datetime.strptime(date, '%Y-%m-%d').date()
+
+        if date<today:
+            return jsonify({'message': 'cannot book an appointment in the past'}), 400
 
         # Get all doctors
         all_doctors = users.find({ 'role': 'doctor' })
