@@ -67,6 +67,7 @@ const treatmentsContainer = document.getElementById("treatments");
 const familyContainer = document.getElementById("family");
 const medicationsContainer = document.getElementById("medications");
 const allergiesContainer = document.getElementById("allergies");
+const appointmentsContainer = document.getElementById("appointments");
 
 //Initially all containers are visible
 injuriesContainer.classList.remove("hidden");
@@ -75,6 +76,7 @@ treatmentsContainer.classList.remove("hidden");
 familyContainer.classList.remove("hidden");
 medicationsContainer.classList.remove("hidden");
 allergiesContainer.classList.remove("hidden");
+appointmentsContainer.classList.remove("hidden");
 
 //variables for the medical history details
 const injuriesDetails = document.getElementById("injuries_details");
@@ -83,6 +85,7 @@ const treatmentsDetails = document.getElementById("treatments_details");
 const familyHistoryDetails = document.getElementById("family_details");
 const medicationsDetails = document.getElementById("medication_details");
 const allergiesDetails = document.getElementById("allergies_details");
+const appointmentsDetails = document.getElementById("appointments_details");
 //Initial medical history details
 const medicalHistory = [];
 
@@ -134,6 +137,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.remove("hidden");
       medicationsContainer.classList.remove("hidden");
       allergiesContainer.classList.remove("hidden");
+      appointmentsContainer.classList.remove("hidden");
       familyContainer.parentElement.classList.add("md:grid-cols-2", "gap-4");
       allergiesContainer.parentElement.classList.add("md:grid-cols-2", "gap-2");
       const injuriesHistory = medicalHistory
@@ -160,11 +164,17 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Allergies")
         .reverse()
         .slice(0, 2); // Limit to 2 items
+        const appointments = medicalHistory
+        .filter((history) => history.historyType === "appointment")
+        .reverse()
+        .slice(0, 2); // Limit to 2 items
       injuriesDetails.innerHTML = getMedicalHistory(injuriesHistory, true);
       surgeriesDetails.innerHTML = getMedicalHistory(surgeriesHistory, true);
       treatmentsDetails.innerHTML = getMedicalHistory(treatmentsHistory, true);
       familyHistoryDetails.innerHTML = getMedicalHistory(familyHistory, true);
       medicationsDetails.innerHTML = getMedicalHistory(medications, true);
+      appointmentsDetails.innerHTML = getMedicalHistory(appointments, true);
+
       allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
     }
     if (btnID === "injuriesBtn") {
@@ -174,6 +184,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.add("hidden");
       medicationsContainer.classList.add("hidden");
       allergiesContainer.classList.add("hidden");
+      appointmentsContainer.classList.add("hidden");
       allergiesContainer.parentElement.classList.add("md:grid-cols-2", "gap-2");
       const injuriesHistory = medicalHistory
         .filter((history) => history.historyType === "Injuries")
@@ -188,6 +199,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.add("hidden");
       medicationsContainer.classList.add("hidden");
       allergiesContainer.classList.add("hidden");
+      appointmentsContainer.classList.add("hidden");
       allergiesContainer.parentElement.classList.add("md:grid-cols-2", "gap-2");
       const surgeriesHistory = medicalHistory
         .filter((history) => history.historyType === "Surgeries")
@@ -203,6 +215,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.add("hidden");
       medicationsContainer.classList.add("hidden");
       allergiesContainer.classList.add("hidden");
+      appointmentsContainer.classList.add("hidden");
       allergiesContainer.parentElement.classList.add("md:grid-cols-2", "gap-2");
       const treatmentsHistory = medicalHistory
         .filter((history) => history.historyType === "Treatments")
@@ -217,6 +230,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.remove("hidden");
       medicationsContainer.classList.add("hidden");
       allergiesContainer.classList.add("hidden");
+      appointmentsContainer.classList.add("hidden");
       allergiesContainer.parentElement.classList.add("md:grid-cols-2", "gap-2");
       const familyHistory = medicalHistory
         .filter((history) => history.historyType === "Family Afflictions")
@@ -231,6 +245,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.add("hidden");
       medicationsContainer.classList.remove("hidden");
       allergiesContainer.classList.add("hidden");
+      appointmentsContainer.classList.add("hidden");
       medicationsContainer.parentElement.classList.remove(
         "md:grid-cols-2",
         "gap-2"
@@ -247,6 +262,7 @@ navBtns.forEach((btn) => {
       familyContainer.classList.add("hidden");
       medicationsContainer.classList.add("hidden");
       allergiesContainer.classList.remove("hidden");
+      appointmentsContainer.classList.add("hidden");
       allergiesContainer.parentElement.classList.remove(
         "md:grid-cols-2",
         "gap-2"
@@ -255,6 +271,21 @@ navBtns.forEach((btn) => {
         .filter((history) => history.historyType === "Allergies")
         .reverse();
       allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
+    }
+    if (btnID === "appointmentBtn") {
+      injuriesContainer.classList.add("hidden");
+      surgeriesContainer.classList.add("hidden");
+      treatmentsContainer.classList.add("hidden");
+      familyContainer.classList.add("hidden");
+      medicationsContainer.classList.add("hidden");
+      allergiesContainer.classList.add("hidden");
+      appointmentsContainer.classList.remove("hidden");
+      const appointments = medicalHistory
+      .filter((history) => history.historyType === "appointment")
+      .reverse()
+
+      appointmentsDetails.innerHTML = getMedicalHistory(appointments, true);
+
     }
     document.querySelectorAll("button").forEach(function (button) {
   
@@ -269,6 +300,7 @@ async function getHistory() {
   familyHistoryDetails.innerHTML = getMedicalHistory([], false);
   medicationsDetails.innerHTML = getMedicalHistory([], false);
   allergiesDetails.innerHTML = getMedicalHistory([], false);
+  appointmentsDetails.innerHTML = getMedicalHistory([], false);
   try {
     const response = await fetch("http://localhost:8008/get_medical_history", {
       method: "GET",
@@ -308,12 +340,18 @@ async function getHistory() {
     .filter((history) => history.historyType === "Allergies")
     .reverse()
     .slice(0, 2); // Limit to 2 items
+        const appointments = medicalHistory
+    .filter((history) => history.historyType === "appointment")
+    .reverse()
+    .slice(0, 2); // Limit to 2 items
   injuriesDetails.innerHTML = getMedicalHistory(injuriesHistory, true);
   surgeriesDetails.innerHTML = getMedicalHistory(surgeriesHistory, true);
   treatmentsDetails.innerHTML = getMedicalHistory(treatmentsHistory, true);
   familyHistoryDetails.innerHTML = getMedicalHistory(familyHistory, true);
   medicationsDetails.innerHTML = getMedicalHistory(medications, true);
   allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
+    appointmentsDetails.innerHTML = getMedicalHistory(appointments, true);
+
   document.querySelectorAll("button").forEach(function (button) {
   
   });

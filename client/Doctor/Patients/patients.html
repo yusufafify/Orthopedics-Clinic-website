@@ -306,7 +306,10 @@ class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 
                   <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
                     id="allergiesBtn">
                     Allergies</button>
-  
+                    
+                    <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                    id="appointmentBtn">
+                    Appointments</button>
                 </nav>
   
                 <!--Add Medical History btn and form-->
@@ -333,6 +336,8 @@ class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 
                   Medications </button>
                 <button class="link link-underline link-underline-black text-black  nav_btns" id="allergiesBtn">
                   Allergies</button>
+                  <button class="link link-underline link-underline-black text-black  nav_btns" id="appointmentBtn">
+                    Appointments</button>
               </div>
             </header>
   
@@ -399,8 +404,16 @@ class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 
                     </div>
                   </div>
                 </div>
+          
   
-  
+                <div class="grid grid-cols-1 gap-4">
+                  <div id="appointments">
+                    <h2 class="text-2xl font-bold mb-4">Prev. Appointments</h2>
+                    <div id="appointments_details" class="space-y-4">
+                      <!--Details of the card-->
+                    </div>
+                  </div>
+                </div>
   
               </div>
             </div>
