@@ -1,4 +1,5 @@
- 
+indexDiag=0;
+indexTreat=0;
 function getMedicalHistory(array, isFetchDone) {
   if (!isFetchDone) {
     return `
@@ -53,17 +54,21 @@ function getMedicalHistory(array, isFetchDone) {
   );
 }
 
-console.log(localStorage.getItem("token"));
-if (localStorage.getItem("token") === null) {
-  window.location.href ="http://" + window.location.host + "/client/Login/Login.html";
-}
+
 
 
 todaysAppointments=[];
 startLoading();
-if (localStorage.getItem("token") === null) {
-  window.location.href = "/login";
+function logout(){
+  localStorage.removeItem("token");
+  localStorage.removeItem("activeAppointment")
+  window.location.href ="http://" + window.location.host + "/client/Login/Login.html";
 }
+console.log(localStorage.getItem("token"));
+if (localStorage.getItem("token") === null) {
+ logout()
+}
+
 
 fetch ("http://localhost:8008/get_today_appointments", {
   method: "GET",
@@ -74,18 +79,21 @@ fetch ("http://localhost:8008/get_today_appointments", {
 })
 .then((response) => response.json())
 .then((data) => {
+  console.log("No Appointments Found!")
   todaysAppointments=data;
   if (todaysAppointments.length>0){
     console.log(getActiveAppointmentID());
     console.log(localStorage.activeAppointment)
     updateAppointments();
   displayActiveAppointment();
-
-  
+  console.log("Displaying today's appointments.")
   }
   else{
+    console.log("Displaying empty appointments list")
     confirmAppointment(-1);
 noActiveAppointments();
+localStorage.removeItem('activeAppointment');
+
   }
   stopLoading();
   
@@ -93,7 +101,6 @@ noActiveAppointments();
 .catch((error) => {
   console.log(error);
 
-stopLoading();
   
 });
 
@@ -213,7 +220,6 @@ const medicalHistory = [];
       familyHistoryDetails.innerHTML = getMedicalHistory(familyHistory, true);
       medicationsDetails.innerHTML = getMedicalHistory(medications, true);
       allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
-      console.log(getMedicalHistory(medications,true));
       
     }
   })
@@ -250,11 +256,13 @@ function closeModal(modalId) {
 
   function showInputField(select, inputId) {
     var input = document.getElementById(inputId);
+    console.log(inputId);
     if (select.value == 'Other') {
       input.classList.remove('hidden');
     } else {
       input.classList.add('hidden');
     }
+
   }
 
   function capitalizeFirstLetter(string) {
@@ -270,20 +278,26 @@ function closeModal(modalId) {
     </div>
   `;
     }
-    let formattedHistory = '';
-  
-    medicalHistory.forEach((item, index) => {
-      formattedHistory += `${index + 1}:${item.historyType}<br>`;
-      for (const key in item) {
-        if (key !=='historyType'){
-        formattedHistory += `${capitalizeFirstLetter(key)}: ${item[key]}<br>`;
-        }
-      }
-      formattedHistory += '----------------------------<br>';
-    });
-  
-    return formattedHistory;
+    let formattedHistory = ``;
+  for (let i=0;i<medicalHistory.length;i++){
+    console.log(medicalHistory[i])
+    let item= medicalHistory[i]
+    console.log(item)
+    let thing=item["description"];
+    let things=thing.split('\n');
+    things.splice(1,1);
+    console.log(things);
+formattedHistory+=`Date: ${item.date}<br>
+${things.join('<br>')}<br>
+Type: ${item.title} <br>
+--------------------------------<br>
+`
   }
+  console.log(formattedHistory);
+  return formattedHistory;
+      }
+    
+
 
 
 
@@ -344,8 +358,21 @@ function noActiveAppointments(){
       No appointments found.
   </div>
 `;
+noneSelected();
 
 }
+
+function noneSelected(){
+  document.querySelector('#recordBox').innerHTML=`<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    No patient selected.
+    </div>
+    
+    `;
+document.querySelector('#medicalImages').innerHTML=`<div style="margin-left:12rem;display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+
+No patient selected.
+</div>`;
+};
 
 function updateAppointments(){
   document.querySelector('#todaysAppointmentsTable').innerHTML = generateTodaysAppointmentsTableRows(todaysAppointments);
@@ -368,8 +395,6 @@ function generateMedicalImages(images) {
   if (images === undefined){
     return `<div style="display: flex; justify-content: center; margin-left:7em; align-items: center; height: 100%; font-size: 2em;">
     <br>
-  
-    <br>  
         No images found.
     </div>
   `;
@@ -407,6 +432,14 @@ function displayActiveAppointment() {
         No appointment is selected. Select one to start.
     </div>
   `;
+  document.querySelector('#recordBox').innerHTML=`<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+    No patient selected.
+    </div>
+    
+    `;
+noneSelected();
+  //generateMedicalImages();
+
     document.getElementById('active2').innerHTML = '';
   } else {
   
@@ -509,7 +542,9 @@ document.getElementById('active2').innerHTML = `<div>
 `
 
   let appointment= todaysAppointments.find(appointment => appointment.appointmentID === getActiveAppointmentID());
-
+  console.log('LOOK HERE')
+  console.log(appointment);
+  if (appointment!=undefined){
   document.getElementById('appointmentName').innerHTML = appointment.patientName;
   document.getElementById('appointmentAge').innerHTML = appointment.patientAge;
   document.getElementById('appointmentNumber').innerHTML = appointment.appointmentID;
@@ -521,7 +556,7 @@ document.getElementById('active2').innerHTML = `<div>
 
   todaysAppointments.splice(appointmentIndex, 1);
   updateAppointments();
-  
+  }
   }
 }
 
@@ -563,6 +598,9 @@ fetch("http://localhost:8008/personal_data", {
 })
   .then((response) => response.json())
   .then((data) => {
+    if (data.name===undefined){
+      logout();
+    }
     //   document.getElementById('first_name').value=data.name.split(' ')[0];
     //   document.getElementById('last_name').value=data.name.split(' ')[1];
     //   email.value=data.email;
@@ -586,92 +624,228 @@ fetch("http://localhost:8008/personal_data", {
     document.getElementById('loading').style.display = 'none';
   }
 
+  let diagnosesList=["Arthritis",
+  "Osteoarthritis"
+  ,"Rheumatoid Arthritis"
+  ,"Bursitis"
+  ,"Fibromyalgia"
+  ,"Fractures"
+  ,"Hip Fracture"
+  ,"Low Back Pain"
+  ,"Hand Pain and Problems"
+  ,"Knee Pain and Problems"
+  ,"Kyphosis"
+  ,"Neck Pain and Problems"
+  ,"Osteoporosis"
+  ,"Paget’s Disease of the Bone"
+  ,"Scoliosis"
+  ,"Shoulder Pain and Problems"
+  ,"Soft-Tissue Injuries","Other"]
+
+let medicineList=[
+  "Acetaminophen",
+  "Acetylsalicylic Acid",
+  "Alprazolam",
+  "Amoxicillin",
+  "Atorvastatin",
+  "Azithromycin",
+  "Citalopram",
+  "Clonazepam",
+  "Diazepam",
+  "Fluoxetine",
+  "Gabapentin",
+  "Hydrochlorothiazide",
+  "Ibuprofen",
+  "Levothyroxine",
+  "Lisinopril",
+  "Losartan",
+  "Meloxicam",
+  "Metformin",
+  "Metoprolol",
+  "Omeprazole",
+  "Pantoprazole",
+  "Prednisone",
+  "Sertraline",
+  "Simvastatin",
+  "Tamsulosin",
+  "Tramadol",
+  "Trazodone",
+  "Zolpidem",
+  "Other"
+]
+let dosages=[
+  "1mg",
+  "2mg",
+  "2.5mg",
+  "5mg",
+  "10mg",
+  "20mg",
+  "25mg",
+  "50mg",
+  "75mg",
+  "100mg",
+  "200mg",
+  "300mg",
+  "400mg",
+  "500mg",
+  "600mg",
+  "700mg",
+  "800mg",
+  "900mg",
+  "1g",
+  "1.5g",
+  "2g",
+  "3g",
+  "4g",
+  "5g",
+  "10g",
+  "20g",
+  "30g",
+  "40g",
+  "50g",
+  "100g",
+  "Other"
+];
+
+let frequencies=[
+"Once a day",
+"Twice a day",
+"Three times a day",
+"Four times a day",
+"Every 4 hours",
+"Every 6 hours",
+"Every 8 hours",
+"Every 12 hours",
+"After every meal",
+"Before every meal",
+"Every night",
+"Every morning",
+"Every evening",
+"Every afternoon",
+"Every week",
+"Every month",
+"Every year",
+"Other"
+];
+
+let durations=[
+  "1 day",
+  "2 days",
+  "3 days",
+  "4 days",
+  "5 days",
+  "6 days",
+  "1 week",
+  "2 weeks",
+  "3 weeks",
+  "4 weeks",
+  "1 month",
+  "2 months",
+  "3 months",
+  "4 months",
+  "5 months",
+  "6 months",
+  "1 year",
+  "2 years",
+  "3 years",
+  "Other"
+
+];
+ 
   function addTreatment() {
-    event.preventDefault();
     const treatmentsDiv = document.getElementById('Treatment');
-  
+    let medNames = medicineList.map(medicine => `<option>${medicine}</option>`).join('\n');
+    let frequenciesList = frequencies.map(frequency => `<option>${frequency}</option>`).join('\n');
+    let dosagesList = dosages.map(dosage => `<option>${dosage}</option>`).join('\n');
+    let durationsList = durations.map(duration => `<option>${duration}</option>`).join('\n');
+
     const newTreatmentDiv = document.createElement('div');
-    newTreatmentDiv.className = 'grid grid-cols-3 gap-4 mt-4';
+    newTreatmentDiv.className = 'grid grid-cols-4 gap-4 mt-4 pl-6';
     newTreatmentDiv.innerHTML = `
-                  <div>
-                    <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
-                    <select id="medicine" onchange="showInputField(this, 'medicineInput')"
-                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                      <option>Medicine 1</option>
-                      <option>Medicine 2</option>
-                      <option>Other</option>
-                      <!-- Add more options as needed -->
-                    </select>
+    <div>
+                        <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
+                        <select id="medicine" class="medicine h-10" onchange="showInputField(this, 'medicineInput${indexTreat}')"
+                          class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                          ${medNames}
+                          <!-- Add more options as needed -->
+                        </select>
 
-                    <input type="text" id="medicineInput"
-                      class="hidden  mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input type="text" id="medicineInput${indexTreat}"
+                          class="hidden  mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-                  </div>
-                  <div>
-                    <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
-                    <select id="frequency" onchange="showInputField(this, 'frequencyInput')"
-                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                      <option>Once a day</option>
-                      <option>Twice a day</option>
-                      <option>Other</option>
-                      <!-- Add more options as needed -->
-                    </select>
+                      </div>
+                      <div>
+                        <label for="frequency" class="block text-sm font-medium text-gray-700">Frequency</label>
+                        <select id="frequency" class="frequency  h-10" onchange="showInputField(this, 'frequencyInput${indexTreat}')"
+                          class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                          ${frequenciesList}
+                          <!-- Add more options as needed -->
+                        </select>
 
-                    <input type="text" id="frequencyInput"
-                      class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  </div>
-                  
-                  <div>
-                    <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
-                    <select id="dosage" onchange="showInputField(this, 'dosageInput')"
-                      class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-                      <option>100mg</option>
-                      <option>200mg</option>
-                      <option>Other</option>
-                      <!-- Add more options as needed -->
-                    </select>
-                
+                        <input type="text" id="frequencyInput${indexTreat}"
+                          class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      </div>
 
-                    <input type="text" id="dosageInput"
-                      class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                  
-                    </div>
-                
+                      <div>
+                        <label for="dosage" class="block text-sm font-medium text-gray-700">Dosage</label>
+                        <select id="dosage" class="dosage h-10" onchange="showInputField(this, 'dosageInput${indexTreat}')"
+                          class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                          ${dosagesList}
+                          <!-- Add more options as needed -->
+                        </select>
+
+
+                        <input type="text" id="dosageInput${indexTreat}"
+                          class="hidden h-10 mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                      </div>
+
+                      <div>
+                        <label for="duration" class="block text-sm font-medium text-gray-700">Duration</label>
+                        <select id="duration" class="duration h-10" onchange="showInputField(this, 'durationInput${indexTreat}')"
+                          class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
+                          ${durationsList}
+                          <!-- Add more options as needed -->
+                        </select>
+
+                        <input type="text" id="durationInput${indexTreat}"
+                          class="hidden  mt-2 h-10  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      </div>
     `;
-  
+    indexTreat=indexTreat+1;
     treatmentsDiv.appendChild(newTreatmentDiv);
   }
 
 
+
   function addDiagnosis() {
-    event.preventDefault();
     const diagnosesDiv = document.getElementById('Diagnosis');
-  
+    let optionsHTML = diagnosesList.map(diagnosis => `<option>${diagnosis}</option>`).join('\n');
     const newDiagnosisDiv = document.createElement('div');
+    newDiagnosisDiv.className="pl-6 pt-6 pr-6"
     newDiagnosisDiv.innerHTML = `
     <label for="diagnosis" class="block text-sm font-medium text-gray-700">Diagnosis</label>
-    <select id="diagnosis" onchange="showInputField(this, 'diagnosisInput')"
+    <select id="diagnosis" class="diagnosis h-10 w-full" onchange="showInputField(this, 'diagnosisInput${indexDiag}')"
       class="h-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 cursor-grab">
-      <option>Orthopedic Diagnosis 1</option>
-      <option>Orthopedic Diagnosis 2</option>
-      <option>Orthopedic Diagnosis 3</option>
-      <option>Other</option>
+      ${optionsHTML}
       <!-- Add more options as needed -->
     </select>
 
-    <input type="text" id="diagnosisInput"
+    <input type="text" id="diagnosisInput${indexDiag}"
       class="hidden mt-2 h-10 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
     `;
-  
+    indexDiag=indexDiag+1;
     diagnosesDiv.appendChild(newDiagnosisDiv);
   }
+  addDiagnosis();
+  addTreatment();
 
   function removeTreatment() {
     event.preventDefault();
     const treatmentsDiv = document.getElementById('Treatment');
     if (treatmentsDiv.children.length > 1) {
       treatmentsDiv.removeChild(treatmentsDiv.lastChild);
+      indexTreat=indexTreat-1;
     }
   }
   
@@ -680,11 +854,122 @@ fetch("http://localhost:8008/personal_data", {
     const diagnosesDiv = document.getElementById('Diagnosis');
     if (diagnosesDiv.children.length > 1) {
       diagnosesDiv.removeChild(diagnosesDiv.lastChild);
+      indexDiag=indexDiag-1;
     }
   }
 
 
-//  function updatePatientInfo(){
+function confirmCancel(){
+  fetch ("http://localhost:8008/cancel_appointment", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({ appointmentId: getActiveAppointmentID() }),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("Appointment cancelled successfully");
+    //todaysAppointments.push(oldAppointment);
+    oldAppointment=null;
+    setActiveAppointmentID(-1);
+    updateAppointments();
+    displayActiveAppointment();
+    closeModal('cancelModal');
+    getPatientInfo();
+  })
+}
+let stars = document.querySelectorAll('.star');
+let ratingValue = document.getElementById('ratingValue');
 
-//   g
-//  }
+stars.forEach((star, index) => {
+    star.addEventListener('click', () => {
+        // Set the color of the clicked star and all preceding stars to yellow
+        for (let i = 0; i <= index; i++) {
+            stars[i].classList.remove('text-gray-300');
+            stars[i].classList.add('text-yellow-300');
+        }
+
+        // Set the color of all following stars to gray
+        for (let i = index + 1; i < stars.length; i++) {
+            stars[i].classList.remove('text-yellow-300');
+            stars[i].classList.add('text-gray-300');
+        }
+
+        // Update the rating value
+        ratingValue.value = index + 1;
+        console.log(ratingValue.value);
+    });
+});
+
+function submitAppointment(){
+  console.log("Submitting Appointment");
+  const diagnosesDiv = document.getElementsByClassName('diagnosis');
+  const medicineNames=document.getElementsByClassName('medicine');
+  const frequencies=document.getElementsByClassName('frequency');
+  const dosages=document.getElementsByClassName('dosage');
+  const durations=document.getElementsByClassName('duration');
+  let treatments = [];
+  let diagnoses = [];
+ for (let i=0;i<medicineNames.length;i++){
+  let medicineName = medicineNames[i].value;
+  if (medicineName === 'Other') {
+    medicineName = document.getElementById('medicineInput' + i).value;
+  }
+
+  let frequency = frequencies[i].value;
+if (frequency === 'Other') { 
+  frequency = document.getElementById('frequencyInput' + i).value;
+}
+
+let dosage = dosages[i].value;
+  if (dosage==='Other'){ 
+    dosage = document.getElementById('dosageInput' + i).value;
+  }
+
+  let duration = durations[i].value;
+  if (duration === 'Other') { 
+    duration = document.getElementById('durationInput' + i).value;
+  }
+
+  treatments.push(medicineName+','+frequency+','+dosage+','+duration);
+ }
+
+
+ for (let i=0;i<diagnosesDiv.length;i++){
+  let diagnosis = diagnosesDiv[i].value;
+  if ( diagnosis === 'Other') {
+    diagnosis = document.getElementById('diagnosisInput' + i).value;
+  }
+  diagnoses.push(diagnosis);
+ }
+
+  let rating=ratingValue.value;
+  const notes = document.getElementById('notes').value;
+  const appointmentId = getActiveAppointmentID();
+  console.log("APPOINTMENT FINALIZE")
+
+  fetch ("http://localhost:8008/complete_appointment", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({ appointmentId, diagnoses,treatments,notes,rating }),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("Appointment finalized successfully");
+    noneSelected();
+    oldAppointment=null;
+    setActiveAppointmentID(-1);
+    localStorage.removeItem("activeAppointment")
+    updateAppointments();
+    displayActiveAppointment();
+    closeModal('finalizeModal');
+    getPatientInfo();
+    noneSelected();
+    location.reload();
+  })
+}

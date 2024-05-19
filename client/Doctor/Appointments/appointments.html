@@ -33,15 +33,7 @@
 
     <!--Side Bar Header-->
     <li class="flex px-2 justify-between bg-[#276973]">
-      <a href="../doctor.html" class="flex items-center p-2 text-gray-100 rounded-lg ">
-        <svg class="w-5 h-5 text-gray-100 transition duration-75 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor" viewBox="0 0 22 21">
-          <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-          <path
-            d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-        </svg>
-        <span class="ms-3">Profile Pic</span>
-      </a>
+      
       <button data-drawer-target="default-sidebar" id="sideCloseBtn" data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar" type="button"
         class="inline-flex items-center p-2 mt-1 ms-3 text-sm text-gray-100 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
@@ -243,14 +235,12 @@
                         Date
                       </th>
                       <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-                        Payment Method
+Type
                       </th>
                       <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">
                         Status
                       </th>
-                      <th class="h-12 px-4 align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-6 text-right">
-                        Actions
-                      </th>
+                   
                     </tr>
                   </thead>
                   <tbody id="appointmentsTable" class="[&amp;_tr:last-child]:border-0">
@@ -283,52 +273,45 @@
      
                 
                 <form id="appointmentForm" class="flex flex-wrap -mx-3 w-2xl">
+                  <div class="w-full md:w-1/2 px-3">
+                    <label for="patientName" class="block mb-2">Patient Name</label>
+                    <input type="text" id="patientName" name="patientName" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
                   <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                       <label for="appointmentID" class="block mb-2">Appointment ID</label>
                       <input type="text" id="appointmentID" name="appointmentID" class="w-full p-2 border border-gray-300 rounded" readonly>
                   </div>
                   <div class="w-full md:w-1/2 px-3">
                       <label for="date" class="block mb-2">Date</label>
-                      <input type="text" id="date" name="date" class="w-full p-2 border border-gray-300 rounded">
+                      <input type="text" id="date" name="date" class="w-full p-2 border border-gray-300 rounded" readonly>
                   </div>
                   <div class="w-full md:w-1/2 px-3">
+                    <label for="type" class="block mb-2">Type</label>
+                    <input type="text" id="type" name="type" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
+                  <div id="diagnoses" class="w-full md:w-1/2 px-3">
                       <label for="diagnosis" class="block mb-2">Diagnosis</label>
-                      <input type="text" id="diagnosis" name="diagnosis" class="w-full p-2 border border-gray-300 rounded">
-                  </div>
-                  <div class="w-full md:w-1/2 px-3">
+                      <input type="text" id="diagnosis0" name="diagnosis" class="w-full p-2 border border-gray-300 rounded" readonly>
+                    </div>
+                  <div id="treatments" class="w-full md:w-1/2 px-3">
                       <label for="treatment" class="block mb-2">Treatment</label>
-                      <input type="text" id="treatment" name="treatment" class="w-full p-2 border border-gray-300 rounded">
+                      <input type="text" id="treatment0" name="treatment" class="w-full p-2 border border-gray-300 rounded" readonly>
                   </div>
                   <div class="w-full md:w-1/2 px-3">
                     <label for="doctorNotes" class="block mb-2">Doctor Notes</label>
-                    <textarea id="doctorNotes" name="doctorNotes" class="w-full p-2 border border-gray-300 rounded"></textarea>
+                    <textarea id="doctorNotes" name="doctorNotes" class="w-full p-2 border border-gray-300 rounded" readonly></textarea>
                 </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <label for="patientName" class="block mb-2">Patient Name</label>
-                    <input type="text" id="patientName" name="patientName" class="w-full p-2 border border-gray-300 rounded">
-                </div>
+                
                 <div class="w-full md:w-1/2 px-3">
                     <label for="paymentMethod" class="block mb-2">Payment Method</label>
-                    <input type="text" id="paymentMethod" name="paymentMethod" class="w-full p-2 border border-gray-300 rounded">
+                    <input type="text" id="paymentMethod" name="paymentMethod" class="w-full p-2 border border-gray-300 rounded" readonly>
                 </div>
-                <div class="w-full md:w-1/2 px-3">
-                    <label for="type" class="block mb-2">Type</label>
-                    <input type="text" id="type" name="type" class="w-full p-2 border border-gray-300 rounded">
-                </div>
+                
                 <div class="w-full md:w-1/2 px-3">
                   <label for="status" class="block mb-2">Status</label>
-                  <input type="text" id="status" name="status" class="w-full p-2 border border-gray-300 rounded">
+                  <input type="text" id="status" name="status" class="w-full p-2 border border-gray-300 rounded" readonly>
               </div>
-              <div class="w-full md:w-1/2 px-3">
-                <label for="dummy" class="block mb-2">Dummy</label>
-                <input type="text" id="dummy" name="dummy" class="w-full p-2 border border-gray-300 rounded">
-            </div>
-                <div class="w-full w-1/2 px-3 mt-6">
-                    <button type="submit" class="w-full py-2 px-4 text-white bg-blue-500 rounded hover:bg-blue-700">Submit</button>
-                </div>
-                <div class="w-full w-1/2 px-3 mt-4">
-                    <button type="reset" class="w-full py-2 px-4 text-white bg-red-500 rounded hover:bg-red-700">Reset</button>
-                </div>
+           
             </form>
                 </form>
               </div>

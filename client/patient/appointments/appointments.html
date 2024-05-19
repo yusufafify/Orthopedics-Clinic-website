@@ -218,7 +218,7 @@
 
                     <!--Appointment form-->
 
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-3xl"
+                    <div id="appointmentForm" class="rounded-lg border bg-card text-card-foreground shadow-sm w-full max-w-3xl"
                       data-v0-t="card">
                       <div class="flex flex-col space-y-1.5 p-6">
                         <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Make an
@@ -228,8 +228,8 @@
                       <div class="p-6 space-y-4">
                         <div class="space-y-2">
                           <div class="flex flex-col">
-                            <label for="cars" class="mb-2 text-sm text-gray-600">Appointment Type</label>
-                            <select name="cars" id="cars"
+                            <label for="type" class="mb-2 text-sm text-gray-600">Appointment Type</label>
+                            <select name="type" id="type"
                               class="p-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                               <option value="examination">Examination</option>
                               <option value="consultation">Consultation</option>
@@ -240,8 +240,8 @@
 
 
                         <div class="flex flex-col">
-                          <label for="cars" class="mb-2 text-sm text-gray-600">Payment Method</label>
-                          <select name="cars" id="cars"
+                          <label for="paymentMethod" class="mb-2 text-sm text-gray-600">Payment Method</label>
+                          <select name="paymentMethod" id="paymentMethod"
                             class="p-2 border rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="cash" class="hover:bg-[#6b7280] hover">Cash</option>
                             <option value="insurance" class="hover:bg-[#6b7280] hover">Insurance</option>
@@ -252,40 +252,41 @@
                         <div class="space-y-2">
                           <label
                             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            for="dr-email">
-                            Doctor's Email
+                            for="datetime">
+                            Preferred date
                           </label>
                           <input
                             class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                            id="dr-email" placeholder="Enter your doctor's email" required="" type="email" />
+                            id="datetime" type="date" />
                         </div>
 
-                        <div class="space-y-2">
+                        
+                        <div id="slotsContainer" class="space-y-2 hidden">
                           <label
                             class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            for="reason">
-                            Reason for visit
+                            for="slots">
+                            Preferred Time Slots
                           </label>
-                          <textarea
-                            class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                            id="reason" placeholder="Enter the reason for your visit" required=""></textarea>
-                        </div>
-                        <div class="space-y-2">
-                          <label
-                            class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            for="datetime">
-                            Preferred date and time
-                          </label>
-                          <input
-                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                            id="datetime" type="datetime-local" />
+                          <select 
+                          id="slots" 
+                          class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                        
+                          
+                          <!-- Add more options as needed -->
+                        </select>
                         </div>
 
                       </div>
-                      <div class="items-center p-6 flex justify-end">
+                      <div class="items-center p-6 flex justify-start">
                         <button
-                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
-                          Submit
+                        id="checkForDateBtn"
+                          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-400 text-primary-foreground hover:bg-green/90 h-10 px-4 py-2">
+                          Next
+                        </button>
+                        <button
+                        id="submitAppointmentBtn"
+                          class="inline-flex hidden items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-400 text-primary-foreground hover:bg-green/90 h-10 px-4 py-2">
+                          submit
                         </button>
                       </div>
                     </div>
@@ -368,7 +369,7 @@
         <div>
           <h6
             class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-blue-gray-900 antialiased">
-            Appointments
+            Total Appointments/Month
           </h6>
 
         </div>

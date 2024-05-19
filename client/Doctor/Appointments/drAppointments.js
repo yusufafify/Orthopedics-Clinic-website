@@ -41,7 +41,7 @@ fetch("http://localhost:8008/all_appointments", {
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${appointment.type}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">${appointment.status}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
-            <button data-id="${i}" onclick="openModal('appointmentModal'); showAppointmentDetails(this)">View Details</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" onclick="openModal('appointmentModal'); showAppointmentDetails(this)">View</button>
           </td>
         </tr>
       `;
@@ -84,7 +84,11 @@ fetch("http://localhost:8008/all_appointments", {
     
     // Get the appointment details using the index
     const appointment = appointments[index];
-    
+    console.log(appointment);
+    console.log(appointment.diagnosis.length);
+    let nDiagnosis= appointment.diagnosis.length;
+    let nTreatments=appointment.treatment.length;
+
     // Populate the form with the appointment details
     document.querySelector('#appointmentID').value = appointment.appointmentID;
     document.querySelector('#date').value = appointment.date;
@@ -93,9 +97,28 @@ fetch("http://localhost:8008/all_appointments", {
     document.querySelector('#doctorNotes').value = appointment.doctorNotes;
     document.querySelector('#type').value = appointment.type;
     document.querySelector('#status').value = appointment.status;
+    let diagnosisSlot=document.querySelector('#diagnoses');
+    let treatmentsSlot=document.querySelector('#treatments');
+    for (let i=1; i<nDiagnosis; i++){
+      diagnosisSlot.insertAdjacentHTML('afterbegin',` <label for="diagnosis" class="block mb-2">Diagnosis</label>
+      <input type="text" id="diagnosis${i}" name="diagnosis" class="w-full p-2 border border-gray-300 rounded">`);
+    }
+    for (let i=1; i<nTreatments; i++){
+      treatmentsSlot.insertAdjacentHTML('afterbegin',` <label for="treatment" class="block mb-2">Treatment</label>
+      <input type="text" id="treatment${i}" name="treatment" class="w-full p-2 border border-gray-300 rounded">`);
+    }
     
+    for (let i=0;i<nDiagnosis;i++){
+      //Write this function so that it takes every instance of diagnosis, and adds a space after every , and adds it to the input fields
+      document.querySelector(`#diagnosis${i}`).value=appointment.diagnosis[i];
+    }
+    for (let i=0;i<nTreatments;i++){
+//Take every treatment, add a space after every ',' and display it on treatment
+appointment.treatment[i].replace(/,/g,', ')
+      document.querySelector(`#treatment${i}`).value=appointment.treatment[i].replace(/,/g,', ');
+      
+    }
     // Show the modal
-    console.log(document.querySelector('#appointmentModal'));
     document.querySelector('#appointmentModal').style.display = 'block';
   }
   function openModal(modalId) {
