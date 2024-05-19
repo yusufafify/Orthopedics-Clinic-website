@@ -4,7 +4,7 @@ let data = null;
 const chartConfig = {
   series: [
     {
-      name: "Sales",
+      name: "rating",
       data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
   ],
@@ -44,7 +44,7 @@ const chartConfig = {
         fontWeight: 400,
       },
     },
-    categories: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    categories: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
   },
   yaxis: {
     labels: {
@@ -78,12 +78,6 @@ const chartConfig = {
   },
 };
 
-const chart = new ApexCharts(
-  document.querySelector("#line-chart"),
-  chartConfig
-);
-
-chart.render();
 
 const getChartData = async () => {
   try {
@@ -98,6 +92,14 @@ const getChartData = async () => {
     );
     const data = await response.json();
     console.log(data);
+    chartConfig.series[0].data = [data.JAN, data.FEB, data.MAR, data.APR, data.MAY, data.JUN, data.JUL, data.AUG, data.SEP, data.OCT, data.NOV, data.DEC];
+    const chart = new ApexCharts(
+      document.querySelector("#line-chart"),
+      chartConfig
+    );
+    
+    chart.render();
+    
   } catch (err) {
     console.log(err);
   }
