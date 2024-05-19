@@ -32,7 +32,7 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 jwt = JWTManager(app)
-arbitraryconstant = 12
+
 
 
 
@@ -261,12 +261,12 @@ def appointment_booking():
         docid=users.find_one({'email':docmail})['_id']
         patid=users.find_one({'email':patmail})['_id']
 
-        duplicate=appointment.find_one({'doctorId':docid,'patientId':patid,'date':date,'type':visittype})
-        if duplicate:
+        if appointment.find_one({'patientId':patid,'doctorId':docid,'date':date}):
             return jsonify({
-                'message':'appointment already exists'
+                'message':'already booked an appointment with this doctor on this date'
             }), 409
 
+        
         appointment.insert_one({
             'doctorId':docid,
             'patientId':patid,
@@ -275,7 +275,7 @@ def appointment_booking():
             'paymentMethod':pay,
             'diagnosis':[],
             'treatment':[],
-            'doctorNotes':"",
+            'doctorNotes':'',
             'status':'pending'
         })
 
@@ -1173,7 +1173,7 @@ def get_available_doctor():
 
 
 
-
+# batal 3atah
 
 
 
