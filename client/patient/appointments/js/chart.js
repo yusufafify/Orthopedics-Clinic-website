@@ -1,11 +1,14 @@
+let data=[];
 
 
 
+
+console.log(data)
 const chartConfig = {
   series: [
     {
       name: "number of appointments",
-      data: [50, 40, 300, 320, 500],
+      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     },
   ],
   chart: {
@@ -44,11 +47,18 @@ const chartConfig = {
       },
     },
     categories: [
+      "Jan",
+      "Feb",
+      "Mar",
       "Apr",
       "May",
       "Jun",
       "Jul",
       "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ],
   },
   yaxis: {
@@ -84,6 +94,29 @@ const chartConfig = {
 };
 
 
-const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
+
+async function getData(){
+  try{
+    const response = await fetch('http://localhost:8008/get_number_of_app_per_month', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }
+    );
+    data = await response.json();
+    console.log(data);
+    chartConfig.series[0].data = [data.JAN, data.FEB, data.MAR, data.APR, data.MAY, data.JUN, data.JUL, data.AUG, data.SEP, data.OCT, data.NOV, data.DEC];
+    const chart = new ApexCharts(document.querySelector("#bar-chart"), chartConfig);
 
 chart.render();
+  }
+  catch(err){
+    console.log(err);
+  }
+
+}
+
+
+getData();
