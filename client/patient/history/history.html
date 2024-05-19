@@ -214,6 +214,9 @@
                 <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
                   id="allergiesBtn">
                   Allergies</button>
+                <button class="link link-underline link-underline-black text-black hidden lg:block nav_btns"
+                  id="appointmentBtn">
+                  Appointments</button>
 
               </nav>
 
@@ -240,8 +243,7 @@
                       Category of Medical History
                     </h6>
                     <div class="relative h-10 w-full min-w-[200px]">
-                      <select
-                      id="historyType"
+                      <select id="historyType"
                         class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
                         <option value="Injuries">Injuries</option>
                         <option value="Treatments">Treatments</option>
@@ -261,8 +263,7 @@
                       Type of Medical History
                     </h6>
                     <div class="relative h-11 w-full min-w-[200px]">
-                      <input
-                      id="historyTitle"
+                      <input id="historyTitle"
                         class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         placeholder=" " />
                       <label
@@ -275,8 +276,7 @@
                       Date of Medical History
                     </h6>
                     <div class="relative h-11 w-full min-w-[200px]">
-                      <input
-                      id="historyDate"
+                      <input id="historyDate"
                         class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                         type="date" />
                       <label
@@ -289,8 +289,7 @@
                       Description
                     </h6>
                     <div class="relative w-full min-w-[200px]">
-                      <textarea
-                      id="historyDescription"
+                      <textarea id="historyDescription"
                         class="peer h-full min-h-[100px] w-full resize-none rounded-[7px] border border-blue-gray-200  bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-green-500  focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
                         placeholder="Enter brief details about the chosen medical history"></textarea>
 
@@ -298,8 +297,7 @@
 
                   </div>
                   <div class="p-6 pt-0">
-                    <button
-                    id="historySubmitBtn"
+                    <button id="historySubmitBtn"
                       class="block w-full select-none rounded-lg bg-gradient-to-tr from-green-600 to-green-400 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                       type="button">
                       Submit
@@ -332,13 +330,15 @@
                 Medications </button>
               <button class="link link-underline link-underline-black text-black  nav_btns" id="allergiesBtn">
                 Allergies</button>
+              <button class="link link-underline link-underline-black text-black  nav_btns" id="appointmentBtn">
+                Appointments</button>
             </div>
           </header>
 
           <div class="container mx-auto flex flex-col  py-8">
             <div class="bg-gray-100 p-6 mb-2 rounded-lg shadow-md  space-y-4">
               <div id="patientInfo">
-                
+
               </div>
             </div>
             <div id="medical_history_container" class=" space-y-8">
@@ -362,35 +362,45 @@
                 </div>
               </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div id="injuries">
                   <h2 class="text-2xl font-bold mb-4">Past Injuries</h2>
                   <div id="injuries_details" class="space-y-4">
                     <!--Details of the card-->
                   </div>
                 </div>
-              
+
                 <div id="surgeries">
                   <h2 class="text-2xl font-bold mb-4">Past Surgeries</h2>
                   <div id="surgeries_details" class="space-y-4">
                     <!--Details of the card-->
                   </div>
                 </div>
-              
-              
+
+
                 <div id="treatments">
                   <h2 class="text-2xl font-bold mb-4">Past Treatments</h2>
                   <div id="treatments_details" class="space-y-4">
                     <!--Details of the card-->
                   </div>
                 </div>
-              
+
                 <div id="family">
                   <h2 class="text-2xl font-bold mb-4">Family Afflictions</h2>
                   <div id="family_details" class="space-y-4">
                     <!--Details of the card-->
                   </div>
                 </div>
+              </div>
+
+              <div
+              class="grid grid-cols-1 gap-4">
+              <div id="appointments">
+                <h2 class="text-2xl font-bold mb-4">Prev. Appointments</h2>
+                <div id="appointments_details" class="space-y-4">
+                  <!--Details of the card-->
+                </div>
+              </div>
             </div>
 
 
