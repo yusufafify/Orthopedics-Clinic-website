@@ -1224,7 +1224,7 @@ def get_Avg_rating():
     try:
         user=get_jwt_identity()['email']
         userid=users.find_one({'email':user})['_id']
-        all_appointments=appointment.find({'patientId':userid})
+        all_appointments=appointment.find({'patientId':userid,'status':'completed'})
         returndict={'JAN':0,'FEB':0,'MAR':0,'APR':0,'MAY':0,'JUN':0,'JUL':0,'AUG':0,'SEP':0,'OCT':0,'NOV':0,'DEC':0}
         arrayofmonths=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
         arrayofratings=[0,0,0,0,0,0,0,0,0,0,0,0]
