@@ -351,9 +351,7 @@ async function getHistory() {
   allergiesDetails.innerHTML = getMedicalHistory(allergies, true);
     appointmentsDetails.innerHTML = getMedicalHistory(appointments, true);
 
-  document.querySelectorAll("button").forEach(function (button) {
   
-  });
 }
 
 getHistory();
@@ -362,4 +360,5 @@ getHistory();
 // file 1 done
 
 
+const viewBtns=document.querySelectorAll('.view_btn');
 
