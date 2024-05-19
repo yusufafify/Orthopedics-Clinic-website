@@ -937,7 +937,7 @@ def completeapp():
             }), 404
         
                 
-        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed','rating':rating}},upsert=True,return_document=ReturnDocument.AFTER)
+        appointment.find_one_and_update({'_id':appid},{'$set':{'diagnosis':diagnosis,'treatment':treatment,'doctorNotes':notes,'status':'completed','patientrating':rating}},upsert=True,return_document=ReturnDocument.AFTER)
         
         
         
@@ -955,7 +955,7 @@ def completeapp():
 
         medical_history.insert_one({
             'patientId':current_app['patientId'],
-            'historytype':'diagnoses',
+            'historytype':'appointment',
             'titleofproblem':title,
             'dateofproblem':current_app['date'],
             'description':f'Diagnosis: {finaldiagnosis} \nTreatment: {finaltreatment} \nDoctor Notes: {notes}'
@@ -1203,8 +1203,37 @@ def get_number_of_app_per_month():
 
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
+    
 
 
+@app.route('/get_Avg_rating', methods=['GET'])
+@jwt_required()
+def get_Avg_rating():
+    try:
+        user=get_jwt_identity()['email']
+        userid=users.find_one({'email':user})['_id']
+        all_appointments=appointment.find({'patientId':userid})
+        returndict={'JAN':0,'FEB':0,'MAR':0,'APR':0,'MAY':0,'JUN':0,'JUL':0,'AUG':0,'SEP':0,'OCT':0,'NOV':0,'DEC':0}
+        arrayofmonths=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+        arrayofratings=[0,0,0,0,0,0,0,0,0,0,0,0]
+        for app in all_appointments:
+            date=app['date']
+            month=date.split('-')[1]
+            returndict[arrayofmonths[int(month)-1]]+=int(app['patientrating'])
+            arrayofratings[int(month)-1]+=1
+
+        for i in range(12):
+            if arrayofratings[i]!=0:
+                returndict[arrayofmonths[i]]/=arrayofratings[i]    
+
+        
+        return jsonify(returndict), 200
+
+
+
+
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
 
 # batal 3atah
 
