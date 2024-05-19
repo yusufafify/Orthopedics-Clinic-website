@@ -39,7 +39,6 @@ function getMedicalHistory(array, isFetchDone) {
       <div class="bg-white p-6 rounded-lg shadow-md ">
       <div class="flex justify-between">
           <h3 class="text-lg font-bold mb-2">${history.title}</h3>
-          <button id='deleteBtn${history.history_id}' class="text-red-700 hover:bg-red-500 hover:p-2 hover:text-white transition-all duration-300 rounded-xl">delete</button>
           </div>
         <p class="mb-2">Date: ${history.date}</p>
         <p>
@@ -302,7 +301,7 @@ async function getHistory() {
   allergiesDetails.innerHTML = getMedicalHistory([], false);
   appointmentsDetails.innerHTML = getMedicalHistory([], false);
   try {
-    const response = await fetch("http://localhost:8008/get_medical_history", {
+    const response = await fetch("http://localhost:8008/get_lifetime_doctor_patients", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -310,8 +309,8 @@ async function getHistory() {
       },
     });
     const data = await response.json();
-    medicalHistory.push(...data);
-    console.log("hi");
+    medicalHistory.push(...data.medical_history[0]);
+    console.log(medicalHistory);
   } catch (error) {
     console.log(error);
   }
