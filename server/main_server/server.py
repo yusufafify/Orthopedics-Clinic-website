@@ -1203,7 +1203,7 @@ def get_number_of_app_per_month():
     try:
         user=get_jwt_identity()['email']
         userid=users.find_one({'email':user})['_id']
-        all_appointments=appointment.find({'patientId':userid})
+        all_appointments=appointment.find({'patientId':userid,'status':'completed'})
         returndict={'JAN':0,'FEB':0,'MAR':0,'APR':0,'MAY':0,'JUN':0,'JUL':0,'AUG':0,'SEP':0,'OCT':0,'NOV':0,'DEC':0}
         arrayofmonths=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
         for app in all_appointments:
@@ -1240,8 +1240,22 @@ def get_Avg_rating():
 
         
         return jsonify(returndict), 200
+    
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
 
 
+
+@app.route('/get_count_of_allapps', methods=['GET'])
+@jwt_required()
+def get_count_of_allapps():
+    try:
+        countpending=appointment.count_documents({'status':'pending'}) 
+        countcompleted=appointment.count_documents({'status':'completed'})   
+        countcancelled=appointment.count_documents({'status':'cancelled'})
+
+        return jsonify({'pending':countpending,'completed':countcompleted,'cancelled':countcancelled}), 200
 
 
     except Exception as err:
