@@ -922,9 +922,12 @@ def completeapp():
         diagnosis=data.get('diagnosis')
         treatment=data.get('treatment')
         notes=data.get('doctorNotes')
+        title=appointment.find_one({'_id':appid})['type']
 
         current_app=appointment.find_one({'_id':appid})
 
+        finaldiagnosis=''
+        finaltreatment='\n'
         
         if not current_app:
             return jsonify({
@@ -937,19 +940,25 @@ def completeapp():
         
         
         
-        for i in range(len(diagnosis)):
-            medical_history.insert_one({
-                'patientId':current_app['patientId'],
-                'historytype':'Treatmeant',
-                'titleofproblem':treatment[i],
-                'dateofproblem':current_app['date'],
-                'description':diagnosis[i]
-            })
+        for diagnose in range(len(diagnosis)):
+            finaldiagnosis+=diagnosis[diagnose]
+            if diagnose!=len(diagnosis)-1:
+                finaldiagnosis+=','
+
+        for treat in range(len(treatment)):
+            value=treatment[treat].split(',')
+            finaltreatment+=f'Medicine: {value[0]} ,Frequency:{value[1]} ,Dosage: {value[2]}  ,Duration: {value[3]}'
+            if treat!=len(treatment)-1:
+                finaltreatment+=',\n'
             
-        
-        
-        
-        
+
+        medical_history.insert_one({
+            'patientId':current_app['patientId'],
+            'historytype':'appointment',
+            'titleofproblem':title,
+            'dateofproblem':current_app['date'],
+            'description':f'Diagnosis: {finaldiagnosis} \nTreatment: {finaltreatment} \nDoctor Notes: {notes}'
+        }) 
         
         return jsonify({
             'message':'success',
