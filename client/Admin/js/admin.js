@@ -1,5 +1,5 @@
 
-fetch("http://localhost:8008/personal_data", {
+fetch("http://localhost:8008/Dashboard", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -12,111 +12,20 @@ fetch("http://localhost:8008/personal_data", {
       //   document.getElementById('first_name').value=data.name.split(' ')[0];
       //   document.getElementById('last_name').value=data.name.split(' ')[1];
      
-     
-     //Statistics at the top
-      document.getElementById('totalPatients').innerHTML = data.value?data.value:"NULL"; 
-      document.getElementById('totalAppointments').innerHTML = data.value?data.value:"NULL"; 
-      document.getElementById('totalDoctors').innerHTML = data.value?data.value:"NULL"; 
-      document.getElementById('totalRevenue').innerHTML = data.value?data.value:"NULL"; 
-
-      const appInstance = document.querySelectorAll("[x-data]");
-    // Use the server's chart data if available; otherwise, use an array of 200s (assuming 9 months as an example)
     
-      appInstance[0].__x.$data.chartData =   new Array(9).fill(200);
+      const totals = data.Total[0];
+     //Statistics at the top
+      document.getElementById('totalPatients').innerHTML = totals.patients?totals.patients:"NULL"; 
+      document.getElementById('totalAppointments').innerHTML = totals.appointments?totals.appointments:"NULL"; 
+      document.getElementById('totalDoctors').innerHTML = totals.doctors? totals.doctors:"NULL"; 
+      document.getElementById('totalRevenue').innerHTML =  totals.revenue?totals.revenue:"NULL"; 
      
-      
 
-      appInstance[1].__x.$data.chartData =  new Array(9).fill(150);
-      Alpine.reinitialize();
     })
     .catch((error) => {
       console.error("Error:");
       
     });
-
- 
-
-
-    function chartOne() {
-        return {
-            // First chart
-            chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-        
-          
-    
-            tooltipContent: '',
-            tooltipOpen: false,
-            tooltipX: 0,
-            tooltipY: 0,
-            init() {
-                console.log("Chart data on init: ", this.chartData); // This will log the initial state of chartData
-                
-            },
-            showTooltip(e) {
-                console.log(e);
-                this.tooltipContent = e.target.textContent
-                this.tooltipX = e.target.offsetLeft - e.target.clientWidth;
-                this.tooltipY = e.target.clientHeight + e.target.clientWidth;
-            
-            },
-            hideTooltip(e) {
-                this.tooltipContent = '';
-                this.tooltipOpen = false;
-                this.tooltipX = 0;
-                this.tooltipY = 0;
-            }
-        }
-    }
-
-
-    function chartTwo() {
-        return {
-            // First chart
-            chartData: [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-        
-          
-    
-            tooltipContent: '',
-            tooltipOpen: false,
-            tooltipX: 0,
-            tooltipY: 0,
-            init() {
-                console.log("Chart data on init: ", this.chartData2); // This will log the initial state of chartData
-               
-            },
-            showTooltip(e) {
-                console.log(e);
-                this.tooltipContent = e.target.textContent
-                this.tooltipX = e.target.offsetLeft - e.target.clientWidth;
-                this.tooltipY = e.target.clientHeight + e.target.clientWidth;
-              
-            },
-            hideTooltip(e) {
-                this.tooltipContent = '';
-                this.tooltipOpen = false;
-                this.tooltipX = 0;
-                this.tooltipY = 0;
-            }
-        }
-    }
-
-    
-    console.log(document.querySelectorAll("[x-data]"))
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -129,152 +38,119 @@ fetch("http://localhost:8008/personal_data", {
 
 
   //DATA received in this format
-   const sampleData = [
-        { id: '1', name: "Alice Smith",doctor:" Ahmed" ,date: "20-4-2024", time:"22:30 ", status: "Paid"  },
-        { id: '2', name: "Bob Johnson",doctor:" Mohamed" ,date: "21-4-2024", time:"20:30 ", status: "Paid" },
-        { id: '3', name: "Carol Williams", doctor:" Ahmed",date: "20-3-2024", time:"21:30 ", status: "Paid" },
+//    const sampleData = [
+//         { id: '1', name: "Alice Smith",doctor:" Ahmed" ,date: "20-4-2024", time:"22:30 ", status: "Paid"  },
+//         { id: '2', name: "Bob Johnson",doctor:" Mohamed" ,date: "21-4-2024", time:"20:30 ", status: "Paid" },
+//         { id: '3', name: "Carol Williams", doctor:" Ahmed",date: "20-3-2024", time:"21:30 ", status: "Paid" },
         
-    ];
+//     ];
 
-// fetch("http://localhost:8008/personal_data", {
-//     method: "GET",
-//     headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${localStorage.getItem("token")}`
-//     },
-// })
-// .then((response) => {
-//     if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//     }
-//     return response.json();
-// })
-// .then((data) => {
-
-const data = sampleData; // Use the sample data array
-const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
 const searchInput = document.getElementById('search');
 
+let appointmentsData = []; // Define this globally to store the fetched data
 
-// Clear existing data in table body
-tableBody.innerHTML = ' ';
-
-
-// Loop through each item in the data array
-data.forEach(item => {
-    // Create a new row and cells for each data element
-    const row = tableBody.insertRow();
-    row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
-
-    const idCell = row.insertCell();
-    idCell.className = "p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium"
-
-    const nameCell = row.insertCell();
-    nameCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-    const docCell = row.insertCell();
-    docCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-
-
-    const dateCell = row.insertCell();
-    dateCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-    const timeCell = row.insertCell();
-    timeCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-    const statusCell = row.insertCell();
-    statusCell.className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-    const editCell = row.insertCell();
-    editCell.className="p-4 font-bold  hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0"
-
-
-    // Add text to the cells
-    idCell.textContent = item.id;
-    nameCell.textContent = item.name;
-    dateCell.textContent = item.date;
-    timeCell.textContent = item.time;
-    statusCell.textContent = item.status;
-    docCell.textContent=item.doctor;
-
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "\u2026";
-    editBtn.className = "edit-btn";
-    editBtn.onclick = function() {
-    openModal(item); // Function to open modal and pass current item
-};
-    editCell.appendChild(editBtn);
-
-   
+fetch("http://localhost:8008/Dashboard", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+        
+    },
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then((data) => {
+    appointmentsData = data.recent_appointments; // Store the fetched data globally
+    
+    renderTable(appointmentsData); // Render the initial table
+})
+.catch((error) => {
+    console.error("Error:", error.message);
+    alert('Failed to fetch data: ' + error.message);
 });
-// })
-// .catch((error) => {
-//     console.error("Error:", error.message);
-//     alert('Failed to fetch data: ' + error.message);
-// });
+
 
 
 function openModal(item) {
-const dialog = document.querySelector('[data-dialog="dialog"]');
-const dialogBackdrop = document.querySelector('[data-dialog-backdrop="dialog"]');
+    const dialog = document.querySelector('[data-dialog="dialog"]');
+    const dialogBackdrop = document.querySelector('[data-dialog-backdrop="dialog"]');
 
-// Example of setting up the content dynamically
-// You need to have elements inside your modal to hold these values
-dialog.querySelector('#modalName').value = item.name;
-dialog.querySelector('#modalDate').value = item.date;
-dialog.querySelector('#modalTime').value = item.time;
-dialog.querySelector('#modalStatus').value = item.status;
+    // Example of setting up the content dynamically
+    // You need to have elements inside your modal to hold these values
+    dialog.querySelector('#modalName').value = item.patientName;
+    dialog.querySelector('#modalDate').value = item.date;
+    dialog.querySelector('#modalTime').value = item.time;
+    dialog.querySelector('#modalStatus').value = item.status;
+    dialog.querySelector('#modalPayment').value = item.paymentMethod;
 
-// Show the dialog
-dialogBackdrop.style.opacity = '1';
-dialogBackdrop.classList.remove('hidden');
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-const closeButtons = document.querySelectorAll('[data-dialog-close="true"]');
-const dialogBackdrop = document.querySelector('[data-dialog-backdrop="dialog"]');
+    
+    // Store the appointment ID in the delete button
+    const deleteBtn = document.getElementById('deleteBtn');
+    deleteBtn.dataset.appointmentId = item.AppointmentId;  // Using data attributes to store the appointment ID
 
-// Function to close dialog
-closeButtons.forEach(button => {
-  button.addEventListener('click', function () {
-    dialogBackdrop.style.opacity = '0';
-    setTimeout(() => dialogBackdrop.classList.add('hidden'), 300); // Ensure opacity transition completes
+
+    // Store the appointment ID in the Submit button
+    const submitBtn = document.getElementById('confirmEditbtn');
+    submitBtn.dataset.appointmentId = item.AppointmentId;  // Using data attributes to store the appointment ID
+
+  
+    // Show the dialog
+    dialogBackdrop.style.opacity = '1';
+    dialogBackdrop.classList.remove('hidden');
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    const closeButtons = document.querySelectorAll('[data-dialog-close="true"]');
+    const dialogBackdrop = document.querySelector('[data-dialog-backdrop="dialog"]');
+  
+    // Function to close dialog
+    closeButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        dialogBackdrop.style.opacity = '0';
+        setTimeout(() => dialogBackdrop.classList.add('hidden'), 300); // Ensure opacity transition completes
+      });
+    });
   });
-});
-});
 
 
- 
 
 
+  
 // Function for search bar filtering
 function renderTable(filteredData) {
-    tableBody.innerHTML = ''; // Clear the table first
-    
-    filteredData.forEach(item => {
-        const row = tableBody.insertRow();
-        row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
+  const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+  tableBody.innerHTML = ''; // Clear the table first
+  
+  filteredData.forEach(item => {
+      const row = tableBody.insertRow();
+      row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
 
-        // Creating cells as per your existing setup
-        const cells = ['id', 'name','doctor', 'date', 'time', 'status'].map(key => {
-            const cell = row.insertCell();
-            cell.textContent = item[key];
-            cell.className = "p-4   hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
-            return cell;
-        });
+      // Creating cells as per your existing setup
+      const cells = ['AppointmentId', 'patientName', 'doctorName', 'date',  'paymentMethod', 'status'].map(key => {
+          const cell = row.insertCell();
+          cell.textContent = item[key];
+          if (key === 'AppointmentId') {
+            cell.className = "p-4 font-bold  align-middle"; // Change styles here for DoctorId
+        } else {
+            cell.className = "p-4  align-middle [&amp;:has([role=checkbox])]:pr-0";
+        }          return cell;
+      });
 
-        const editCell = row.insertCell();
-        editCell.className = "p-4   hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "\u2026";
-        editBtn.onclick = function() {
-            openModal(item);
-        };
-        editCell.appendChild(editBtn);
-    });
+      const editCell = row.insertCell();
+      editCell.className = "p-4 font-bold  hover:text-gray-500 align-middle [&amp;:has([role=checkbox])]:pr-0";
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "...";
+      editBtn.onclick = function() {
+          openModal(item);
+      };
+      editCell.appendChild(editBtn);
+  });
 }
-
 
 
 
@@ -284,14 +160,406 @@ function renderTable(filteredData) {
 
 // Event listener for the search bar input
 searchInput.addEventListener('input', () => {
-const searchText = searchInput.value.trim();
-if (!searchText) {
-    renderTable(data); // If no input, show all data
-    return;
+  const searchText = searchInput.value.trim().toLowerCase();
+  if (!searchText) {
+      renderTable(appointmentsData); // If no input, show all data
+      return;
+  }
+
+  // Filter data based on ID or name match (case insensitive)
+  console.log(appointmentsData[0].patientName)
+  const filteredData = appointmentsData.filter(item => 
+      item.AppointmentId.toLowerCase().includes(searchText) || 
+      item.patientName.toLowerCase().includes(searchText)
+  );
+  renderTable(filteredData);
+});
+
+
+//Delete Appointment Event listener
+document.getElementById('deleteBtn').addEventListener('click', function () {
+  const appointmentId = this.dataset.appointmentId; // Retrieve the stored appointment ID
+  deleteAppointment(appointmentId);
+});
+
+async function deleteAppointment(appointmentId) {
+  console.log('Deleting appointment ID:', appointmentId);
+
+
+try{
+  const response = await fetch(
+        "http://localhost:8008/cancel_appointment",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({appointmentId: appointmentId}),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      window.location.reload();
+
+      
+}
+catch (error) {
+    console.log(error);
+   }
+
+
+  
 }
 
-// Filter data based on ID match
-const filteredData = data.filter(item => item.id.includes(searchText));
-renderTable(filteredData)
 
+//Edit Appointment EVENT listner
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const submitBtn = document.getElementById('confirmEditbtn');
+
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action (form submission in this case)
+
+        // Fetch all inputs
+        //const name = document.getElementById('modalName').value.trim();
+        //const email = document.getElementById('modalEmail').value.trim();
+        //const password = document.getElementById('password').value.trim();
+        //const age = document.getElementById('age').value.trim();
+        //const role = document.querySelector('input[name="role"]:checked');
+        //const gender = document.querySelector('input[name="gender"]:checked');
+        //const address = document.getElementById('address').value.trim();
+        const appDate = document.getElementById('modalDate').value.trim();
+        //const appTime = document.getElementById('modalTime').value.trim();
+        const paymentMethod = document.getElementById('modalPayment').value.trim();
+        const status = document.getElementById('modalStatus').value.trim();
+        
+        const appointmentId=this.dataset.appointmentId;
+        
+        //const workinghours = document.getElementById('working-hours').value.trim();
+        
+        // Validate all required inputs
+        if (!appDate ||  !paymentMethod || !status) {
+            alert("Please fill in all required fields.");
+            return; // Stop the function if validation fails
+        }
+
+        // Prepare data object with validated values
+        const AppointmentData = {
+           appointmentId,
+           appDate,
+           paymentMethod,
+           status
+        };
+
+        console.log(AppointmentData);
+        //UpdateAppointmentForm(employeeData);  // Call the function to submit data
+    });
+});
+
+
+
+
+async function UpdateAppointmentForm(AppointmentData) {
+    try {
+      const response = await fetch(
+        "http://localhost:8008/create_employee",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(AppointmentData),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      Swal.fire({
+        icon: "success",
+        title: "Updated Info",
+        text: "",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.reload();
+    }, 1500);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
+
+
+//Charts
+
+
+fetch("http://localhost:8008/Dashboard", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then((data) => {
+    const chartConfig1 = {
+        series: [
+            {
+                name: "Appointments",
+                data: data.monthly_appointments.slice(0, 9),
+            },
+        ],
+        chart: {
+            type: "bar",
+            height: 240,
+            toolbar: {
+                show: false,
+            },
+        },
+        title: {
+            show: "",
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        colors: ["#418995"],
+        plotOptions: {
+            bar: {
+                columnWidth: "40%",
+                borderRadius: 2,
+            },
+        },
+        xaxis: {
+            axisTicks: {
+                show: false,
+            },
+            axisBorder: {
+                show: false,
+            },
+            labels: {
+                style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                },
+            },
+            categories: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                },
+            },
+        },
+        grid: {
+            show: true,
+            borderColor: "#dddddd",
+            strokeDashArray: 5,
+            xaxis: {
+                lines: {
+                    show: true,
+                },
+            },
+            padding: {
+                top: 5,
+                right: 20,
+            },
+        },
+        fill: {
+            opacity: 0.8,
+        },
+        tooltip: {
+            theme: "dark",
+        },
+    };
+
+    const chartConfig2 = {
+        series: [
+            {
+                name: "Revenue",
+                data: data.monthly_revenue.slice(0, 9),
+            },
+        ],
+        chart: {
+            type: "bar",
+            height: 240,
+            toolbar: {
+                show: false,
+            },
+        },
+        title: {
+            show: "",
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        colors: ["#418995"],
+        plotOptions: {
+            bar: {
+                columnWidth: "40%",
+                borderRadius: 2,
+            },
+        },
+        xaxis: {
+            axisTicks: {
+                show: false,
+            },
+            axisBorder: {
+                show: false,
+            },
+            labels: {
+                style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                },
+            },
+            categories: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+        },
+        yaxis: {
+            labels: {
+                style: {
+                    colors: "#616161",
+                    fontSize: "12px",
+                    fontFamily: "inherit",
+                    fontWeight: 400,
+                },
+            },
+        },
+        grid: {
+            show: true,
+            borderColor: "#dddddd",
+            strokeDashArray: 5,
+            xaxis: {
+                lines: {
+                    show: true,
+                },
+            },
+            padding: {
+                top: 5,
+                right: 20,
+            },
+        },
+        fill: {
+            opacity: 0.8,
+        },
+        tooltip: {
+            theme: "dark",
+        },
+    };
+
+    const chart1 = new ApexCharts(document.querySelector("#bar-chart1"), chartConfig1);
+    chart1.render();
+
+    const chart2 = new ApexCharts(document.querySelector("#bar-chart2"), chartConfig2);
+    chart2.render();
+})
+.catch((error) => {
+    console.error("Error:", error.message);
+    alert('Failed to fetch data: ' + error.message);
+});
+
+
+
+//Pie chart
+fetch("http://localhost:8008/get_count_of_allapps", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
+})
+.then((response) => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then((data) => {
+    const chartConfig = {
+        series: [data.pending, data.completed, data.cancelled],
+        chart: {
+            type: "pie",
+            width: 280,
+            height: 280,
+            toolbar: {
+                show: false,
+            },
+        },
+        title: {
+            show: "",
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        colors: ["#276973", "#a4d6d6", "#619ca5"],
+        legend: {
+            show: true,
+        },
+        ooltip: {
+            enabled: true,
+            enabledOnSeries: undefined,
+            shared: true,
+            followCursor: false,
+            intersect: false,
+            inverseOrder: false,
+            custom: function({series, seriesIndex, dataPointIndex, w}) {
+                return '<div class="tooltip-container">' +
+                        '<span class="tooltip-label">' + w.config.labels[dataPointIndex] + ': </span>' +
+                        '<span class="tooltip-value">' + series[seriesIndex] + '</span>' +
+                    '</div>';
+            },
+        },
+        labels: ["Pending", "Completed", "Cancelled"] // Add labels for each data point
+    };
+
+    const chart = new ApexCharts(document.querySelector("#pie-chart"), chartConfig);
+    chart.render();
+})
+.catch((error) => {
+    console.error("Error:", error.message);
+    alert('Failed to fetch data: ' + error.message);
 });

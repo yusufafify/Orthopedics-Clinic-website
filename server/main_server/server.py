@@ -882,7 +882,7 @@ def create_employee():
         ssn=data.get('ssn')
         phone=data.get('phone')
         salary=data.get('salary')
-        working_hours=data.get('workingHours')
+        working_hours=data.get('workinghours')
         user = {
             'name':name,
             'email':email,

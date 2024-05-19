@@ -46,14 +46,20 @@ function openModal(item) {
     dialog.querySelector('#modalName').value = item.patientName;
     dialog.querySelector('#modalEmail').value = item.patientEmail;
     dialog.querySelector('#modalPhone').value = item.patientPhone;
-    dialog.querySelector('#modalNextApp').value = item.time;
+
+    //const appointmentDate = new Date(item.time).toISOString().split('T')[0];
+    //dialog.querySelector('#modalNextApp').value = item.time;
+    
 
 
      // Store the patient Email in the delete button
      const deleteBtn = document.getElementById('deleteBtn');
      deleteBtn.dataset.patientEmail = item.patientEmail;  // Using data attributes to store the appointment ID
    
-   
+     // STore the PatientID in the edit button
+     const submitBtn = document.getElementById('confirmEditbtn');
+     submitBtn.dataset.patient_id = item.PatientId;
+
 
   
     // Show the dialog
@@ -86,7 +92,7 @@ function renderTable(filteredData) {
       row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
 
       // Creating cells as per your existing setup
-      const cells = ['PatientId', 'patientName','patientEmail', 'patientPhone', 'time'].map(key => {
+      const cells = ['PatientId', 'patientName','patientEmail', 'patientPhone'].map(key => {
         const cell = row.insertCell();
           cell.textContent = item[key];
           if (key === 'PatientId') {
@@ -158,7 +164,16 @@ try{
       );
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+      Swal.fire({
+        icon: "success",
+        title: "Patient is Deleted",
+        text: "",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.reload();
+    }, 1500);
 
       
 }
@@ -187,16 +202,16 @@ catch (error) {
 }
 
 
+
+
 //Edit Patient Event listener
-
-
 
 
 const submitBtn = document.getElementById('confirmEditbtn');
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const submitBtn = document.getElementById('submitBtn');
+    const submitBtn = document.getElementById('confirmEditbtn');
 
     submitBtn.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent default action (form submission in this case)
@@ -209,23 +224,42 @@ document.addEventListener("DOMContentLoaded", function () {
         //const role = document.querySelector('input[name="role"]:checked');
         //const gender = document.querySelector('input[name="gender"]:checked');
         //const address = document.getElementById('address').value.trim();
-        const nextApp = document.getElementById('modalNextApp').value.trim();
+        //const nextApp = document.getElementById('modalNextApp').value.trim();
         const phone = document.getElementById('modalPhone').value.trim();
         //const salary = document.getElementById('salary').value.trim();
         //const workinghours = document.getElementById('working-hours').value.trim();
 
+        const patient_id = this.dataset.patient_id;
+        if (!validatePhone(phone))
+          {
+            Swal.fire({
+              icon: "error",
+              title: "Incorrect Phone Number Format",
+              text: "",
+              timer: 2000,
+              showConfirmButton: false,
+            })
+            return; 
+          }
         // Validate all required inputs
-        if (!name || !email || !phone || nextApp) {
-            alert("Please fill in all required fields.");
+        if (!name || !email || !phone ) {
+          Swal.fire({
+            icon: "error",
+            title: "Please fill in all required fields.",
+            text: "",
+            timer: 2000,
+            showConfirmButton: false,
+          })
             return; // Stop the function if validation fails
         }
 
         // Prepare data object with validated values
         const patientData = {
+            patient_id,
             name,
             email,
             phone,
-            nextApp
+           
         };
 
         console.log(patientData);
@@ -251,8 +285,25 @@ async function UpdatePatientForm(patientData) {
       );
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+      Swal.fire({
+        icon: "success",
+        title: "Patient Updated ",
+        text: "",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.reload();
+    }, 1500);
     } catch (error) {
       console.log(error);
     }
+  }
+
+
+  //Validate phone
+  function validatePhone(phone) {
+    // Assuming Egyptian phone number format is XXXX-XXX-XXXX where X is a digit
+    const phonePattern = /^\d{4}\d{3}\d{4}$/;
+    return phonePattern.test(phone);
   }

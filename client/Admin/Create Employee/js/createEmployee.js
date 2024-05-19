@@ -19,10 +19,40 @@ document.addEventListener("DOMContentLoaded", function () {
         const phone = document.getElementById('phone').value.trim();
         const salary = document.getElementById('salary').value.trim();
         const workinghours = document.getElementById('working-hours').value.trim();
+        console.log(workinghours)
+        if (!validatePhone(phone))
+          {
+            Swal.fire({
+              icon: "error",
+              title: "Incorrect Phone Number Format",
+              text: "",
+              timer: 2000,
+              showConfirmButton: false,
+            })
+            return; 
+          }
 
+        if(!validateSSN(ssn))
+        {
+         
+          Swal.fire({
+            icon: "error",
+            title: "Incorrect SSN Format",
+            text: "",
+            timer: 2000,
+            showConfirmButton: false,
+          })
+          return; 
+        }
         // Validate all required inputs
         if (!name || !email || !password || !age || !role || !gender || !address || !ssn || !phone || !salary || !workinghours) {
-            alert("Please fill in all required fields.");
+            Swal.fire({
+              icon: "error",
+              title: "Please fill in all required fields.",
+              text: "",
+              timer: 2000,
+              showConfirmButton: false,
+            })
             return; // Stop the function if validation fails
         }
 
@@ -42,7 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         console.log(employeeData);
+        
         postEmployeeForm(employeeData);  // Call the function to submit data
+
     });
 });
 
@@ -64,11 +96,40 @@ async function postEmployeeForm(employeeData) {
       );
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+      Swal.fire({
+        icon: "success",
+        title: "Employee is Created",
+        text: "",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.reload();
+    }, 1500);
     } catch (error) {
       console.log(error);
     }
   }
   
 
+
+
+  // Validation function for Egyptian phone number
+function validatePhone(phone) {
+  // Assuming Egyptian phone number format is XXXX-XXX-XXXX where X is a digit
+  const phonePattern = /^\d{4}\d{3}\d{4}$/;
+  return phonePattern.test(phone);
+}
+
+//SSN validation
+function validateSSN(ssn) {
+  // Check if the input is exactly 14 characters long
+  if (ssn.length !== 14) {
+      return false;
+  }
+  
+  // Check if all characters are digits
+  const digitPattern = /^\d{14}$/;
+  return digitPattern.test(ssn);
+}
 
