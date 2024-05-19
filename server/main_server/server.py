@@ -1137,29 +1137,26 @@ def check_token_validity():
 @jwt_required()
 def get_available_doctor():
     try:
-        data=request.get_json()
-        date=str(data.get('date'))
-        returndoc=[]
+        data = request.get_json()
+        date=data.get('date')
         max_appointments = 10  # Arbitrary constant
+        returndoc = []
 
-        # Aggregate appointments by doctorId and count them
-        pipeline = [
-            {"$match": {"date": date}},
-            {"$group": {"_id": "$doctorId", "count": {"$sum": 1}}},
-            {"$match": {"count": {"$lt": max_appointments}}}
-        ]
-        available_doctors = list(appointment.aggregate(pipeline))
+        # Get all doctors
+        all_doctors = users.find({ 'role': 'doctor' })
 
-        for doctor in available_doctors:
-            docid = str(doctor['_id'])
-            doctor_info = users.find_one({'_id': ObjectId(docid)})
-            returndoc.append({
-                'DoctorId': docid,
-                'DoctorName': doctor_info['name'],
-                'DoctorEmail': doctor_info['email'],
-                'DoctorPhone': doctor_info['phoneNumber'],
-                'DoctorWorkingHours': doctor_info['working_hours']
-            })
+        for doctor in all_doctors:
+            # Count appointments for this doctor on the given date
+            appointment_count = appointment.count_documents({ 'doctorId': doctor['_id'], 'date': date })
+
+            # If the count is less than max_appointments, add the doctor to the result
+            if appointment_count < max_appointments:
+                returndoc.append({
+                    'DoctorName': doctor['name'],
+                    'DoctorEmail': doctor['email'],
+                    'DoctorPhone': doctor['phoneNumber'],
+                    'doctorhours': doctor['working_hours']
+                })
 
 
         if returndoc:
