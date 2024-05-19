@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const phone = document.getElementById('phone').value.trim();
         const salary = document.getElementById('salary').value.trim();
         const workinghours = document.getElementById('working-hours').value.trim();
-
+        console.log(workinghours)
         if (!validatePhone(phone))
           {
             Swal.fire({
