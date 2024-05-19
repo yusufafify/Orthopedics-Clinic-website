@@ -1237,8 +1237,22 @@ def get_Avg_rating():
 
         
         return jsonify(returndict), 200
+    
+    except Exception as err:
+        return jsonify({ 'error': str(err) }), 500
+    
 
 
+
+@app.route('/get_count_of_allapps', methods=['GET'])
+@jwt_required()
+def get_count_of_allapps():
+    try:
+        countpending=appointment.count_documents({'status':'pending'}) 
+        countcompleted=appointment.count_documents({'status':'completed'})   
+        countcancelled=appointment.count_documents({'status':'cancelled'})
+
+        return jsonify({'pending':countpending,'completed':countcompleted,'cancelled':countcancelled}), 200
 
 
     except Exception as err:
