@@ -955,7 +955,7 @@ def completeapp():
 
         medical_history.insert_one({
             'patientId':current_app['patientId'],
-            'historytype':'appointment',
+            'historytype':'diagnoses',
             'titleofproblem':title,
             'dateofproblem':current_app['date'],
             'description':f'Diagnosis: {finaldiagnosis} \nTreatment: {finaltreatment} \nDoctor Notes: {notes}'
