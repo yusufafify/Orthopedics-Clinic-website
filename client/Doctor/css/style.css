@@ -71,3 +71,27 @@
   0%   { transform: rotate(0deg);   transform: rotate(0deg); }
   100% { transform: rotate(360deg); transform: rotate(360deg); }
 }
+
+
+.rating {
+  display: flex;
+  direction: row-reverse;
+  justify-content: center;
+}
+
+.rating > input {
+  display: none;
+}
+
+.rating > label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  font-size: 24px;
+  color: gray;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: gold;}

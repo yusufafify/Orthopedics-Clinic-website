@@ -919,10 +919,18 @@ def completeapp():
     try:
         data=request.get_json()
         appid=ObjectId(data.get('appointmentId'))
-        diagnosis=data.get('diagnosis')
-        treatment=data.get('treatment')
-        notes=data.get('doctorNotes')
+        diagnosis=data.get('diagnoses')
+        treatment=data.get('treatments')
+        notes=data.get('notes')
+        rating=data.get('rating')
         title=appointment.find_one({'_id':appid})['type']
+        
+        print(data)
+        print(appid)
+        print(diagnosis)
+        print(treatment)
+        print(notes)
+        print(rating)
 
         current_app=appointment.find_one({'_id':appid})
 
