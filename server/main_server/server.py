@@ -495,7 +495,6 @@ def delete_user():
         
     except Exception as err:
         return jsonify({'error': str(err)}), 500
-    
 
 
 
@@ -780,14 +779,16 @@ def get_appointments():
             patient_name = patient_info['name'] if patient_info else 'Unknown'
             Doctor_info=users.find_one({'_id': ObjectId(info['doctorId'])})
             Doctor_name = Doctor_info['name'] if Doctor_info else 'Unknown'
+            Doctor_hours=Doctor_info['working_hours'] if Doctor_info else 'Unknown'
 
             serialized_appointments.append({
                 'AppointmentId': str(info['_id']),
                 'patientName': patient_name ,
                 'doctorName': Doctor_name,
                 'date': info['date'],
-                'time': info['date'],
-                'paymentMethod': info['paymentMethod']
+                'time': Doctor_hours,
+                'paymentMethod': info['paymentMethod'],
+                'status': info['status']
 
             })
         for info in serialized_appointments:
@@ -795,8 +796,6 @@ def get_appointments():
         return jsonify(serialized_appointments)
     except Exception as e:
         return jsonify({'message': 'error', 'error': str(e)}), 400
-    
-
 
 
 @app.route('/get_patients', methods=['GET'])
@@ -809,15 +808,21 @@ def get_patients():
             if info['role'] == "Patient" or info['role'] == "patient":
                 patientid=str(info['_id'])
                 patient_appointment = appointment.find_one({'patientId': ObjectId(info['_id'])})
-                print(patient_appointment)
+                if patient_appointment:
+                    print(patient_appointment['_id'])
+                
+               
                 appointment_date = patient_appointment['date'] if patient_appointment else 'Unknown'
-
+                
+                
                 patients.append({
                     'PatientId': patientid,
                     'patientName': info['name'] ,
                     'patientEmail': info['email'],
                     'patientPhone': info['phoneNumber'],
-                    'time': appointment_date
+                    'time': appointment_date,
+
+
                     
               })
         for info in patients:
@@ -842,7 +847,9 @@ def get_doctors():
                     'DoctorId': doctorid,
                     'DoctorName': info['name'] ,
                     'DoctorEmail': info['email'],
-                    'DoctorPhone': info['phoneNumber']
+                    'DoctorPhone': info['phoneNumber'],
+                    'workingHours': info['working_hours']
+                    
 
                 })
         for info in doctors:
@@ -850,7 +857,6 @@ def get_doctors():
         return jsonify(doctors)
     except Exception as e:
         return jsonify({'message': 'error', 'error': str(e)}), 400
-    
 
 
 
@@ -873,10 +879,10 @@ def create_employee():
         role=data.get('role')
         gender=data.get('gender')
         address=data.get('address')
-        #ssn=data.get('ssn')
+        ssn=data.get('ssn')
         phone=data.get('phone')
-        #salary=data.get('salary')
-        #working_hours=data.get('workingHours')
+        salary=data.get('salary')
+        working_hours=data.get('workingHours')
         user = {
             'name':name,
             'email':email,
@@ -885,10 +891,10 @@ def create_employee():
             'role': role, 
             'gender': gender,
             'address': address,
-            #'ssn': ssn,
+            'ssn': ssn,
             'phoneNumber':phone,
-            #'salary':salary,
-            #'working_hours': working_hours
+            'salary':salary,
+            'working_hours': working_hours
         }
         users.insert_one(user)
         token = create_access_token({
@@ -1259,12 +1265,173 @@ def get_count_of_allapps():
         countcancelled=appointment.count_documents({'status':'cancelled'})
 
         return jsonify({'pending':countpending,'completed':countcompleted,'cancelled':countcancelled}), 200
-
-
-    except Exception as err:
-        return jsonify({ 'error': str(err) }), 500
-
+    except Exception as e:
+        return jsonify({
+            'message': 'error',
+            'error': str(e)
+    })
 # batal 3atah
+
+
+
+
+@app.route('/Dashboard', methods=['GET'])
+def dashboard():
+    try:
+       User = list(users.find()) 
+       app=list(appointment.find())
+
+       Total = []
+       doctors=0
+       patients=0
+       examinations=0
+       consultations=0
+       follow_up=0
+       revenue=0
+       revenuec=0
+       revenuee=0
+       week_appointments=[]
+       monthly_counts = {}
+       
+       for info in User:
+            if info['role'].lower() == "patient":
+                patients += 1
+            elif info['role'].lower() == "doctor":
+                doctors += 1
+        # Process each appointment
+       for ap in app:
+            date_str = ap['date']
+            year, month, day = date_str.split('-')
+            year = int(year)
+            month = int(month)
+            day = int(day)
+            appointment_type = ap['type']
+            appointment_status=ap['status']
+            if ap['type'].lower()=="consultation":
+               consultations += 1
+            if ap['type'].lower()=="consultation" and ap['status']=="completed":
+                revenuec+=1
+            if ap['type'].lower()=="examination":
+                examinations += 1
+            if ap['type'].lower()=="examination" and ap['status']=="completed":
+                revenuee+=1
+            if ap['type']=="Follow-Up":
+                follow_up += 1
+          
+
+            current_date = datetime.now()
+            appointment_date = datetime(year, month, day)
+            difference = current_date - appointment_date
+
+# Check if the difference is less than or equal to 7 days
+            if difference <= timedelta(days=7):
+               patient_info = users.find_one({'_id': ObjectId(ap['patientId'])})
+               patient_name = patient_info['name'] if patient_info else 'Unknown'
+               Doctor_info=users.find_one({'_id': ObjectId(ap['doctorId'])})
+               Doctor_name = Doctor_info['name'] if Doctor_info else 'Unknown'
+               week_appointments.append({
+                "AppointmentId": str(ap['_id']),
+                "patientName": patient_name,  
+                "doctorName": Doctor_name, 
+                "date": ap['date'],
+                "paymentMethod": ap['paymentMethod'],  # Use get() to handle missing key
+                "status": ap['status']
+            })
+            # Create a key for the year and month
+            key = (year, month)
+            
+            if key not in monthly_counts:
+                monthly_counts[key] = {'examinations': 0, 'consultations': 0,'Follow-Up':0,'revenuee': 0, 'revenuec': 0}
+            
+            # Increment the count for the appropriate type
+            if appointment_type == 'Examination':
+                monthly_counts[key]['examinations'] += 1
+            if appointment_type == 'Examination' and appointment_status=='completed':
+                monthly_counts[key]['revenuee'] += 1
+            elif appointment_type.lower() == 'consultation':
+                monthly_counts[key]['consultations'] += 1
+            if appointment_type == 'Consultation' and appointment_status=='completed':
+                monthly_counts[key]['revenuec'] += 1
+            elif appointment_type == 'Follow-Up':
+                monthly_counts[key]['Follow-Up'] += 1
+
+        # Initialize a list of 24 zeros (2 for each month)
+            result = [0] * 12
+            result2=[0]*12
+
+        # Fill the result list with the counts
+       for (year, month), counts in monthly_counts.items():
+            index = month - 1
+            result[index] = counts['examinations']+counts['consultations']+counts['Follow-Up']
+            result2[index] = (counts['revenuec']*300)+(counts['revenuee']*500)
+            
+               
+        
+       one_week_ago = datetime.now() - timedelta(days=7)
+       one_week_ago = one_week_ago + timedelta(days=1)
+       one_month_ago=datetime.now() - timedelta(days=30)
+       one_month_ago = one_month_ago + timedelta(days=1)
+       total_appointments = appointment.count_documents({"date": {"$gte": one_month_ago}})
+       revenue= (300*revenuec)+(500*revenuee)
+       
+
+        
+       response = {
+            "Total": [
+                {
+                    "appointments": examinations+consultations+follow_up,
+                    "doctors": doctors,
+                    "patients": patients,
+                    "revenue": revenue
+                }
+            ],
+            "recent_appointments": week_appointments,
+            "monthly_appointments":result,
+            "monthly_revenue":result2
+        }
+
+       return jsonify(response), 200
+    
+    except Exception as err:
+        return jsonify({'error': str(err)}), 500
+
+
+
+@app.route('/edit_doctor', methods=['PATCH'])
+@jwt_required()
+def edit_doctor():
+    try:
+
+        data = request.get_json()
+        print(data)
+        doctor_id = ObjectId(data.get('_id'))
+        update_data = {
+            'name': data.get('name'),
+            'email': data.get('email'),
+            'phoneNumber': data.get('phone'),
+            'salary':data.get('salary'),
+            'working_hours':data.get('working_hours')
+        }
+
+        if not doctor_id:
+            return jsonify({"error": "DoctorId is required"}), 400
+
+        doctor_object_id = ObjectId(doctor_id)
+
+        data.pop('DoctorId', None)
+
+        result = users.update_one(
+            {"_id": doctor_object_id},
+            {"$set": update_data}
+        )
+
+        if result.modified_count == 1:
+            return jsonify({"message": "Doctor information updated successfully"})
+        else:
+            return jsonify({"message": "No doctor information updated"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 
 
