@@ -165,3 +165,71 @@ catch (error) {
 
   
 }
+
+
+//Edit Appointment EVENT listner
+const submitBtn = document.getElementById('confirmEditbtn');
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const submitBtn = document.getElementById('submitBtn');
+
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default action (form submission in this case)
+
+        // Fetch all inputs
+        //const name = document.getElementById('modalName').value.trim();
+        //const email = document.getElementById('modalEmail').value.trim();
+        //const password = document.getElementById('password').value.trim();
+        //const age = document.getElementById('age').value.trim();
+        //const role = document.querySelector('input[name="role"]:checked');
+        //const gender = document.querySelector('input[name="gender"]:checked');
+        //const address = document.getElementById('address').value.trim();
+        const appDate = document.getElementById('modalDate').value.trim();
+        const appTime = document.getElementById('modalTime').value.trim();
+        const paymentMethod = document.getElementById('modalStatus').value.trim();
+        //const workinghours = document.getElementById('working-hours').value.trim();
+
+        // Validate all required inputs
+        if (!appDate || !appTime || !paymentMethod) {
+            alert("Please fill in all required fields.");
+            return; // Stop the function if validation fails
+        }
+
+        // Prepare data object with validated values
+        const AppointmentData = {
+           appDate,
+           appTime,
+           paymentMethod
+        };
+
+        console.log(AppointmentData);
+        //UpdateAppointmentForm(employeeData);  // Call the function to submit data
+    });
+});
+
+
+
+
+async function UpdateAppointmentForm(AppointmentData) {
+    try {
+      const response = await fetch(
+        "http://localhost:8008/create_employee",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(AppointmentData),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
