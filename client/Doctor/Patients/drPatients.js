@@ -57,10 +57,10 @@ let patients;
       console.log(patient);
       rows += `
         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${patient.patientId}</td>
+        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">${patient.patientId}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">${patient.name}</td>
-          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${patient.age}</td>
-          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${patient.phoneNumber}</td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">${patient.age}</td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">${patient.phoneNumber}</td>
 
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
             <button class="view_btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" id="view${i}" onclick="openModal('patientInfoModal'); showPatientDetails(this);  getHistory(${i})">View</button>
@@ -152,7 +152,13 @@ function closeModal(modalId) {
   }
 
 
-
+  document.getElementById('sideOpenBtn').addEventListener('click', function() {
+    document.getElementById('sidebar').style.transform = 'translateX(0)';
+  });
+  
+  document.getElementById('sideCloseBtn').addEventListener('click', function() {
+    document.getElementById('sidebar').style.transform = 'translateX(-100%)';
+  });
 
 
 

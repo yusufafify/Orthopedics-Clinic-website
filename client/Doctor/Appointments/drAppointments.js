@@ -35,10 +35,10 @@ fetch("http://localhost:8008/all_appointments", {
       let appointment = data[i];
       rows += `
         <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">${appointment.appointmentID}</td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell font-medium">${appointment.appointmentID}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">${appointment.patientName}</td>
-          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${appointment.date}</td>
-          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">${appointment.type}</td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">${appointment.date}</td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">${appointment.type}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">${appointment.status}</td>
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" onclick="openModal('appointmentModal'); showAppointmentDetails(this)">View</button>
@@ -50,7 +50,13 @@ fetch("http://localhost:8008/all_appointments", {
     return rows;
   }
   
-
+  document.getElementById('sideOpenBtn').addEventListener('click', function() {
+    document.getElementById('sidebar').style.transform = 'translateX(0)';
+  });
+  
+  document.getElementById('sideCloseBtn').addEventListener('click', function() {
+    document.getElementById('sidebar').style.transform = 'translateX(-100%)';
+  });
 
   // Add the generated rows to the table
 

@@ -7,6 +7,27 @@
   <script src="/public/assets/styles/tailwind.js"></script>
 
   <title>Doctor's Appointments</title>
+  <style>
+    #loading {
+      position: fixed;
+      top: 0;
+      left: 250px;
+      width: calc(100% - 250px);
+      height: 100%;
+      background-color: lightgrey;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    @media (max-width: 1024px) {
+      #loading {
+        left: 0;
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -33,7 +54,7 @@
 
     <!--Side Bar Header-->
     <li class="flex px-2 justify-between bg-[#276973]">
-      
+
       <button data-drawer-target="default-sidebar" id="sideCloseBtn" data-drawer-toggle="default-sidebar"
         aria-controls="default-sidebar" type="button"
         class="inline-flex items-center p-2 mt-1 ms-3 text-sm text-gray-100 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
@@ -47,204 +68,193 @@
     </li>
     <!--End of Side Bar Header-->
 
-        <!--Side Bar Navigations-->
+    <!--Side Bar Navigations-->
     <div class="h-full px-3 py-4 overflow-y-auto bg-[#a4d6d6] text-white">
-        <ul class="space-y-2 font-medium">
-  
-          <!--Navigation 1-->
-          <li>
-            <a href="../doctor.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
-              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75" aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                <path
-                  d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
-            </a>
-          </li>
-          <!--End of Navigation 1-->
-  
-  
-          <!--Navigation 2-->
-          <li>
-            <a href="../info/info.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
-              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
-                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                <path
-                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
-            </a>
-          </li>
-  
-          <!--End of Navigation 2-->
-  
-          <!--Navigation 3-->
-          <li>
-            <a href="./appointments.html" class="flex items-center p-2 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-100  group">
-  
-              <svg class="flex-shrink-0 w-6 h-6 text-gray-500 ml-[-2px] transition duration-75 group-hover:text-gray-900 "
-                fill="currentColor" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 520.001 470.001" xml:space="preserve">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
+      <ul class="space-y-2 font-medium">
+
+        <!--Navigation 1-->
+        <li>
+          <a href="../doctor.html" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100  group">
+            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+              <path
+                d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+            </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
+          </a>
+        </li>
+        <!--End of Navigation 1-->
+
+
+        <!--Navigation 2-->
+        <li>
+          <a href="../info/info.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+              <path
+                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+            </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
+          </a>
+        </li>
+
+        <!--End of Navigation 2-->
+
+        <!--Navigation 3-->
+        <li>
+          <a href="./appointments.html"
+            class="flex items-center p-2 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-100  group">
+
+            <svg class="flex-shrink-0 w-6 h-6 text-gray-500 ml-[-2px] transition duration-75 group-hover:text-gray-900 "
+              fill="currentColor" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 520.001 470.001" xml:space="preserve">
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier">
+                <g>
                   <g>
                     <g>
-                      <g>
-                        <path
-                          d="M304.427,147.399H275.38v-29.046c0-10.706-8.68-19.386-19.386-19.386c-10.706,0-19.386,8.68-19.386,19.386V147.4h-29.047 c-10.706,0-19.386,8.68-19.386,19.386s8.68,19.386,19.386,19.386h29.047v29.046c0,10.706,8.68,19.386,19.386,19.386 c10.706,0,19.386-8.68,19.386-19.386v-29.046h29.047c10.706,0,19.386-8.68,19.386-19.386 C323.813,156.079,315.135,147.399,304.427,147.399z">
-                        </path>
-                        <path
-                          d="M446.704,19.386C446.704,8.68,438.024,0,427.318,0H84.672C73.966,0,65.286,8.68,65.286,19.386 c0,19.634-0.004,395.991-0.004,415.78c0,10.706,8.68,19.386,19.386,19.386h56.06v38.045c0,17.236,20.909,25.888,33.091,13.71 l33.746-33.736l33.735,33.733c12.109,12.114,33.094,3.665,33.094-13.707v-38.045h152.938c10.706,0,19.386-8.68,19.386-19.386 C446.72,423.13,446.704,234.426,446.704,19.386z M104.059,38.773h303.873v256.026H104.059V38.773z M235.623,445.793 l-14.346-14.345c-7.568-7.571-19.842-7.571-27.413-0.003l-14.363,14.357c0-22.535,0-29.22,0-51.734h56.122 C235.623,416.595,235.623,423.285,235.623,445.793z M407.947,415.78H274.395v-21.714h94.993c10.706,0,19.386-8.68,19.386-19.386 c0-10.706-8.68-19.386-19.386-19.386H142.614c-10.706,0-19.386,8.68-19.386,19.386c0,10.071,7.68,18.342,17.501,19.291v21.81 h-36.674v-82.207h303.892V415.78z">
-                        </path>
-                      </g>
+                      <path
+                        d="M304.427,147.399H275.38v-29.046c0-10.706-8.68-19.386-19.386-19.386c-10.706,0-19.386,8.68-19.386,19.386V147.4h-29.047 c-10.706,0-19.386,8.68-19.386,19.386s8.68,19.386,19.386,19.386h29.047v29.046c0,10.706,8.68,19.386,19.386,19.386 c10.706,0,19.386-8.68,19.386-19.386v-29.046h29.047c10.706,0,19.386-8.68,19.386-19.386 C323.813,156.079,315.135,147.399,304.427,147.399z">
+                      </path>
+                      <path
+                        d="M446.704,19.386C446.704,8.68,438.024,0,427.318,0H84.672C73.966,0,65.286,8.68,65.286,19.386 c0,19.634-0.004,395.991-0.004,415.78c0,10.706,8.68,19.386,19.386,19.386h56.06v38.045c0,17.236,20.909,25.888,33.091,13.71 l33.746-33.736l33.735,33.733c12.109,12.114,33.094,3.665,33.094-13.707v-38.045h152.938c10.706,0,19.386-8.68,19.386-19.386 C446.72,423.13,446.704,234.426,446.704,19.386z M104.059,38.773h303.873v256.026H104.059V38.773z M235.623,445.793 l-14.346-14.345c-7.568-7.571-19.842-7.571-27.413-0.003l-14.363,14.357c0-22.535,0-29.22,0-51.734h56.122 C235.623,416.595,235.623,423.285,235.623,445.793z M407.947,415.78H274.395v-21.714h94.993c10.706,0,19.386-8.68,19.386-19.386 c0-10.706-8.68-19.386-19.386-19.386H142.614c-10.706,0-19.386,8.68-19.386,19.386c0,10.071,7.68,18.342,17.501,19.291v21.81 h-36.674v-82.207h303.892V415.78z">
+                      </path>
                     </g>
                   </g>
                 </g>
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Appointments</span>
-            </a>
-          </li>
-  
-          <!--End of Navigation 3-->
-  
-      
-  
-           <!--Navigation 5-->
-           <li>
-            <a href="../Patients/patients.html" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
-              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
-                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                <path
-                  d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
-              </svg>
-              <span class="flex-1 ms-3 whitespace-nowrap">Patients</span>
-            </a>
-          </li>
-          <!--End of Navigation 5-->
+              </g>
+            </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Appointments</span>
+          </a>
+        </li>
 
-          
-          <!--Navigation 7-->
-          <li>
-            <button onclick="logout() "  class="flex p-2 text-gray-900 w-full rounded-lg  hover:bg-gray-100 ">
-              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 rotate-180"
-                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
-              </svg>
-              <span class="gap-y-4 ms-3 whitespace-nowrap">Log out</span>
-            </button>
-          </li>
-  
-          <!--End of Navigation 7-->
+        <!--End of Navigation 3-->
 
-          
-        </ul>
-      </div>
-      <!--End of Side Bar Navigations-->
-  
-    </aside>
-    <div id="loading" style="display: none; position: fixed; top: 0; left: 250px; width: calc(100% - 250px); height: 100%; background-color:lightgrey; z-index: 1000; display: flex; justify-content: center; align-items: center;">
-      <div role="status">
-        <svg aria-hidden="true" class="inline w-32 h-32 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-        </svg>
-        <span class="sr-only">Loading...</span>
-      </div>
+
+
+        <!--Navigation 5-->
+        <li>
+          <a href="../Patients/patients.html"
+            class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+              <path
+                d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+            </svg>
+            <span class="flex-1 ms-3 whitespace-nowrap">Patients</span>
+          </a>
+        </li>
+        <!--End of Navigation 5-->
+
+
+        <!--Navigation 7-->
+        <li>
+          <button onclick="logout() " class="flex p-2 text-gray-900 w-full rounded-lg  hover:bg-gray-100 ">
+            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 rotate-180"
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
+            </svg>
+            <span class="gap-y-4 ms-3 whitespace-nowrap">Log out</span>
+          </button>
+        </li>
+
+        <!--End of Navigation 7-->
+
+
+      </ul>
     </div>
-    <!--End of Side Bar-->
+    <!--End of Side Bar Navigations-->
 
-       <!--Main Content-->
+  </aside>
+  <div id="loading" style="display: none;">
+    <div role="status">
+      <svg aria-hidden="true" class="inline w-32 h-32 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+          fill="currentColor" />
+        <path
+          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+          fill="currentFill" />
+      </svg>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <!--End of Side Bar-->
+
+  <!--Main Content-->
   <div class="p-4 sm:ml-64">
     <div>
       <div class="lg:col-span-6 w-full">
 
         <div class="flex flex-col">
-            <header class="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 ">
-              <a class="lg:hidden" href="#">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="h-6 w-6"
-                >
-                 
-                </svg>
-                
-              </a>
-              <div class="flex-1">
-                <h1 class="font-bold text-lg text-black">Appointments</h1>
-              </div>
-              <header class="flex items-center h-14 px-6 border-b border-gray-200 dark:border-gray-800 shrink-0">
-                <div class="flex items-center gap-4 w-full">
-                
-                 
-                  </a>
-                
-                    <form class="flex-1 relative">
-                      <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
+          <header class="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 ">
+            <a class="lg:hidden" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+
               </svg>
-                      <input
-                      id="searchValue"
-                        class="flex h-10 w-full border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 pr-4 py-2 rounded-md bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
-                        placeholder="Search appointments..."
-                        type="search"
-                        oninput="searchInput()"
-                      />
-                    </form>
-                    
-              
-                </div>
-              </header>
-            
+
+            </a>
+            <div class="flex-1">
+              <h1 class="font-bold text-lg hidden lg:block text-black">Appointments</h1>
+            </div>
+            <header class="flex items-center h-14 px-6 border-b border-gray-200 dark:border-gray-800 shrink-0">
+              <div class="flex items-center gap-4 w-full">
+
+
+                </a>
+
+                <form class="flex-1 relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </svg>
+                  <input id="searchValue"
+                    class="flex h-10 w-full border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 pr-4 py-2 rounded-md bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-400 dark:focus:border-primary-400"
+                    placeholder="Search appointments..." type="search" oninput="searchInput()" />
+                </form>
+
+
+              </div>
             </header>
-        <main class="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+
+          </header>
+          <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-8 lg:p-6">
             <div class="border shadow-sm rounded-lg p-2">
               <div class="relative w-full overflow-auto">
                 <table class="w-full caption-bottom text-sm">
                   <thead class="[&amp;_tr]:border-b">
-                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px]">
+                    <tr class="border-b w-full transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                      <th
+                        class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px] hidden lg:table-cell">
                         ID
                       </th>
-                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[150px]">
+                      <th
+                        class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 min-w-[150px]">
                         Patient
                       </th>
-                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
+                      <th
+                        class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">
                         Date
                       </th>
-                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden md:table-cell">
-Type
+                      <th
+                        class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">
+                        Type
                       </th>
-                      <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 hidden sm:table-cell">
+                      <th
+                        class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                         Status
                       </th>
-                   
+
                     </tr>
                   </thead>
                   <tbody id="appointmentsTable" class="[&amp;_tr:last-child]:border-0">
-                  
+
                   </tbody>
                 </table>
               </div>
@@ -252,73 +262,77 @@ Type
           </main>
         </div>
       </div>
-      </div>
-      </div>
-      <script src="drAppointments.js"></script>
-      <script src="../logout.js"></script>
-      </body>
+    </div>
+  </div>
+  <script src="drAppointments.js"></script>
+  <script src="../logout.js"></script>
+</body>
 
-      <div id="appointmentModal"  onclick="closeModal('appointmentModal')"
-          class="opacity-0 px-5 mx-5 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
-          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div onclick="event.stopPropagation()"
-            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full p-8 m-4">
-                <button onclick="closeModal('appointmentModal')"
-                    class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
-                <span class="close"></span>
-     
-                
-                <form id="appointmentForm" class="flex flex-wrap -mx-3 w-2xl">
-                  <div class="w-full md:w-1/2 px-3">
-                    <label for="patientName" class="block mb-2">Patient Name</label>
-                    <input type="text" id="patientName" name="patientName" class="w-full p-2 border border-gray-300 rounded" readonly>
-                </div>
-                  <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                      <label for="appointmentID" class="block mb-2">Appointment ID</label>
-                      <input type="text" id="appointmentID" name="appointmentID" class="w-full p-2 border border-gray-300 rounded" readonly>
-                  </div>
-                  <div class="w-full md:w-1/2 px-3">
-                      <label for="date" class="block mb-2">Date</label>
-                      <input type="text" id="date" name="date" class="w-full p-2 border border-gray-300 rounded" readonly>
-                  </div>
-                  <div class="w-full md:w-1/2 px-3">
-                    <label for="type" class="block mb-2">Type</label>
-                    <input type="text" id="type" name="type" class="w-full p-2 border border-gray-300 rounded" readonly>
-                </div>
-                  <div id="diagnoses" class="w-full md:w-1/2 px-3">
-                      <label for="diagnosis" class="block mb-2">Diagnosis</label>
-                      <input type="text" id="diagnosis0" name="diagnosis" class="w-full p-2 border border-gray-300 rounded" readonly>
-                    </div>
-                  <div id="treatments" class="w-full md:w-1/2 px-3">
-                      <label for="treatment" class="block mb-2">Treatment</label>
-                      <input type="text" id="treatment0" name="treatment" class="w-full p-2 border border-gray-300 rounded" readonly>
-                  </div>
-                  <div class="w-full md:w-1/2 px-3">
-                    <label for="doctorNotes" class="block mb-2">Doctor Notes</label>
-                    <textarea id="doctorNotes" name="doctorNotes" class="w-full p-2 border border-gray-300 rounded" readonly></textarea>
-                </div>
-                
-                <div class="w-full md:w-1/2 px-3">
-                    <label for="paymentMethod" class="block mb-2">Payment Method</label>
-                    <input type="text" id="paymentMethod" name="paymentMethod" class="w-full p-2 border border-gray-300 rounded" readonly>
-                </div>
-                
-                <div class="w-full md:w-1/2 px-3">
-                  <label for="status" class="block mb-2">Status</label>
-                  <input type="text" id="status" name="status" class="w-full p-2 border border-gray-300 rounded" readonly>
-              </div>
-           
-            </form>
-                </form>
-              </div>
-            </div>
-          </div>
+<div id="appointmentModal" onclick="closeModal('appointmentModal')"
+  class="opacity-0 px-5 mx-5 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div onclick="event.stopPropagation()"
+      class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full p-8 m-4">
+      <button onclick="closeModal('appointmentModal')"
+        class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
+      <span class="close"></span>
+
+
+      <form id="appointmentForm" class="flex flex-wrap -mx-3 w-2xl">
+        <div class="w-full lg:w-1/2 px-3">
+          <label for="patientName" class="block mb-2">Patient Name</label>
+          <input type="text" id="patientName" name="patientName" class="w-full p-2 border border-gray-300 rounded"
+            readonly>
         </div>
-      </html>
+        <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+          <label for="appointmentID" class="block mb-2">Appointment ID</label>
+          <input type="text" id="appointmentID" name="appointmentID" class="w-full p-2 border border-gray-300 rounded"
+            readonly>
+        </div>
+        <div class="w-full lg:w-1/2 px-3">
+          <label for="date" class="block mb-2">Date</label>
+          <input type="text" id="date" name="date" class="w-full p-2 border border-gray-300 rounded" readonly>
+        </div>
+        <div class="w-full lg:w-1/2 px-3">
+          <label for="type" class="block mb-2">Type</label>
+          <input type="text" id="type" name="type" class="w-full p-2 border border-gray-300 rounded" readonly>
+        </div>
+        <div id="diagnoses" class="w-full lg:w-1/2 px-3">
+          <label for="diagnosis" class="block mb-2">Diagnosis</label>
+          <input type="text" id="diagnosis0" name="diagnosis" class="w-full p-2 border border-gray-300 rounded"
+            readonly>
+        </div>
+        <div id="treatments" class="w-full lg:w-1/2 px-3">
+          <label for="treatment" class="block mb-2">Treatment</label>
+          <input type="text" id="treatment0" name="treatment" class="w-full p-2 border border-gray-300 rounded"
+            readonly>
+        </div>
+        <div class="w-full lg:w-1/2 px-3">
+          <label for="doctorNotes" class="block mb-2">Doctor Notes</label>
+          <textarea id="doctorNotes" name="doctorNotes" class="w-full p-2 border border-gray-300 rounded"
+            readonly></textarea>
+        </div>
 
-      
-      
+        <div class="w-full lg:w-1/2 px-3">
+          <label for="paymentMethod" class="block mb-2">Payment Method</label>
+          <input type="text" id="paymentMethod" name="paymentMethod" class="w-full p-2 border border-gray-300 rounded"
+            readonly>
+        </div>
+
+        <div class="w-full lg:w-1/2 px-3">
+          <label for="status" class="block mb-2">Status</label>
+          <input type="text" id="status" name="status" class="w-full p-2 border border-gray-300 rounded" readonly>
+        </div>
+
+      </form>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+</html>

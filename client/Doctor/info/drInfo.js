@@ -23,6 +23,7 @@ editInfo.addEventListener("click", function () {
   console.log(modalState);
   if (!modalState) {
     body.classList.add("overflow-hidden");
+    editInfo.classList.add("overflow-auto");
     modal.classList.remove("pointer-events-none","opacity-0");
     modal.classList.add("opacity-100");
     modalState = true;
@@ -31,13 +32,20 @@ editInfo.addEventListener("click", function () {
 
 modal.addEventListener("click", function (e) {
   if (e.target.id === "modal") {
-    body.classList.remove("overflow-hidden");
+    body.classList.remove("overflow-auto");
     modal.classList.remove("opacity-100");
     modal.classList.add("pointer-events-none","opacity-0");
     modalState = false;
   }
 });
 
+document.getElementById('sideOpenBtn').addEventListener('click', function() {
+  document.getElementById('sidebar').style.transform = 'translateX(0)';
+});
+
+document.getElementById('sideCloseBtn').addEventListener('click', function() {
+  document.getElementById('sidebar').style.transform = 'translateX(-100%)';
+});
 //fetch function to get user data from the server
 fetch("http://localhost:8008/personal_data", {
   method: "GET",
@@ -175,7 +183,7 @@ const updateInfo = async () => {
 
 updateBtn.addEventListener("click", function () {
   updateInfo();
-  body.classList.remove("overflow-hidden");
+  body.classList.remove("overflow-auto");
   modal.classList.remove("opacity-100");
   modal.classList.add("pointer-events-none","opacity-0");
   modalState = false;

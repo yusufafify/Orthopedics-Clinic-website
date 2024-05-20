@@ -64,7 +64,6 @@ function logout(){
   localStorage.removeItem("activeAppointment")
   window.location.href ="http://" + window.location.host + "/client/Login/Login.html";
 }
-console.log(localStorage.getItem("token"));
 if (localStorage.getItem("token") === null) {
  logout()
 }
@@ -79,17 +78,13 @@ fetch ("http://localhost:8008/get_today_appointments", {
 })
 .then((response) => response.json())
 .then((data) => {
-  console.log("No Appointments Found!")
   todaysAppointments=data;
   if (todaysAppointments.length>0){
-    console.log(getActiveAppointmentID());
-    console.log(localStorage.activeAppointment)
+
     updateAppointments();
   displayActiveAppointment();
-  console.log("Displaying today's appointments.")
   }
   else{
-    console.log("Displaying empty appointments list")
     confirmAppointment(-1);
 noActiveAppointments();
 localStorage.removeItem('activeAppointment');
@@ -158,7 +153,6 @@ function getActiveAppointmentID() {
 
 function getPatientInfo(){
 let currentAppointment = JSON.parse(localStorage.getItem('activeAppointment'));
-console.log(currentAppointment)
 if (activeAppointment && activeAppointment.patientId) {
   fetch("http://localhost:8008/get_patient_info", {
     method: "POST",
@@ -170,7 +164,7 @@ if (activeAppointment && activeAppointment.patientId) {
   })
   .then((response) => response.json())
   .then((data) => {
-    console.log(data.user);
+    console.log(data);
     if (data != undefined){
       document.querySelector('#medicalImages').innerHTML = generateMedicalImages(data.images);
       document.querySelector('#recordBox').innerHTML = displayMedicalHistory(data.medical_history);
@@ -256,7 +250,6 @@ function closeModal(modalId) {
 
   function showInputField(select, inputId) {
     var input = document.getElementById(inputId);
-    console.log(inputId);
     if (select.value == 'Other') {
       input.classList.remove('hidden');
     } else {
@@ -280,20 +273,16 @@ function closeModal(modalId) {
     }
     let formattedHistory = ``;
   for (let i=0;i<medicalHistory.length;i++){
-    console.log(medicalHistory[i])
     let item= medicalHistory[i]
-    console.log(item)
     let thing=item["description"];
     let things=thing.split('\n');
     things.splice(1,1);
-    console.log(things);
 formattedHistory+=`Date: ${item.date}<br>
 ${things.join('<br>')}<br>
 Type: ${item.title} <br>
 --------------------------------<br>
 `
   }
-  console.log(formattedHistory);
   return formattedHistory;
       }
     
@@ -340,7 +329,6 @@ data=todaysAppointments;
 }
 
 function changeAppointment(id){
-console.log("Dooo");
   setActiveAppointmentID(id);
 }
 
@@ -368,7 +356,7 @@ function noneSelected(){
     </div>
     
     `;
-document.querySelector('#medicalImages').innerHTML=`<div style="margin-left:12rem;display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
+document.querySelector('#medicalImages').innerHTML=`<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
 
 No patient selected.
 </div>`;
@@ -379,7 +367,13 @@ function updateAppointments(){
 }
 updateAppointments();
 // Function to handle the Confirm button click
+document.getElementById('sideOpenBtn').addEventListener('click', function() {
+  document.getElementById('sidebar').style.transform = 'translateX(0)';
+});
 
+document.getElementById('sideCloseBtn').addEventListener('click', function() {
+  document.getElementById('sidebar').style.transform = 'translateX(-100%)';
+});
 
 // Medical Images
 
@@ -393,7 +387,7 @@ function generateMedicalImages(images) {
   
 
   if (images === undefined){
-    return `<div style="display: flex; justify-content: center; margin-left:7em; align-items: center; height: 100%; font-size: 2em;">
+    return `<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 2em;">
     <br>
         No images found.
     </div>
@@ -464,7 +458,7 @@ document.getElementById('active1').innerHTML = `<div data-orientation="horizonta
 <div data-orientation="horizontal" role="none" class="shrink-0 bg-gray-100 h-[1px] w-full my-4">
 </div>
 <div>
-  <h3 class="font-medium">Number</h3>
+  <h3 class="font-medium">ID</h3>
   <p id="appointmentNumber"></p>
 </div>
 
@@ -542,8 +536,6 @@ document.getElementById('active2').innerHTML = `<div>
 `
 
   let appointment= todaysAppointments.find(appointment => appointment.appointmentID === getActiveAppointmentID());
-  console.log('LOOK HERE')
-  console.log(appointment);
   if (appointment!=undefined){
   document.getElementById('appointmentName').innerHTML = appointment.patientName;
   document.getElementById('appointmentAge').innerHTML = appointment.patientAge;
@@ -568,10 +560,6 @@ document.getElementById('active2').innerHTML = `<div>
 
 // Function to handle the View Profile button click
 
-function viewProfile(id) {
-  // Replace with your own code to view the patient's profile
-  console.log(`Viewing profile for patient with id ${id}`);
-}
 
 function switchAppointment(){
   if (oldAppointment != null && getActiveAppointmentID() != -1){
@@ -760,7 +748,7 @@ let durations=[
     let durationsList = durations.map(duration => `<option>${duration}</option>`).join('\n');
 
     const newTreatmentDiv = document.createElement('div');
-    newTreatmentDiv.className = 'grid grid-cols-4 gap-4 mt-4 pl-6';
+    newTreatmentDiv.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4 pl-6';
     newTreatmentDiv.innerHTML = `
     <div>
                         <label for="medicine" class="block text-sm font-medium text-gray-700">Medicine Name</label>
@@ -870,7 +858,7 @@ function confirmCancel(){
   })
   .then((response) => response.json())
   .then((data) => {
-    console.log("Appointment cancelled successfully");
+  
     //todaysAppointments.push(oldAppointment);
     oldAppointment=null;
     setActiveAppointmentID(-1);
@@ -899,12 +887,11 @@ stars.forEach((star, index) => {
 
         // Update the rating value
         ratingValue.value = index + 1;
-        console.log(ratingValue.value);
+
     });
 });
 
 function submitAppointment(){
-  console.log("Submitting Appointment");
   const diagnosesDiv = document.getElementsByClassName('diagnosis');
   const medicineNames=document.getElementsByClassName('medicine');
   const frequencies=document.getElementsByClassName('frequency');
@@ -948,7 +935,7 @@ let dosage = dosages[i].value;
   let rating=ratingValue.value;
   const notes = document.getElementById('notes').value;
   const appointmentId = getActiveAppointmentID();
-  console.log("APPOINTMENT FINALIZE")
+
 
   fetch ("http://localhost:8008/complete_appointment", {
     method: "PATCH",
@@ -960,7 +947,6 @@ let dosage = dosages[i].value;
   })
   .then((response) => response.json())
   .then((data) => {
-    console.log("Appointment finalized successfully");
     noneSelected();
     oldAppointment=null;
     setActiveAppointmentID(-1);

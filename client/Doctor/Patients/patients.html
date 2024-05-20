@@ -20,7 +20,7 @@
   <!--Button to open the side bar-->
   <button data-drawer-target="default-sidebar" id="sideOpenBtn" data-drawer-toggle="default-sidebar"
     aria-controls="default-sidebar" type="button"
-    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
     <span class="sr-only">Open sidebar</span>
     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <path clip-rule="evenodd" fill-rule="evenodd"
@@ -33,7 +33,7 @@
 
  <!--Side Bar-->
  <aside id="sidebar"
- class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 rounded-md"
+ class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0 rounded-md"
  aria-label="Sidebar">
 
  <!--Side Bar Header-->
@@ -41,7 +41,7 @@
    
    <button data-drawer-target="default-sidebar" id="sideCloseBtn" data-drawer-toggle="default-sidebar"
      aria-controls="default-sidebar" type="button"
-     class="inline-flex items-center p-2 mt-1 ms-3 text-sm text-gray-100 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+     class="inline-flex items-center p-2 mt-1 ms-3 text-sm text-gray-100 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
      <span class="sr-only">Open sidebar</span>
      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6" fill="currentColor" viewBox="0 0 50 50">
        <path
@@ -156,7 +156,7 @@
 
 
     <!--Main Content-->
-  <div class="p-4 sm:ml-64">
+  <div class="p-4 lg:ml-64">
     <div>
       <div class="lg:col-span-6 w-full">
         
@@ -167,14 +167,14 @@
 
 <style>h1, h2, h3, h4, h5, h6 { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; }
 </style>
-<style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; overflow-y:hidden;}
+<style>body { font-family: 'Inter', sans-serif; --font-sans: 'Inter'; overflow-y:auto;}
 </style>
 
     
   </header>
   
-  <main class="flex-1 p-6 md:p-8 lg:p-10 grid grid-cols-1 gap-8">
-    <div id="loading" style="display: none; position: fixed; top: 0; left: 250px; width: calc(100% - 250px); height: 100%; background-color:lightgrey; z-index: 1000; display: flex; justify-content: center; align-items: center;">
+  <main class="flex-1 p-6 lg:p-8 lg:p-10 grid grid-cols-1 gap-8">
+    <div id="loading" style="display: none;">
       <div role="status">
         <svg aria-hidden="true" class="inline w-32 h-32 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -185,9 +185,9 @@
     </div>
     <div class="space-y-6">
       <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold">Patients</h1>
+        <h1 class="text-2xl font-bold hidden lg:block">Patients</h1>
         <div class="ml-auto flex items-center gap-4">
-            <form class="flex-1 relative">
+            <form class="flex-1 relative lg:center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -217,17 +217,17 @@
           <table class="w-full h-full caption-bottom text-md">
             <thead class="[&amp;_tr]:border-b sticky top-0 bg-white dark:bg-gray-900 z-10">
               <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground hidden lg:table-cell [&amp;:has([role=checkbox])]:pr-0">
                   Patient ID
                 </th>
                 <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
                   Patient
                 </th>
-                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground hidden sm:table-cell [&amp;:has([role=checkbox])]:pr-0">
                   Age
                 </th>
       
-                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground hidden lg:table-cell [&amp;:has([role=checkbox])]:pr-0">
                   Phone Number
                 </th>
                 
@@ -249,16 +249,16 @@
 
 <div id="patientInfoModal" onclick="closeModal('patientInfoModal')"
 class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 inset-0 overflow-y-auto">
-<div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+<div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center lg:block lg:p-0">
   <div class="fixed inset-0 transition-opacity" aria-hidden="true">
     <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
   </div>
-  <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+  <span class="hidden lg:inline-block lg:align-middle lg:h-screen" aria-hidden="true">&#8203;</span>
   <div onclick="event.stopPropagation()"
-    class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-auto shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-7xl sm:w-full  sm:h-full">
-<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+    class="inline-block bg-green-50 align-bottom bg-white rounded-lg text-left overflow-auto shadow-xl transform transition-all lg:my-8 lg:align-middle lg:max-w-7xl lg:w-full  lg:h-full">
+<div class="bg-white px-4 pt-5 pb-4 lg:p-6 lg:pb-4">
 <div class="">
-<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+<div class="mt-3 text-center lg:mt-0 lg:ml-4 lg:text-left">
 
   <div class="mt-2 w-full h-full overflow-auto">
     <div class="p-2">
@@ -359,7 +359,7 @@ class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 
                 <!--End of Skeleton Loader-->
   
   
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-2">
                   <div id="medications">
                     <h2 class="text-2xl font-bold mb-4">Medications</h2>
                     <div id="medication_details" class="bg-white p-6 rounded-lg shadow-md ">
@@ -373,7 +373,7 @@ class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 
                   </div>
                 </div>
   
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div id="injuries">
                     <h2 class="text-2xl font-bold mb-4">Past Injuries</h2>
                     <div id="injuries_details" class="space-y-4">
@@ -430,9 +430,9 @@ class="opacity-0 pointer-events-none transition-opacity duration-300 fixed z-10 
 </div>
 </div>
 </div>
-<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+<div class="bg-gray-50 px-4 py-3 lg:px-6 lg:flex lg:flex-row-reverse">
 <button type="button" onclick="closeModal('patientInfoModal')"
-class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 lg:ml-3 lg:w-auto lg:text-sm">
 Close
 </button>
 </div>
@@ -446,6 +446,7 @@ Close
 <!-- <script type="module" src="../js/patient_history.js"></script> -->
 <script src="drPatients.js"></script>
 <script src="../logout.js"></script>
+<script src="../../patient/js/sidebar_script.js"></script>
 
 </html>
 
