@@ -59,7 +59,7 @@ const resetPassword = async (e) => {
       localStorage.removeItem("reset_token");
       localStorage.removeItem("reset_email");
       setTimeout(() => {
-        window.location.href = "http://127.0.0.1:5500/client/Login.html";
+        window.location.href = "http://127.0.0.1:5500/client/Login/Login.html";
       }, 1500);
     } else {
       Swal.fire({
