@@ -62,7 +62,7 @@ fetch("http://localhost:8008/personal_data", {
       console.log("Unauthorized");
       localStorage.removeItem("token");
       window.location.href =
-        "http://" + window.location.host + "/client/Login/login.html";
+        "http://" + window.location.host + "/client/Login/Login.html";
     }
 
     return response.json();
