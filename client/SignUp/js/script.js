@@ -1,3 +1,4 @@
+
 let selectedGender = document.querySelector('input[name="gender"]').value;
 console.log(selectedGender);
 
@@ -15,7 +16,6 @@ document.querySelectorAll('input[name="gender"]').forEach((radioButton) => {
       // Get the value of the checked radio button
       selectedGender = this.value;
       console.log("Selected gender:", selectedGender);
-      // You can do further processing with the selected value here
     }
   });
 });
@@ -28,12 +28,10 @@ function validatePhone(phone) {
 }
 
 // Form submission event handler
-document
-  .getElementById("registerForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
-    register();
-  });
+document.getElementById("registerForm").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form submission
+  register();
+});
 
 async function register() {
   const emailInput = document.getElementById("email").value;
@@ -44,19 +42,23 @@ async function register() {
   const ageInput = document.getElementById("age").value;
   const addressInput = document.getElementById("address").value;
   const weight = document.getElementById("weight").value;
-
-const height = document.getElementById("height").value;
-  //geting the value of the radio button
+  const height = document.getElementById("height").value;
 
   if (!validateEmail(emailInput)) {
-    alert("Please enter a valid email address.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Email',
+      text: 'Please enter a valid email address.',
+    });
     return;
   }
 
   if (!validatePhone(phoneInput)) {
-    alert(
-      "Please enter a valid Egyptian phone number in the format XXXX-XXX-XXXX."
-    );
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Phone Number',
+      text: 'Please enter a valid Egyptian phone number in the format XXXX-XXX-XXXX.',
+    });
     return;
   }
 
@@ -80,15 +82,38 @@ const height = document.getElementById("height").value;
       }),
     });
     const data = await response.json();
-    localStorage.clear();
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("role", data.role);
-    localStorage.setItem("patient_id", data.id);
-    console.log(localStorage.getItem("token"));
-    alert("Registration successful");
-    window.location.href =
-      "http://" + window.location.host + "/client/patient/patient.html";
+
+    if (data.token) {
+      localStorage.clear();
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
+      localStorage.setItem("patient_id", data.id);
+      console.log(localStorage.getItem("token"));
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful',
+        text: 'You have registered successfully.',
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.href = `http://${window.location.host}/client/patient/patient.html`;
+      }, 1500);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: data.error,
+        showConfirmButton: true,
+
+      });
+    }
   } catch (error) {
-    alert(error.error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong. Please try again later.',
+    });
+    console.error(error);
   }
 }

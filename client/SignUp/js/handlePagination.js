@@ -75,8 +75,8 @@ function handleNext() {
   }
   currentPage++;
   console.log(currentPage);
-  step2.classList.add("bg-gray-900");
-  step2.classList.remove("bg-gray-300");
+  step2.classList.add("bg-green-600");
+  step2.classList.remove("bg-green-300");
 
   // Add sliding transition
   form.classList.remove("slide-in-from-left");
@@ -105,8 +105,8 @@ function handlePrev() {
   }
   currentPage--;
   console.log(currentPage);
-  step2.classList.remove("bg-gray-900");
-  step2.classList.add("bg-gray-300");
+  step2.classList.remove("bg-green-600");
+  step2.classList.add("bg-green-300");
   form.classList.remove("slide-in-from-right");
   form.classList.add("slide-in-from-left");
   name_section.classList.remove("hidden");

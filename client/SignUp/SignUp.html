@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/public/assets/styles/tailwind.js"></script>
+  <script src="/public/assets/sweetAlert/sweetalert2.all.min.js"></script>
   <title>Document</title>
   <link rel="stylesheet" href="./styles/SignUp.css">
 
@@ -108,7 +109,7 @@
             <div class="inline-flex items-center">
               <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="male">
                 <input name="gender" type="radio"
-                  class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-900 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+                  class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-green-900 before:opacity-0 before:transition-opacity checked:border-green-900 checked:before:bg-gray-900 hover:before:opacity-10"
                   id="male" value="male" checked />
                 <span
                   class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
@@ -124,7 +125,7 @@
             <div class="inline-flex items-center">
               <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="female">
                 <input name="gender" type="radio"
-                  class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-gray-900 checked:before:bg-gray-900 hover:before:opacity-10"
+                  class="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-full border border-black text-gray-900 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-green-500 before:opacity-0 before:transition-opacity checked:border-green-900 checked:before:bg-gray-900 hover:before:opacity-10"
                   id="female" value="female" />
                 <span
                   class="absolute text-gray-900 transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
@@ -171,12 +172,12 @@
         <div class="mt-4 w-full text-sm border-b border-gray-500 py-5 playfair tooltip">
           <div class="w-full px-4 ">
             <div class="relative flex items-center justify-between w-full">
-              <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-gray-300"></div>
-              <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-gray-900 transition-all duration-500">
+              <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-green-300"></div>
+              <div class="absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-green-600 transition-all duration-500">
               </div>
               <div
               id="step1"
-                class="relative z-10 grid w-10 h-10 font-bold text-white transition-all duration-300 bg-gray-900 rounded-full place-items-center">
+                class="relative z-10 grid w-10 h-10 font-bold text-white transition-all duration-300 bg-green-600 rounded-full place-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                   aria-hidden="true" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -187,7 +188,7 @@
               </div>
               <div
               id="step2"
-                class="relative z-10 grid w-10 h-10 font-bold text-white transition-all duration-300 bg-gray-300 rounded-full place-items-center">
+                class="relative z-10 grid w-10 h-10 font-bold text-white transition-all duration-300 bg-green-300 rounded-full place-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                   aria-hidden="true" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -201,13 +202,13 @@
             <div class="flex justify-between mt-10">
               <button
               id="prevBtn"
-                class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                class="select-none rounded-lg bg-green-600 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button">
                 Prev
               </button>
               <button
               id="nextBtn"
-                class="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                class="select-none rounded-lg bg-green-600 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button">
                 Next
               </button>

@@ -140,7 +140,7 @@ def register():
 
         user = users.find_one({ 'email': email })
         if user: 
-            return jsonify({ 'error': 'invalid email' }), 409
+            return jsonify({ 'error': 'email already exists choose another one' }), 409
 
         password=data.get('password').encode('utf-8')
         hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
