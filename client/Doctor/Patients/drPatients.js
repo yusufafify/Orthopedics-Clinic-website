@@ -10,6 +10,7 @@ fetch("http://localhost:8008/get_lifetime_doctor_patients", {
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
+        images=data.images;
         patients=data.patients;
         document.querySelector('#patientsTable').innerHTML = generatePatientTableRows(data.patients);
         stopLoading();
@@ -63,7 +64,10 @@ let patients;
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 hidden lg:table-cell">${patient.phoneNumber}</td>
 
           <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
-            <button class="view_btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" id="view${i}" onclick="openModal('patientInfoModal'); showPatientDetails(this);  getHistory(${i})">View</button>
+            <button class="view_btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" id="view${i}" onclick="openModal('patientInfoModal'); showPatientDetails(this);  getHistory(${i})">History</button>
+          </td>
+          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 text-right">
+            <button class="view_btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-id="${i}" id="view${i}" onclick="openModal('imagesModal'); showPatientImages(this)">Images</button>
           </td>
         </tr>
       `;
@@ -100,6 +104,7 @@ let patients;
     document.getElementById('loading').style.display = 'none';
   }
 
+  
   function searchPatients() {
     // Get the search term from the input field
     const searchTerm = document.querySelector('#searchInput').value.toLowerCase();
@@ -118,7 +123,42 @@ let patients;
     document.querySelector('#patientsTable').innerHTML = generatePatientTableRows(filteredPatients);
   }
 
+function showPatientImages(button){
+  openModal('imagesModal');
+  const index = button.getAttribute('data-id');
+    let divv=document.getElementsByClassName('scrollable-panel');
+    divv=divv[0];
+    console.log(divv);
+    divv.innerHTML='';
+  // Get the appointment details using the index
+  const patientImages = images[index];
+  patientImages.forEach((image) => {
+    let imageContainer = document.createElement('div');
+    imageContainer.className = 'image-container flex-shrink-0 w-64 px-2';
 
+    let img = document.createElement('img');
+    img.src = image.src;
+    img.alt = image.alt;
+    img.className = 'w-full';
+    console.log(image)
+    let imageDescription = document.createElement('p');
+    imageDescription.textContent = image.category;
+
+    let imageDate = document.createElement('p');
+    imageDate.textContent = image.date;
+
+    imageContainer.appendChild(img);
+    imageContainer.appendChild(imageDescription);
+    imageContainer.appendChild(imageDate);
+
+    divv.appendChild(imageContainer);
+  });
+  
+  // Populate the form with the appointment details
+  // document.getElementById('infoName').innerHTML = "Name: "+patient.name;
+  // document.getElementById('infoAge').innerHTML = "Age: "+patient.age;
+  // document.getElementById('infoGender').innerHTML = "Gender: "+ patient.gender;
+}
 
   function showPatientDetails(button) {
     const index = button.getAttribute('data-id');
@@ -139,17 +179,16 @@ let patients;
   
   //getPatientInfo();
   
+  function openModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
   
-function openModal(modalId) {
-  var modal = document.getElementById(modalId);
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  }
-
-
-function closeModal(modalId) {
-  var modal = document.getElementById(modalId);
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  }
+  
+  function closeModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    }
 
 
   document.getElementById('sideOpenBtn').addEventListener('click', function() {
