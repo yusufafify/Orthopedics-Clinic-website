@@ -546,8 +546,8 @@ fetch("http://localhost:8008/get_count_of_allapps", {
         series: [data.pending, data.completed, data.cancelled],
         chart: {
             type: "pie",
-            width: 280,
-            height: 280,
+            width: 500,
+            height: 500,
             toolbar: {
                 show: false,
             },
