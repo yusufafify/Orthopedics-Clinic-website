@@ -11,6 +11,7 @@
     #menu-toggle:checked+#menu {
       display: block;
     }
+    
 
     #dropdown-toggle:checked+#dropdown {
       display: block;
@@ -84,10 +85,10 @@
   </style>
 </head>
 
-<body class="antialiased bg-white  text-gray-900">
+<body class="antialiased bg-white scroll-smooth text-gray-900">
 
 
-  <div class="flex flex-col w-full min-h-[100dvh]">
+  <div class="flex flex-col scroll-smooth w-full min-h-[100dvh]">
 
     <!--Nav Bar-->
 
@@ -169,7 +170,7 @@
           <div class="flex flex-wrap items-center justify-between py-6">
             <div class="w-1/2 md:w-auto">
               <a href="/client/home.html" class="text-white font-bold text-2xl">
-                OrthoConnect
+                OrthoPro
               </a>
             </div>
     
@@ -185,15 +186,14 @@
               <nav
                 class="w-full bg-white md:bg-transparent rounded shadow-lg px-6 py-4 mt-4 text-center md:p-0 md:mt-0 md:shadow-none">
                 <ul class="md:flex items-center">
-                  <li><a class="py-2 inline-block md:text-white md:hidden lg:block font-semibold" href="#">About Us</a></li>
+                  <li><a class="py-2 inline-block md:text-white md:hidden lg:block font-semibold" href="#about">About Us</a></li>
                   <li class="md:ml-4"><a class="py-2 inline-block md:text-white md:px-2 font-semibold"
-                      href="#">Treatments</a></li>
+                      href="#specialities">Specialities</a></li>
                   <li class="md:ml-4"><a class="py-2 inline-block md:text-white md:px-2 font-semibold"
-                      href="#">Testimonials</a></li>
+                      href="#testimonials">Testimonials</a></li>
                   <li class="md:ml-4 md:hidden lg:block"><a class="py-2 inline-block md:text-white md:px-2 font-semibold"
-                      href="#">Blog</a></li>
-                  <li class="md:ml-4"><a class="py-2 inline-block md:text-white md:px-2 font-semibold" href="#">Contact
-                      Us</a></li>
+                      href="#pricing">Pricing</a></li>
+                  
                   <li class="md:ml-6 mt-3 md:mt-0">
                     <a class="inline-block font-semibold px-4 py-2 text-white bg-blue-600 md:bg-transparent md:text-white border border-white rounded"
                       href="/client/Login/Login.html">Sign-in</a>
@@ -223,7 +223,7 @@
                   where
                   trust
                   and comfort are priorities.</p>
-                <a href="#" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">Book
+                <a href="/client/Login/Login.html" class="px-8 py-4 bg-teal-500 text-white rounded inline-block mt-8 font-semibold">Book
                   Appointment</a>
               </div>
             </div>
@@ -235,7 +235,7 @@
 
 
       <!--Features-->
-      <section class="w-full pl-12 grid place-items-center py-12 md:py-24 lg:py-32 border-t">
+      <section id="about" class="w-full pl-12 grid place-items-center py-12 md:py-24 lg:py-32 border-t">
         <div class="container px-4 md:px-6">
           <div class="grid gap-10 lg:grid-cols-3 lg:gap-16">
             <div class="flex flex-col justify-center space-y-4">
@@ -293,7 +293,7 @@
 
 
       <!--Specialities-->
-      <section class="w-full grid place-items-center py-12 md:py-24 lg:py-32" data-id="18">
+      <section id="specialities" class="w-full grid place-items-center py-12 md:py-24 lg:py-32" data-id="18">
         <div class="container grid items-center gap-4 px-4 space-y-0 md:gap-6 md:px-6 lg:grid-cols-2 lg:gap-12"
           data-id="19"><img src="/public/assets/images/joints-orth.png" alt="Specialties" width="550"
             height="310" class="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full"
@@ -385,7 +385,7 @@
 
 
       <!--Testimonials-->
-      <section class="w-full py-12 grid place-items-center md:py-24 lg:py-32 bg-[#d1e0e0] " data-id="35">
+      <section id="testimonials" class="w-full py-12 grid place-items-center md:py-24 lg:py-32 bg-[#d1e0e0] " data-id="35">
         <div class="container grid items-center gap-6 px-4 text-center md:px-6" data-id="36">
           <div class="space-y-2" data-id="37">
             <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl" data-id="38">
@@ -449,7 +449,7 @@
 
 
       <!--Pricing-->
-      <section class="my-12 grid place-items-center mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8" data-id="15">
+      <section id="pricing" class="my-12 grid place-items-center mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8" data-id="15">
         <div class="space-y-2" data-id="37">
           <h2 class="text-3xl mb-2 font-bold text-center tracking-tighter sm:text-4xl md:text-5xl" data-id="38">
             Billing and Pricing
@@ -487,9 +487,9 @@
                 </li>
               </ul>
             </div>
-            <div class="px-6 py-6 bg-gray-50 sm:p-10 sm:pt-2" data-id="34"><button
+            <div class="px-6 py-6 bg-gray-50 sm:p-10 sm:pt-2" data-id="34"><a href="/client/Login/Login.html"
                 class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                data-id="35">Get an Examination</button></div>
+                data-id="35">Get an Examination</a></div>
           </div>
           <!--End Plan1-->
 
@@ -523,9 +523,9 @@
                 </li>
               </ul>
             </div>
-            <div class="px-6 py-6 bg-gray-50  sm:p-10 sm:pt-2" data-id="53"><button
+            <div class="px-6 py-6 bg-gray-50  sm:p-10 sm:pt-2" data-id="53"><a href="/client/Login/Login.html"
                 class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 px-4 py-2"
-                data-id="54">Get a Consultation</button></div>
+                data-id="54">Get a Consultation</a></div>
           </div>
           <!--End of Plan2-->
 

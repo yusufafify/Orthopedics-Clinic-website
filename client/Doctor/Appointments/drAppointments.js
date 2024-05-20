@@ -1,5 +1,10 @@
 // Dummy data
 let appointments;
+let nDiagnosis;
+let nTreatments;
+let diagnosisSlot;
+let treatmentsSlot;
+
 startLoading();
 fetch("http://localhost:8008/all_appointments", {
     method: "GET",
@@ -92,8 +97,8 @@ fetch("http://localhost:8008/all_appointments", {
     const appointment = appointments[index];
     console.log(appointment);
     console.log(appointment.diagnosis.length);
-    let nDiagnosis= appointment.diagnosis.length;
-    let nTreatments=appointment.treatment.length;
+    nDiagnosis= appointment.diagnosis.length;
+    nTreatments=appointment.treatment.length;
 
     // Populate the form with the appointment details
     document.querySelector('#appointmentID').value = appointment.appointmentID;
@@ -103,8 +108,8 @@ fetch("http://localhost:8008/all_appointments", {
     document.querySelector('#doctorNotes').value = appointment.doctorNotes;
     document.querySelector('#type').value = appointment.type;
     document.querySelector('#status').value = appointment.status;
-    let diagnosisSlot=document.querySelector('#diagnoses');
-    let treatmentsSlot=document.querySelector('#treatments');
+    diagnosisSlot=document.querySelector('#diagnoses');
+    treatmentsSlot=document.querySelector('#treatments');
     for (let i=1; i<nDiagnosis; i++){
       diagnosisSlot.insertAdjacentHTML('afterbegin',` <label for="diagnosis" class="block mb-2">Diagnosis</label>
       <input type="text" id="diagnosis${i}" name="diagnosis" class="w-full p-2 border border-gray-300 rounded">`);
@@ -115,6 +120,7 @@ fetch("http://localhost:8008/all_appointments", {
     }
     
     for (let i=0;i<nDiagnosis;i++){
+      console.log(appointment.diagnosis[i])
       //Write this function so that it takes every instance of diagnosis, and adds a space after every , and adds it to the input fields
       document.querySelector(`#diagnosis${i}`).value=appointment.diagnosis[i];
     }
@@ -135,31 +141,11 @@ appointment.treatment[i].replace(/,/g,', ')
   
   function closeModal(modalId) {
     var modal = document.getElementById(modalId);
+    nDiagnosis=0;
+nTreatments=0;
+diagnosisSlot.innerHTML=`<label for="diagnosis" class="block mb-2">Diagnosis</label>
+<input type="text" id="diagnosis0" name="diagnosis" class="w-full p-2 border border-gray-300 rounded">`;
+treatmentsSlot.innerHTML=` <label for="treatment" class="block mb-2">Treatment</label>
+<input type="text" id="treatment0" name="treatment" class="w-full p-2 border border-gray-300 rounded">`;
     modal.classList.add('opacity-0', 'pointer-events-none');
     }
-
-  function editAppointment() {
-    // Get the updated appointment details from the form
-    const appointmentID = document.querySelector('#appointmentID').value;
-    const patientName = document.querySelector('#patientName').value;
-    const date = document.querySelector('#date').value;
-    const type = document.querySelector('#type').value;
-    const status = document.querySelector('#status').value;
-    
-    // Update the appointment in the database
-    // ...
-    
-    // Hide the modal
-    document.querySelector('#appointmentModal').style.display = 'none';
-  }
-  
-  function deleteAppointment() {
-    // Get the appointment ID from the form
-    const appointmentID = document.querySelector('#appointmentID').value;
-    
-    // Delete the appointment from the database
-    // ...
-    
-    // Hide the modal
-    document.querySelector('#appointmentModal').style.display = 'none';
-  }
