@@ -56,6 +56,10 @@
   
 
 
+         // STore the PatientID in the edit button
+         const submitBtn = document.getElementById('confirmEditbtn');
+         submitBtn.dataset.DoctorId = item.DoctorId;
+
         // Show the dialog
         dialogBackdrop.style.opacity = '1';
         dialogBackdrop.classList.remove('hidden');
@@ -157,9 +161,19 @@ try{
           body: JSON.stringify({email: DoctorEmail}),
         }
       );
+      Swal.fire({
+        icon: "success",
+        title: "Doctor Is Deleted",
+        text: "",
+        timer: 3500,
+        showConfirmButton: false,
+      })
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+
+      setTimeout(() => {
+        window.location.reload();
+    }, 1500);
 
       
 }
@@ -189,24 +203,33 @@ document.addEventListener("DOMContentLoaded", function () {
         //const nextApp = document.getElementById('modalNextApp').value.trim();
         const phone = document.getElementById('modalPhone').value.trim();
         const salary = document.getElementById('modalSalary').value.trim();
-        const workinghours = document.getElementById('modalWork').value.trim();
+        const working_hours = document.getElementById('modalWork').value.trim();
         
+        const _id=this.dataset.DoctorId;
         // Validate all required inputs
-        if (!name || !email || !salary || !workinghours || !phone) {
+        if (!name || !email || !salary || !working_hours || !phone) {
             alert("Please fill in all required fields.");
             return; // Stop the function if validation fails
         }
 
         // Prepare data object with validated values
         const employeeData = {
+            _id,
             name,
             email,
             phone,
             salary,
-            workinghours
+            working_hours
         };
 
         console.log(employeeData);
+        Swal.fire({
+          icon: "success",
+          title: "Doctor Is Edited",
+          text: "",
+          timer: 1500,
+          showConfirmButton: false,
+        })
         UpdateDoctorForm(employeeData);  // Call the function to submit data
     });
 });
@@ -217,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function UpdateDoctorForm(employeeData) {
     try {
       const response = await fetch(
-        "http://localhost:8008/create_employee",
+        "http://localhost:8008/edit_doctor",
         {
           method: "PATCH",
           headers: {
@@ -229,9 +252,18 @@ async function UpdateDoctorForm(employeeData) {
       );
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+      
+      setTimeout(() => {
+        window.location.reload();
+    }, 1500);
     } catch (error) {
       console.log(error);
     }
   }
     
+    //Validate phone
+    function validatePhone(phone) {
+      // Assuming Egyptian phone number format is XXXX-XXX-XXXX where X is a digit
+      const phonePattern = /^\d{4}\d{3}\d{4}$/;
+      return phonePattern.test(phone);
+    }

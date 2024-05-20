@@ -62,7 +62,7 @@ fetch("http://localhost:8008/personal_data", {
       console.log("Unauthorized");
       localStorage.removeItem("token");
       window.location.href =
-        "http://" + window.location.host + "/Orthopedics-Clinic-website/client/Login/login.html";
+        "http://" + window.location.host + "/client/Login/login.html";
     }
 
     return response.json();
@@ -78,9 +78,9 @@ fetch("http://localhost:8008/personal_data", {
 console.log(localStorage.getItem("token"));
 
 logoutBtn.addEventListener("click", function () {
-  localStorage.removeItem("token");
+  localStorage.clear();
   window.location.href =
-    "http://" + window.location.host + "/Orthopedics-Clinic-website/client/Login/login.html";
+    "http://" + window.location.host + "/client/Login/login.html";
 });
 
 

@@ -18,6 +18,7 @@ fetch("http://localhost:8008/get_appointments", {
     headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`
+        
     },
 })
 .then((response) => {
@@ -40,18 +41,26 @@ fetch("http://localhost:8008/get_appointments", {
 function openModal(item) {
     const dialog = document.querySelector('[data-dialog="dialog"]');
     const dialogBackdrop = document.querySelector('[data-dialog-backdrop="dialog"]');
-  
+
     // Example of setting up the content dynamically
     // You need to have elements inside your modal to hold these values
     dialog.querySelector('#modalName').value = item.patientName;
     dialog.querySelector('#modalDate').value = item.date;
     dialog.querySelector('#modalTime').value = item.time;
-    dialog.querySelector('#modalStatus').value = item.paymentMethod;
+    dialog.querySelector('#modalStatus').value = item.status;
+    dialog.querySelector('#modalPayment').value = item.paymentMethod;
 
 
+    
     // Store the appointment ID in the delete button
     const deleteBtn = document.getElementById('deleteBtn');
     deleteBtn.dataset.appointmentId = item.AppointmentId;  // Using data attributes to store the appointment ID
+
+
+    // Store the appointment ID in the Submit button
+    const submitBtn = document.getElementById('confirmEditbtn');
+    submitBtn.dataset.appointmentId = item.AppointmentId;  // Using data attributes to store the appointment ID
+
   
     // Show the dialog
     dialogBackdrop.style.opacity = '1';
@@ -79,13 +88,13 @@ function openModal(item) {
 function renderTable(filteredData) {
   const tableBody = document.getElementById('data-table').getElementsByTagName('tbody')[0];
   tableBody.innerHTML = ''; // Clear the table first
-
+  
   filteredData.forEach(item => {
       const row = tableBody.insertRow();
       row.className = 'border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted';
 
       // Creating cells as per your existing setup
-      const cells = ['AppointmentId', 'patientName', 'doctorName', 'date', 'time', 'paymentMethod'].map(key => {
+      const cells = ['AppointmentId', 'patientName', 'doctorName', 'date', 'time', 'paymentMethod', 'status'].map(key => {
           const cell = row.insertCell();
           cell.textContent = item[key];
           if (key === 'AppointmentId') {
@@ -142,19 +151,29 @@ async function deleteAppointment(appointmentId) {
 
 try{
   const response = await fetch(
-        "http://localhost:8008/add_to_medical_history",
+        "http://localhost:8008/cancel_appointment",
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify({id: appointmentId}),
+          body: JSON.stringify({appointmentId: appointmentId}),
         }
       );
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+
+      Swal.fire({
+        icon: "success",
+        title: "Appointment Is Deleted",
+        text: "",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.reload();
+    }, 1000);
 
       
 }
@@ -168,15 +187,19 @@ catch (error) {
 
 
 //Edit Appointment EVENT listner
-const submitBtn = document.getElementById('confirmEditbtn');
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    const submitBtn = document.getElementById('submitBtn');
+    const submitBtn = document.getElementById('confirmEditbtn');
 
     submitBtn.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent default action (form submission in this case)
 
+
+
+
+        
         // Fetch all inputs
         //const name = document.getElementById('modalName').value.trim();
         //const email = document.getElementById('modalEmail').value.trim();
@@ -185,26 +208,31 @@ document.addEventListener("DOMContentLoaded", function () {
         //const role = document.querySelector('input[name="role"]:checked');
         //const gender = document.querySelector('input[name="gender"]:checked');
         //const address = document.getElementById('address').value.trim();
-        const appDate = document.getElementById('modalDate').value.trim();
-        const appTime = document.getElementById('modalTime').value.trim();
-        const paymentMethod = document.getElementById('modalStatus').value.trim();
+        const date = document.getElementById('modalDate').value.trim();
+        //const appTime = document.getElementById('modalTime').value.trim();
+        const paymentMethod = document.getElementById('modalPayment').value.trim();
+        const status = document.getElementById('modalStatus').value.trim();
+        
+        const _id=this.dataset.appointmentId;
+        
         //const workinghours = document.getElementById('working-hours').value.trim();
-
+        
         // Validate all required inputs
-        if (!appDate || !appTime || !paymentMethod) {
+        if (!date ||  !paymentMethod || !status) {
             alert("Please fill in all required fields.");
             return; // Stop the function if validation fails
         }
 
         // Prepare data object with validated values
         const AppointmentData = {
-           appDate,
-           appTime,
-           paymentMethod
+           _id,
+           date,
+           paymentMethod,
+           status
         };
 
         console.log(AppointmentData);
-        //UpdateAppointmentForm(employeeData);  // Call the function to submit data
+        UpdateAppointmentForm(AppointmentData);  // Call the function to submit data
     });
 });
 
@@ -214,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function UpdateAppointmentForm(AppointmentData) {
     try {
       const response = await fetch(
-        "http://localhost:8008/create_employee",
+        "http://localhost:8008/edit_appointment_admin",
         {
           method: "PATCH",
           headers: {
@@ -226,7 +254,17 @@ async function UpdateAppointmentForm(AppointmentData) {
       );
       const data = await response.json();
       console.log(data);
-      window.location.reload();
+
+      Swal.fire({
+        icon: "success",
+        title: "Appointment Is Updated ",
+        text: "",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+      setTimeout(() => {
+        window.location.reload();
+    }, 1000);
     } catch (error) {
       console.log(error);
     }

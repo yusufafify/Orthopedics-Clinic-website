@@ -84,8 +84,7 @@ function login() {
             showConfirmButton: false,
           }).then(() => {
             window.location.href =
-              //"http://127.0.0.1:5500/client/Admin/admin.html";
-              "http://127.0.0.1:5500/Orthopedics-Clinic-website/client/Admin/admin.html";
+              "http://127.0.0.1:5500/client/Admin/admin.html";
 
           });
         }
