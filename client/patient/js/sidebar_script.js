@@ -80,5 +80,5 @@ console.log(localStorage.getItem("token"));
 logoutBtn.addEventListener("click", function () {
   localStorage.removeItem("token");
   window.location.href =
-    "http://" + window.location.host + "/client/Login/login.html";
+    "http://" + window.location.host + "/client/Login/Login.html";
 });
