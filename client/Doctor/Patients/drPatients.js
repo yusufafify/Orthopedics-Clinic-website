@@ -132,6 +132,7 @@ function showPatientImages(button){
     divv.innerHTML='';
   // Get the appointment details using the index
   const patientImages = images[index];
+  if (patientImages.length>0){
   patientImages.forEach((image) => {
     let imageContainer = document.createElement('div');
     imageContainer.className = 'image-container flex-shrink-0 w-64 px-2';
@@ -153,6 +154,10 @@ function showPatientImages(button){
 
     divv.appendChild(imageContainer);
   });
+}
+else{
+  divv.append('No images found');
+}
   
   // Populate the form with the appointment details
   // document.getElementById('infoName').innerHTML = "Name: "+patient.name;
