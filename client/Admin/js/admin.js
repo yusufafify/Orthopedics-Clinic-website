@@ -49,29 +49,52 @@ const searchInput = document.getElementById('search');
 
 let appointmentsData = []; // Define this globally to store the fetched data
 
-fetch("http://localhost:8008/Dashboard", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+// fetch("http://localhost:8008/Dashboard", {
+//     method: "GET",
+//     headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("token")}`
         
-    },
-})
-.then((response) => {
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    return response.json();
-})
-.then((data) => {
-    appointmentsData = data.recent_appointments; // Store the fetched data globally
+//     },
+// })
+// .then((response) => {
+//     if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//     }
+//     return response.json();
+// })
+// .then((data) => {
+//     appointmentsData = data.recent_appointments; // Store the fetched data globally
     
-    renderTable(appointmentsData); // Render the initial table
-})
-.catch((error) => {
-    console.error("Error:", error.message);
-    alert('Failed to fetch data: ' + error.message);
-});
+//     renderTable(appointmentsData); // Render the initial table
+// })
+// .catch((error) => {
+//     console.error("Error:", error.message);
+//     alert('Failed to fetch data: ' + error.message);
+// });
+
+async function getDashboardData() {
+    try {
+        const response = await fetch("http://localhost:8008/Dashboard", {
+            method: "GET",
+            headers: {  
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        appointmentsData = data.recent_appointments; // Store the fetched data globally
+        renderTable(appointmentsData); // Render the initial table
+    } catch (error) {
+        console.error("Error:", error.message);
+        alert('Failed to fetch data: ' + error.message);
+    }
+}
+
+getDashboardData();
 
 
 

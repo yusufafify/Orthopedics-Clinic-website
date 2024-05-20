@@ -396,91 +396,146 @@ search.addEventListener("input", (event) => {
 
 
 
-//event listener for checking available slots btn
-document.getElementById("checkForDateBtn").addEventListener("click",async (event)=>{
+// Event listener for checking available slots button
+document.getElementById("checkForDateBtn").addEventListener("click", async (event) => {
   event.preventDefault();
-  const date=appointmentDate.value;
-  if(date===""){
-    alert("Please select a date");
+  const date = appointmentDate.value;
+
+  if (date === "") {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please select a date!',
+    });
     return;
   }
-  const availableSlots=await checkAvailableSlots(date);
-  if(availableSlots.length===0){
-    alert("No available slots for the selected date");
+
+  const availableSlots = await checkAvailableSlots(date);
+  if (availableSlots == null) {
     return;
   }
-  
-console.log(availableSlots);
+  if (availableSlots.length === 0) {
+    Swal.fire({
+      icon: 'info',
+      title: 'No Slots Available',
+      text: 'No available slots for the selected date.',
+    });
+    return;
+  }
+
+  console.log(availableSlots);
   document.getElementById("slotsContainer").classList.remove("hidden");
+  appointmentDate.setAttribute("disabled", "true");
+
   let uniqueSlots = availableSlots.filter((slot, index, self) =>
     index === self.findIndex((s) => s.doctorhours === slot.doctorhours)
   );
   console.log(uniqueSlots);
+
   document.getElementById("slots").innerHTML = uniqueSlots.map((slot, index) => {
-    return `<option id='${slot.DoctorEmail}' value="${slot.doctorhours}">${slot.doctorhours}</option>`
+    return `<option id='${slot.DoctorEmail}' value="${slot.doctorhours}">${slot.doctorhours} - Dr. ${slot.DoctorName}</option>`
   }).join("");
+
   document.getElementById("checkForDateBtn").classList.add("hidden");
   document.getElementById("submitAppointmentBtn").classList.remove("hidden");
-})
+});
 
-//check for available slots
-async function checkAvailableSlots(date){
-try {
-  const response =await fetch("http://localhost:8008/get_available_doctor",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json",
-      Authorization:`Bearer ${localStorage.getItem("token")}`,
-    },
-    body:JSON.stringify({
-      date:`${date}`,
-    }),
-  });
-  const data=await response.json();
-  console.log(data.returned_doctors)
-  return data.returned_doctors
-} catch (error) {
-  console.log(error)
+// Check for available slots
+async function checkAvailableSlots(date) {
+  try {
+    const response = await fetch("http://localhost:8008/get_available_doctor", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        date: `${date}`,
+      }),
+    });
+
+    const data = await response.json();
+    if (!data.flag) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: data.message,
+      });
+      return null;
+    }
+    console.log(data.returned_doctors);
+    return data.returned_doctors;
+  } catch (error) {
+    console.log(error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong. Please try again later.',
+    });
+    return null;
+  }
 }
-}
 
-
-
-document.getElementById("submitAppointmentBtn").addEventListener("click",async (e)=>{
-  const date=appointmentDate.value;
-  const type=document.getElementById('type').value;
-  const paymentMethod=document.getElementById('paymentMethod').value;
+document.getElementById("submitAppointmentBtn").addEventListener("click", async (e) => {
+  const date = appointmentDate.value;
+  const type = document.getElementById('type').value;
+  const paymentMethod = document.getElementById('paymentMethod').value;
   console.log(paymentMethod);
-  const email=document.getElementById("slots").selectedOptions[0].id;
-  const appointmentsObj={
+  const email = document.getElementById("slots").selectedOptions[0].id;
+
+  const appointmentsObj = {
     date,
     email,
     type,
     paymentMethod
-
-  }
+  };
   console.log(appointmentsObj);
+
   scheduleAppointment(appointmentsObj);
+});
 
-})
-
-async function scheduleAppointment(appointmentsObj){
+async function scheduleAppointment(appointmentsObj) {
   try {
-    const response=await fetch("http://localhost:8008/appointment_booking",{
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        Authorization:`Bearer ${localStorage.getItem("token")}`,
+    const response = await fetch("http://localhost:8008/appointment_booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body:JSON.stringify(appointmentsObj),
+      body: JSON.stringify(appointmentsObj),
     });
-    const data=await response.json();
+
+    const data = await response.json();
     console.log(data);
-    if(data){
-      alert("Appointment scheduled successfully");
-      window.location.reload();
+
+    if (data.flag) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Appointment Scheduled',
+        text: 'Your appointment has been scheduled successfully.',
+        showConfirmButton: false,
+      })
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Scheduling Failed',
+        text: data.message,
+        showConfirmButton: true,
+      }).then(() => {
+        window.location.reload();
+      });
     }
   } catch (error) {
     console.log(error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong. Please try again later.',
+      showConfirmButton: true,
+    });
   }
 }

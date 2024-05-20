@@ -208,11 +208,12 @@ def get_patient_data():
         current_user = get_jwt_identity()
         email = current_user['email']
         user = users.find_one({ 'email': email })
-        
+        print('qieydqidiedh')
         if not user: 
             return jsonify({ 'error': 'no patient found' }), 404
         print(user['profilePic']==True)
-        user_data = {
+        if(user['role']!='patient'):
+            user_data = {
             'email': user['email'],
             'name': user['name'],
             'role': user['role'],
@@ -221,10 +222,26 @@ def get_patient_data():
             'address': user['address'],
             'phoneNumber': user['phoneNumber'],
             'profilePic': user['profilePic'],
-            'height': user['height'],
-            'weight': user['weight'] 
+            'working_hours': user['working_hours'],
+            'salary': user['salary'],
+            'ssn': user['ssn']
             
         }
+        else:
+            
+          user_data = {
+              'email': user['email'],
+              'name': user['name'],
+              'role': user['role'],
+              'gender': user['gender'],
+              'age': user['age'],
+              'address': user['address'],
+              'phoneNumber': user['phoneNumber'],
+              'profilePic': user['profilePic'],
+              'height': user['height'],
+              'weight': user['weight'] 
+              
+          }
         
         return jsonify(user_data)
 
@@ -263,7 +280,8 @@ def appointment_booking():
 
         if appointment.find_one({'patientId':patid,'doctorId':docid,'date':date}):
             return jsonify({
-                'message':'already booked an appointment with this doctor on this date'
+                'message':'already booked an appointment with this doctor on this date',
+                'flag':False
             }), 409
 
         
@@ -280,7 +298,8 @@ def appointment_booking():
         })
 
         return jsonify({
-            'message':'success'
+            'message':'success',
+            'flag':True
         })  
     except Exception as err:
         return jsonify({ 'error': str(err) }), 500
@@ -518,6 +537,7 @@ def today_appointments():
                     'appointmentID':str(app['_id']),
                     'patientName':users.find_one({'_id':app['patientId']})['name'],
                     'patientAge':users.find_one({'_id':app['patientId']})['age'],
+                    'phoneNumber':users.find_one({'_id':app['patientId']})['phoneNumber'],
                     'date':app['date'],
                     'type':app['type'],
                     'paymentMethod':app['paymentMethod']
@@ -707,6 +727,8 @@ def cancel_appointment():
     try:
         user=get_jwt_identity()['email']
         userid=users.find_one({'email':user})['role']
+
+        
         data = request.get_json()
         appointment_id = ObjectId(data.get('appointmentId'))
         appointment_info = appointment.find_one({'_id': appointment_id})
@@ -718,11 +740,11 @@ def cancel_appointment():
             appointment_date = appointment_info['date'].date()  # Convert to date
         else:
             appointment_date = datetime.strptime(appointment_info['date'], '%Y-%m-%d').date()  # Parse date string
-
-        if appointment_date==current_date and userid=='patient':
-            return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
-        if appointment_date<current_date:
-            return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
+        if(userid!='admin'):
+          if appointment_date==current_date and userid=='patient':
+              return jsonify({'message': 'cannot cancel an appointment on the same day','flag':False}), 400
+          if appointment_date<current_date:
+              return jsonify({'message': 'cannot cancel an appointment in the past','flag':False}), 400
         appointment.find_one_and_update({'_id': appointment_id}, {'$set': {'status': 'cancelled'}}, upsert=True, return_document=ReturnDocument.AFTER)
         return jsonify({'message': 'success','flag':True}), 200
     except Exception as e:
@@ -840,7 +862,7 @@ def get_doctors():
 
         doctors = []
         for info in User:
-            if info['role'] == "Doctor" or info['role'] == "doctor":
+            if  info['role'] == "doctor":
                 doctorid=str(info['_id'])
 
                 doctors.append({
@@ -848,7 +870,8 @@ def get_doctors():
                     'DoctorName': info['name'] ,
                     'DoctorEmail': info['email'],
                     'DoctorPhone': info['phoneNumber'],
-                    'workingHours': info['working_hours']
+                    'workingHours': info['working_hours'],
+                    'salary': info['salary'],
                     
 
                 })
@@ -885,7 +908,7 @@ def create_employee():
         working_hours=data.get('workinghours')
         user = {
             'name':name,
-            'email':email,
+            'email':email.lower(),
             'password':hashed_password,
             'age':int(age),
             'role': role, 
@@ -894,7 +917,8 @@ def create_employee():
             'ssn': ssn,
             'phoneNumber':phone,
             'salary':salary,
-            'working_hours': working_hours
+            'working_hours': working_hours,
+            'profilePic': ''
         }
         users.insert_one(user)
         token = create_access_token({
@@ -1165,21 +1189,20 @@ def get_available_doctor():
         max_appointments = 10  # Arbitrary constant
         returndoc = []
         today=datetime.now().date()  # Get current date
-
+        
         if isinstance(date, datetime):
             date = date.date()  # Convert to date
         else:
             date = datetime.strptime(date, '%Y-%m-%d').date()
-
+        
         if date<today:
-            return jsonify({'message': 'cannot book an appointment in the past'}), 400
+            return jsonify({'message': 'cannot book an appointment in the past','flag':False}), 400
 
         # Get all doctors
         all_doctors = users.find({ 'role': 'doctor' })
-
         for doctor in all_doctors:
             # Count appointments for this doctor on the given date
-            appointment_count = appointment.count_documents({ 'doctorId': doctor['_id'], 'date': date })
+            appointment_count = appointment.count_documents({ 'doctorId': doctor['_id'], 'date': str(date) })
 
             # If the count is less than max_appointments, add the doctor to the result
             if appointment_count < max_appointments:
@@ -1194,12 +1217,14 @@ def get_available_doctor():
         if returndoc:
             return jsonify({
                 'returned_doctors': returndoc,
+                'flag':True,
             }), 200
         else:
-            return jsonify({'message': 'no available doctors at this date','returned_doctors':[]}), 404
+            return jsonify({'message': 'no available doctors at this date','returned_doctors':[],'flag':True}), 404
 
         
     except Exception as err:
+        print(err)
         return jsonify({ 'error': str(err) }), 500
     
 
@@ -1396,14 +1421,12 @@ def dashboard():
         return jsonify({'error': str(err)}), 500
 
 
-
 @app.route('/edit_doctor', methods=['PATCH'])
 @jwt_required()
 def edit_doctor():
     try:
-
+     if((get_jwt_identity()['role'])=="admin"):
         data = request.get_json()
-        print(data)
         doctor_id = ObjectId(data.get('_id'))
         update_data = {
             'name': data.get('name'),
@@ -1412,7 +1435,6 @@ def edit_doctor():
             'salary':data.get('salary'),
             'working_hours':data.get('working_hours')
         }
-
         if not doctor_id:
             return jsonify({"error": "DoctorId is required"}), 400
 
@@ -1429,6 +1451,78 @@ def edit_doctor():
             return jsonify({"message": "Doctor information updated successfully"})
         else:
             return jsonify({"message": "No doctor information updated"})
+     else:
+         return jsonify({"message": "You are not an authorized user"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+
+@app.route('/edit_appointment_admin', methods=['PATCH'])
+@jwt_required()
+def edit_appointment_admin():
+    try:
+      if((get_jwt_identity()['role'])=="admin"):
+        data = request.get_json()
+        appointment_id = ObjectId(data.get('_id'))
+        update_data = {
+            'date': data.get('date'),
+            'paymentMethod': data.get('paymentMethod'),
+            'status': data.get('status')
+        }
+        if not appointment_id:
+            return jsonify({"error": "AppointmentId is required"}), 400
+
+        appointment_object_id = ObjectId(appointment_id)
+
+        data.pop('AppointmentId', None)
+
+        result = appointment.update_one(
+            {"_id": appointment_object_id},
+            {"$set": update_data}
+        )
+
+        if result.modified_count == 1:
+            return jsonify({"message": "Appointment information updated successfully"})
+        else:
+            return jsonify({"message": "No Appointment information updated"})
+      else:
+         return jsonify({"message": "You are not an authorized user"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+
+
+@app.route('/edit_patient', methods=['PATCH'])
+@jwt_required()
+def edit_patient():
+    try:
+     if((get_jwt_identity()['role'])=="admin"):
+        data = request.get_json()
+        patient_id = ObjectId(data.get('_id'))
+        update_data = {
+            'name': data.get('name'),
+            'email': data.get('email'),
+            'phoneNumber': data.get('phone')
+        }
+        if not patient_id:
+            return jsonify({"error": "PatientId is required"}), 400
+
+        patient_object_id = ObjectId(patient_id)
+
+        data.pop('PatientId', None)
+
+        result = users.update_one(
+            {"_id": patient_object_id},
+            {"$set": update_data}
+        )
+
+        if result.modified_count == 1:
+            return jsonify({"message": "Patient information updated successfully"})
+        else:
+            return jsonify({"message": "No Patient information updated"})
+     else:
+         return jsonify({"message": "You are not an authorized user"})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400

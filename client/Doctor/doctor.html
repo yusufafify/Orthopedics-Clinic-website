@@ -41,7 +41,7 @@
 
       <!--Side Bar Header-->
       <li class="flex px-2 justify-between bg-[#276973]">
-        
+
         <button data-drawer-target="default-sidebar" id="sideCloseBtn" data-drawer-toggle="default-sidebar"
           aria-controls="default-sidebar" type="button"
           class="inline-flex items-center p-2 mt-1 ms-3 text-sm text-gray-100 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
@@ -267,8 +267,7 @@
               <div id="loading"
                 style="display: none; position: fixed; top: 0; left: 250px; width: calc(100% - 250px); height: 100%; background-color:lightgrey; z-index: 1000; display: flex; justify-content: center; align-items: center;">
                 <div role="status">
-                  <svg aria-hidden="true"
-                    class="inline w-32 h-32 text-gray-200 animate-spin  fill-blue-600"
+                  <svg aria-hidden="true" class="inline w-32 h-32 text-gray-200 animate-spin  fill-blue-600"
                     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                       d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -382,58 +381,64 @@
                 <button onclick="closeModal('finalizeModal')"
                   class="absolute top-0 right-0 m-2 text-2xl font-bold leading-none text-black hover:text-gray-500">&times;</button>
 
-                
-                  <div id="Diagnosis" class="grid grid-cols-1">
-                    
-                  </div>
 
-                  <div id="Treatment">
-                  
-                    </div>
-                    <br>
-                    <div class="flex justify-between">
-                      <button
-                        class="w-auto mx-auto border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-                        onclick="addTreatment()">Add Treatment</button>
-                      <button
-                        class="w-auto mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-                        onclick="removeTreatment()">Remove Treatment</button>
-                      <button
-                        class="w-auto mx-auto border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
-                        onclick="addDiagnosis()">Add Diagnosis</button>
-                      <button
-                        class="w-auto mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-                        onclick="removeDiagnosis()">Remove Diagnosis</button>
-                    </div>
-<div class="pl-6 pb-6 pr-6">
-                    <label for="notes" class="block text-sm font-medium text-gray-700 mt-4">Doctor's Notes</label>
-                    <textarea id="notes"
-                      class="mt-1 block w-full h-32 rbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "></textarea>
-                      
+                <div id="Diagnosis" class="grid grid-cols-1">
 
-<div class="flex items-center pt-6 pb-3">
-  <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-  </svg>
-  <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-  </svg>
-  <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-  </svg>
-  <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-  </svg>
-  <svg class="w-4 h-4 ms-1 text-yellow-300 star " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-  </svg>
-</div>
-<input type="hidden" id="ratingValue" name="rating" value="5">
-                    <button type="button" onclick="submitAppointment()"
-                      class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                      Submit
-                    </button>
+                </div>
+
+                <div id="Treatment">
+
+                </div>
+                <br>
+                <div class="flex justify-between">
+                  <button class="w-auto mx-auto border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                    onclick="addTreatment()">Add Treatment</button>
+                  <button class="w-auto mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                    onclick="removeTreatment()">Remove Treatment</button>
+                  <button class="w-auto mx-auto border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                    onclick="addDiagnosis()">Add Diagnosis</button>
+                  <button class="w-auto mx-auto border border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                    onclick="removeDiagnosis()">Remove Diagnosis</button>
+                </div>
+                <div class="pl-6 pb-6 pr-6">
+                  <label for="notes" class="block text-sm font-medium text-gray-700 mt-4">Doctor's Notes</label>
+                  <textarea id="notes"
+                    class="mt-1 block w-full h-32 rbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "></textarea>
+
+
+                  <div class="flex items-center pt-6 pb-3">
+                    <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor" viewBox="0 0 22 20">
+                      <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor" viewBox="0 0 22 20">
+                      <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor" viewBox="0 0 22 20">
+                      <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 text-yellow-300 ms-1 star" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor" viewBox="0 0 22 20">
+                      <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
+                    <svg class="w-4 h-4 ms-1 text-yellow-300 star " aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                      <path
+                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    </svg>
                   </div>
+                  <input type="hidden" id="ratingValue" name="rating" value="5">
+                  <button type="button" onclick="submitAppointment()"
+                    class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -679,34 +684,3 @@
 </body>
 
 </html>
-
-<!-- <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">Jane Smith</td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">57</td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                            <div
-                              class="inline-flex w-fit items-center whitespace-nowrap rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2 py-1 text-sm">
-                              Examination
-                            </div>
-                          </td>
-                          <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                            <div class="flex items-center gap-4">
-                              <button
-                              onclick="openModal('confirmModal')"
-                                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round" class="w-4 h-4">
-                                  <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
-                                  <line x1="16" x2="16" y1="2" y2="6"></line>
-                                  <line x1="8" x2="8" y1="2" y2="6"></line>
-                                  <line x1="3" x2="21" y1="10" y2="10"></line>
-                                  <path d="m9 16 2 2 4-4"></path>
-                                </svg>
-                                <span class="sr-only">Confirm appointment</span>
-                              </button>
-                              
-
-                            </div>
-                          </td>
-                        </tr> -->

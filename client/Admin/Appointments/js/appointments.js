@@ -208,31 +208,31 @@ document.addEventListener("DOMContentLoaded", function () {
         //const role = document.querySelector('input[name="role"]:checked');
         //const gender = document.querySelector('input[name="gender"]:checked');
         //const address = document.getElementById('address').value.trim();
-        const appDate = document.getElementById('modalDate').value.trim();
+        const date = document.getElementById('modalDate').value.trim();
         //const appTime = document.getElementById('modalTime').value.trim();
         const paymentMethod = document.getElementById('modalPayment').value.trim();
         const status = document.getElementById('modalStatus').value.trim();
         
-        const appointmentId=this.dataset.appointmentId;
+        const _id=this.dataset.appointmentId;
         
         //const workinghours = document.getElementById('working-hours').value.trim();
         
         // Validate all required inputs
-        if (!appDate ||  !paymentMethod || !status) {
+        if (!date ||  !paymentMethod || !status) {
             alert("Please fill in all required fields.");
             return; // Stop the function if validation fails
         }
 
         // Prepare data object with validated values
         const AppointmentData = {
-           appointmentId,
-           appDate,
+           _id,
+           date,
            paymentMethod,
            status
         };
 
         console.log(AppointmentData);
-        //UpdateAppointmentForm(employeeData);  // Call the function to submit data
+        UpdateAppointmentForm(AppointmentData);  // Call the function to submit data
     });
 });
 
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function UpdateAppointmentForm(AppointmentData) {
     try {
       const response = await fetch(
-        "http://localhost:8008/create_employee",
+        "http://localhost:8008/edit_appointment_admin",
         {
           method: "PATCH",
           headers: {

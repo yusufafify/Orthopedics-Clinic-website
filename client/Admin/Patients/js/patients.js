@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //const salary = document.getElementById('salary').value.trim();
         //const workinghours = document.getElementById('working-hours').value.trim();
 
-        const patient_id = this.dataset.patient_id;
+        const _id = this.dataset.patient_id;
         if (!validatePhone(phone))
           {
             Swal.fire({
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Prepare data object with validated values
         const patientData = {
-            patient_id,
+            _id,
             name,
             email,
             phone,
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         console.log(patientData);
-        //UpdatePatientForm(employeeData);  // Call the function to submit data
+        UpdatePatientForm(patientData);  // Call the function to submit data
     });
 });
 
@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function UpdatePatientForm(patientData) {
     try {
       const response = await fetch(
-        "http://localhost:8008/create_employee",
+        "http://localhost:8008/edit_patient",
         {
           method: "PATCH",
           headers: {

@@ -65,9 +65,9 @@ function logout(){
   window.location.href ="http://" + window.location.host + "/client/Login/Login.html";
 }
 console.log(localStorage.getItem("token"));
-if (localStorage.getItem("token") === null) {
- logout()
-}
+// if (localStorage.getItem("token") === null) {
+//  logout()
+// }
 
 
 fetch ("http://localhost:8008/get_today_appointments", {
@@ -598,9 +598,11 @@ fetch("http://localhost:8008/personal_data", {
 })
   .then((response) => response.json())
   .then((data) => {
-    if (data.name===undefined){
-      logout();
-    }
+    // if (data.name===undefined){
+    //   logout();
+    // }
+    console.log(data)
+    console.log("a7a neek eshtaghaly"+data.name)
     //   document.getElementById('first_name').value=data.name.split(' ')[0];
     //   document.getElementById('last_name').value=data.name.split(' ')[1];
     //   email.value=data.email;
