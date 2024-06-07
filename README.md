@@ -57,6 +57,6 @@ Welcome to the Orthopedic Clinical Information System (OCIS) project! This fully
 | Mahmoud Amr | [Mahmoud Amr](https://github.com/Mahmoudd29) | Frontend: Admin Portal |
 | Abdullah Ahmed  | [Abdullah Ahmed](https://github.com/AbdullahAhmed30)     | Backend: authentications and Authorizations  |
 | Youssef Awad  | [Youssef Awad](https://github.com/Youssef-Awad2004)     | Backend: Appointment scheduling logic  |
-| Tarek Walid  | [Tarek Walid](https://github.com/Tarek-Waleed)     | Backend: Doctor's needed endpoints |
+| Tarek Waleed  | [Tarek Waleed](https://github.com/Tarek-Waleed)     | Backend: Doctor's needed endpoints |
 | Alia Tarek  | [Alia Tarek](https://github.com/aliatarek)     | Backend: Admin's needed endpoints  |
 
