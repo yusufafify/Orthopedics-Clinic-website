@@ -52,11 +52,11 @@ Welcome to the Orthopedic Clinical Information System (OCIS) project! This fully
 
 | Name           | GitHub Username          | Contributions                           |
 |----------------|--------------------------|-----------------------------------------|
-| Youssef Afify       | [Youssef Afify](https://github.com/johndoe)       | Frontend: Patient Portal |
-| Amr Doma     | [Amr Doma](https://github.com/janesmith)     | Frontend: Doctor Portal |
-| Mahmoud Amr | [Mahmoud Amr](https://github.com/alicejohnson) | Frontend: Admin Portal |
-| Abdullah Ahmed  | [Abdullah Ahmed](https://github.com/bobbrown)     | Backend: authentications and Authorizations  |
-| Youssef Awad  | [Youssef Awad](https://github.com/bobbrown)     | Backend: Appointment scheduling logic  |
-| Tarek Walid  | [Tarek Walid](https://github.com/bobbrown)     | Backend: Doctor's needed endpoints |
-| Alia Tarek  | [Alia Tarek](https://github.com/bobbrown)     | Backend: Admin's needed endpoints  |
+| Youssef Afify       | [Youssef Afify](https://github.com/yusufafify)       | Frontend: Patient Portal |
+| Amr Doma     | [Amr Doma](https://github.com/AmrDoma)     | Frontend: Doctor Portal |
+| Mahmoud Amr | [Mahmoud Amr](https://github.com/Mahmoudd29) | Frontend: Admin Portal |
+| Abdullah Ahmed  | [Abdullah Ahmed](https://github.com/AbdullahAhmed30)     | Backend: authentications and Authorizations  |
+| Youssef Awad  | [Youssef Awad](https://github.com/Youssef-Awad2004)     | Backend: Appointment scheduling logic  |
+| Tarek Walid  | [Tarek Walid](https://github.com/Tarek-Waleed)     | Backend: Doctor's needed endpoints |
+| Alia Tarek  | [Alia Tarek](https://github.com/aliatarek)     | Backend: Admin's needed endpoints  |
 
