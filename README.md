@@ -48,6 +48,9 @@ Welcome to the Orthopedic Clinical Information System (OCIS) project! This fully
 ## Video:
 - [Click here](https://drive.google.com/drive/folders/1Mg7kjcrYf1VRBnX-MMIKLmt3CQkbB46w?usp=sharing) to see the project video demo
 
+![home](https://github.com/yusufafify/Orthopedics-Clinic-website/assets/115397064/607addf5-b9d9-4dc2-abdb-fd95432c8d55)
+
+
 ## Contributors:
 
 | Name           | GitHub Username          | Contributions                           |
