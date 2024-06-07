@@ -8,8 +8,7 @@ import bcrypt
 from bson.objectid import ObjectId
 from flask_mail import Mail, Message
 import secrets
-uri = "mongodb+srv://abdullahfouad235:abdullahfouad532@crepezinger.cnpysts.mongodb.net/orthopedic-clinic?retryWrites=true&w=majority&appName=crepeZinger"
-# uri = "mongodb://localhost:27017/"
+uri = "mongodb://localhost:27017/"
 
 # Create a new client and connect to the server
 
@@ -24,10 +23,10 @@ users = db['users']
 appointment=db['appointments']
 medical_history=db['medicalhistories']
 images = db['images']
-app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_SERVER']='PUT THE EMAIL SERVER'
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'clonereddit055@gmail.com'
-app.config['MAIL_PASSWORD'] = 'essw qgqj mtgx yvhr'
+app.config['MAIL_USERNAME'] = 'PUT EMAIL'
+app.config['MAIL_PASSWORD'] = 'PUT PASSWORD'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
@@ -39,9 +38,6 @@ jwt = JWTManager(app)
 #a Test Route
 @app.route("/")
 def index():
-  # msg = Message('Hello from the other side!', sender =   'clonereddit055@gmail.com', recipients = ['abdullahahmedfouad02@gmail.com'])
-  # msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
-  # mail.send(msg)
   return "hi there! this is the server for the orthopedic clinic app!"
 
 @app.route('/forget_password', methods=['POST'])
@@ -56,7 +52,7 @@ def forget_password():
         reset_token = secrets.token_hex(16)
         expires = datetime.utcnow() + timedelta(minutes=15)
 
-        msg = Message(subject='PASSWORD RESET LINK', sender =   'clonereddit055@gmail.com', recipients = [email])
+        msg = Message(subject='PASSWORD RESET LINK', sender =   'SENDER EMAIL', recipients = [email])
         msg.html = f"""<p>Click <a href="http://127.0.0.1:5500/client/forget_password/reset_password/reset.html">here</a> to reset your password</p>"""
         mail.send(msg)
 
