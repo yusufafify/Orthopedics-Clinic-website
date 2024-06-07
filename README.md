@@ -4,10 +4,8 @@ Welcome to the Orthopedic Clinical Information System (OCIS) project! This fully
 ## Table Of Content:
 - [Features](#features)
 - [Technologies Used](#technologies)
-- [Installation](#installations)
-- [Screen_Shots](#screen_shots)
 - [Video Demo](#video)
-- [Contributers](#contributers)
+- [Contributors](#contributors)
 
 ## Features:
 - Patient Portal:
@@ -46,3 +44,19 @@ Welcome to the Orthopedic Clinical Information System (OCIS) project! This fully
   - Token-based Authentication: Secure user authentication and authorization
   - Cloudinary: To manage images through cloud
   - Postman: To test the endpoints
+
+## Video:
+- [Click here](https://drive.google.com/drive/folders/1Mg7kjcrYf1VRBnX-MMIKLmt3CQkbB46w?usp=sharing) to see the project video demo
+
+## Contributors:
+
+| Name           | GitHub Username          | Contributions                           |
+|----------------|--------------------------|-----------------------------------------|
+| Youssef Afify       | [Youssef Afify](https://github.com/johndoe)       | Frontend: Patient Portal |
+| Amr Doma     | [Amr Doma](https://github.com/janesmith)     | Frontend: Doctor Portal |
+| Mahmoud Amr | [Mahmoud Amr](https://github.com/alicejohnson) | Frontend: Admin Portal |
+| Abdullah Ahmed  | [Abdullah Ahmed](https://github.com/bobbrown)     | Backend: authentications and Authorizations  |
+| Youssef Awad  | [Youssef Awad](https://github.com/bobbrown)     | Backend: Appointment scheduling logic  |
+| Tarek Walid  | [Tarek Walid](https://github.com/bobbrown)     | Backend: Doctor's needed endpoints |
+| Alia Tarek  | [Alia Tarek](https://github.com/bobbrown)     | Backend: Admin's needed endpoints  |
+
